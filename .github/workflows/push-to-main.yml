@@ -14,8 +14,12 @@ jobs:
     runs-on: ubuntu-latest
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
     steps:
-    - name: Create PR
-      run: gh pr create -B main -H dev --title 'Merge Dev into Main' --body 'Created by Github action'
-      env:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Create PR
+        run: gh pr create -B main -H dev --title 'Merge Dev into Main' --body 'Created by Github action'
+        env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
