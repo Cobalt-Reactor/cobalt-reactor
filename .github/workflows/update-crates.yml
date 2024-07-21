@@ -7,7 +7,8 @@ permissions:
 on:
   workflow_run:
     workflows: [Test Dev Branch]
-    types: [completed]
+    types:
+        - completed
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
