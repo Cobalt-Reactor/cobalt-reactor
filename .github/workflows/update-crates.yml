@@ -8,6 +8,7 @@ on:
   workflow_run:
     workflows: [Test Dev Branch]
     types: [completed]
+    branches: [dev]
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}

@@ -10,6 +10,8 @@ on:
       - closed
     paths:
       - 'crates/**'
+    branches:
+      - main
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
