@@ -1,0 +1,23 @@
+[package]
+name = "reactor_random"
+version = "1.0.0"
+readme = "README.md"
+description = "Mostly just a wrapper around fastrand for a bunch of types. Supports bevy and reactor_spatial2d."
+authors.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+homepage.workspace = true
+keywords.workspace = true
+categories.workspace = true
+
+[dependencies]
+bevy = { workspace = true, optional = true }
+fastrand = { workspace = true }
+
+[features]
+default = ["bevy"]
+bevy = ["dep:bevy"]
+
+[lints]
+workspace = true

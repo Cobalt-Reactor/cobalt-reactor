@@ -1,0 +1,69 @@
+[package]
+name = "reactor_serial"
+version = "1.0.0"
+readme = "README.md"
+description = "A plugin for Bevy for handling saving and loading"
+authors.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+homepage.workspace = true
+keywords.workspace = true
+categories.workspace = true
+
+[dependencies]
+bevy = { workspace = true, features = ["serialize"] }
+serde = { workspace = true }
+reactor_proto = { workspace = true }
+ron = { workspace = true, optional = true }
+toml = { workspace = true, optional = true }
+serde_yaml = { workspace = true, optional = true }
+serde_json = { workspace = true, optional = true }
+rmp-serde = { workspace = true, optional = true }
+quick-xml = { workspace = true, optional = true }
+csv = { workspace = true, optional = true }
+dirs = { workspace = true }
+thiserror = { workspace = true }
+arrayref = { workspace = true }
+
+[features]
+# All file formats are disabled by default: you will typically want to enable
+# only the formats you need. Picking one per project is recommended.
+default = ["ron"]
+# Support for iyes_progress
+progress_tracking = ["reactor_proto/progress_tracking"]
+
+# Useful for testing
+all_asset_loaders = ["ron", "toml", "yaml", "json", "msgpack", "xml", "csv"]
+# Support for the RON file format
+# This is a good choice for most projects, as it is a simple, human-readable and plays nice with enums.
+ron = ["dep:ron", "reactor_proto/ron"]
+# Support for the TOML file format
+# This is a straightforward choice for configuration files.
+toml = ["dep:toml", "reactor_proto/toml"]
+# Support for the YAML file format
+# This is a relatively common choice for configuration files,
+# and substantially more complex than TOML
+yaml = ["dep:serde_yaml", "reactor_proto/yaml"]
+# Support for the JSON file format
+# JSON is nearly universal, but can be a bit verbose and nitpicky.
+# The key advantage is that it is well-supported by web technologies,
+# and has robust validation tooling.
+json = ["dep:serde_json", "reactor_proto/json"]
+# Support for the MessagePack file format
+# This is a binary format that is more compact than JSON, but not human-readable.
+msgpack = ["dep:rmp-serde", "reactor_proto/msgpack"]
+# Support for the XML file format
+# XML is meaningfully more complex and less compact than JSON,
+# but comes with schemas and validation tools.
+xml = ["dep:quick-xml", "reactor_proto/xml"]
+# Support for the CSV file format.
+# This is a great fit for tabular data, but notoriously flaky in edge cases due to the lack of a standard.
+# Good interop with spreadsheet software though!
+csv = ["dep:csv", "reactor_proto/csv"]
+
+[lints]
+workspace = true
+
+[dev-dependencies]
+reactor_serial = { path = ".", features = ["all_asset_loaders"] }
