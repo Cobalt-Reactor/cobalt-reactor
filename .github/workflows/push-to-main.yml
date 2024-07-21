@@ -1,5 +1,8 @@
 name: Push To Main
 
+permissions:
+  pull-requests: write
+
 on:
   workflow_run:
     workflows: [Update Crates]
