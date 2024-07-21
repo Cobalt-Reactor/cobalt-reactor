@@ -2,7 +2,7 @@ name: Push To Main
 
 on:
   workflow_run:
-    workflows: [Release Crates]
+    workflows: [Update Crates]
     types: [completed]
 
 concurrency:

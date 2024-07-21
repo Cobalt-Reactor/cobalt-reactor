@@ -66,4 +66,6 @@ csv = ["dep:csv", "reactor_proto/csv"]
 workspace = true
 
 [dev-dependencies]
-reactor_serial = { path = ".", features = ["all_asset_loaders"] }
+reactor_serial = { path = ".", version = "1.0", features = [
+    "all_asset_loaders",
+] }
