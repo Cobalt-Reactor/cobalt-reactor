@@ -6,12 +6,9 @@ permissions:
 
 on:
   pull_request:
-    types:
-      - closed
-    paths:
-      - 'crates/**'
-    branches:
-      - main
+    types: [closed]
+    paths: ['crates/**']
+    branches: [main]
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
