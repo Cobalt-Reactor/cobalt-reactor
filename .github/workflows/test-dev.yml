@@ -1,4 +1,4 @@
-name: Test Development Branch
+name: TestDev
 
 env:
   CARGO_TERM_COLOR: always
