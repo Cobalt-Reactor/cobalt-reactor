@@ -1,0 +1,25 @@
+[package]
+name = "reactor_spatial"
+version = "1.0.0"
+readme = "README.md"
+description = "A set of 2D spatial utilities for Bevy, including handling transform propagation"
+authors.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+homepage.workspace = true
+keywords.workspace = true
+categories.workspace = true
+
+[features]
+default = []
+serde = ["dep:serde"]
+random = ["dep:reactor_random"]
+
+[dependencies]
+bevy = { workspace = true, features = ["serialize"] }
+serde = { workspace = true, optional = true }
+reactor_random = { workspace = true, optional = true }
+
+[lints]
+workspace = true

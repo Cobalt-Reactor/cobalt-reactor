@@ -1,0 +1,67 @@
+[workspace]
+resolver = "2"
+members = [ "bins/cobalt_tilemap","crates/*"]
+default-members = ["crates/*"]
+
+[workspace.package]
+authors = ["Robert Gardner'"]
+edition = "2021"
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/BobG1983/cobalt_reactor"
+homepage = "https://www.cobaltreactor.com"
+keywords = ["gamedev", "bevy"]
+categories = ["game-engines"]
+
+[workspace.dependencies]
+########## INTERNAL
+reactor_spatial = { path = "crates/reactor_spatial", version = "1.0" }
+reactor_proto = { path = "crates/reactor_proto", version = "1.0" }
+reactor_random = { path = "crates/reactor_random", version = "1.0" }
+reactor_serial = { path = "crates/reactor_serial", version = "1.0" }
+reactor_camera = { path = "crates/reactor_camera", version = "1.0" }
+reactor_core = { path = "crates/reactor_core", version = "1.0" }
+##########
+
+########## BEVY
+bevy = "0.14"
+bevy_common_assets = { version = "0.11", default-features = false }
+iyes_progress = "0.12"
+##########
+
+########## UTILS
+fastrand = "2.1"
+serde = { version = "1.0", features = ["derive"] }
+dirs = "5.0"
+thiserror = "1.0"
+arrayref = "0.3"
+##########
+
+########## SERDE FORMATS
+ron = { version = "0.8" }
+toml = { version = "0.8" }
+serde_yaml = { version = "0.9" }
+serde_json = { version = "1" }
+rmp-serde = { version = "1" }
+quick-xml = { version = "0.36", features = ["serialize"] }
+csv = { version = "1" }
+##########
+
+[workspace.lints.clippy]
+too_many_arguments = "allow"
+type_complexity = "allow"
+doc_markdown = "warn"
+manual_let_else = "warn"
+undocumented_unsafe_blocks = "warn"
+redundant_else = "warn"
+match_same_arms = "warn"
+semicolon_if_nothing_returned = "warn"
+redundant_closure_for_method_calls = "warn"
+unwrap_or_default = "warn"
+ptr_as_ptr = "warn"
+ptr_cast_constness = "warn"
+ref_as_ptr = "warn"
+
+[workspace.lints.rust]
+unsafe_op_in_unsafe_fn = "warn"
+missing_docs = "warn"
+unsafe_code = "deny"
