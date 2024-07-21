@@ -3259,6 +3259,18 @@ dependencies = [
 ]
 
 [[package]]
+name = "reactor_core"
+version = "1.0.0"
+dependencies = [
+ "bevy",
+ "reactor_camera",
+ "reactor_proto",
+ "reactor_random",
+ "reactor_serial",
+ "reactor_spatial",
+]
+
+[[package]]
 name = "reactor_proto"
 version = "1.0.0"
 dependencies = [
@@ -3303,18 +3315,6 @@ dependencies = [
  "bevy",
  "reactor_random",
  "serde",
-]
-
-[[package]]
-name = "reactor_suite"
-version = "1.0.0"
-dependencies = [
- "bevy",
- "reactor_camera",
- "reactor_proto",
- "reactor_random",
- "reactor_serial",
- "reactor_spatial",
 ]
 
 [[package]]

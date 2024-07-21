@@ -1,5 +1,5 @@
 [package]
-name = "reactor_suite"
+name = "reactor_core"
 version = "1.0.0"
 readme = "README.md"
 description = "A combined suite of tools provided by reactor for use with the Bevy game engine."

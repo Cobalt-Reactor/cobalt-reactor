@@ -7,7 +7,7 @@ permissions:
 on:
   push:
     branches:
-      - main
+      - dev
 
 jobs:
   release-plz:
@@ -18,19 +18,8 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - uses: actions/cache@v4
-        with:
-          path: |
-            ~/.cargo/bin/
-            ~/.cargo/registry/index/
-            ~/.cargo/registry/cache/
-            ~/.cargo/git/db/
-            target/
-          key: ${{ runner.os }}-cargo-build-stable-${{ hashFiles('**/Cargo.toml') }}
       - name: Install Rust toolchain
-        uses: dtolnay/rust-toolchain@nightly
-      - name: Install Linux dependencies
-        uses: ./.github/actions/install-linux-deps
+        uses: dtolnay/rust-toolchain@stable
       - name: Run release-plz
         uses: MarcoIeni/release-plz-action@v0.5
         env:
