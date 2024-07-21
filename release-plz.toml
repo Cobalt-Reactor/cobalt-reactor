@@ -3,58 +3,71 @@ release_commits = "^(feat:|docs:|fix:|perf:)" # only release on commit messages 
 dependencies_update = true                    # update dependencies with `cargo update`
 pr_labels = ["release"]                       # add the `release` label to the release Pull Request
 publish_allow_dirty = false                   # add `--allow-dirty` to `cargo publish`
-
+release = false                               # don't release the workspace by default
+publish = false                               # don't publish the workspace by default
 
 [changelog]
 commit_parsers = [
-  { message = "^deprecated", group = "0. Deprecations" },
-  { message = "^feat:*", group = "1. New features" },
-  { message = "^fix:*", group = "2. Bug fixes" },
-  { message = "^sec:", group = "3. Security Fixes" },
-  { message = "^perf:*", group = "4. Performance Improvements" },
-  { message = "^doc:*", group = "5. Documentation Improvements" },
+    { message = "^deprecated", group = "0. Deprecations" },
+    { message = "^feat:*", group = "1. New features" },
+    { message = "^fix:*", group = "2. Bug fixes" },
+    { message = "^sec:", group = "3. Security Fixes" },
+    { message = "^perf:*", group = "4. Performance Improvements" },
+    { message = "^doc:*", group = "5. Documentation Improvements" },
 ]
 sort_commits = "newest"
 commit_preprocessors = [
-  # Replace `<REPO>` in the template body with the repository URL
-  { pattern = '<REPO>', replace = "https://github.com/cobalt-reactor/cobalt-reactor" },
-  # Replace the issue number with the link.
-  { pattern = "\\(#([0-9]+)\\)", replace = "([#${1}](https://github.com/cobalt-reactor/cobalt-reactor/issues/${1}))" },
-  # Replace multiple spaces with a single space.
-  { pattern = "  +", replace = " " },
-  # Hyperlink PR references from merge commits.
-  { pattern = "Merge pull request #([0-9]+) from [^ ]+", replace = "PR # [${1}](https://github.com/cobalt-reactor/cobalt-reactor/pull/${1}):" },
-  # Hyperlink bare commit hashes like "abcd1234" in commit logs, with short commit hash as description.
-  { pattern = "([ \\n])(([a-f0-9]{7})[a-f0-9]*)", replace = "${1}commit # [${3}](https://github.com/cobalt-reactor/cobalt-reactor/commit/${2})" },
+    # Replace `<REPO>` in the template body with the repository URL
+    { pattern = '<REPO>', replace = "https://github.com/cobalt-reactor/cobalt-reactor" },
+    # Replace the issue number with the link.
+    { pattern = "\\(#([0-9]+)\\)", replace = "([#${1}](https://github.com/cobalt-reactor/cobalt-reactor/issues/${1}))" },
+    # Replace multiple spaces with a single space.
+    { pattern = "  +", replace = " " },
+    # Hyperlink PR references from merge commits.
+    { pattern = "Merge pull request #([0-9]+) from [^ ]+", replace = "PR # [${1}](https://github.com/cobalt-reactor/cobalt-reactor/pull/${1}):" },
+    # Hyperlink bare commit hashes like "abcd1234" in commit logs, with short commit hash as description.
+    { pattern = "([ \\n])(([a-f0-9]{7})[a-f0-9]*)", replace = "${1}commit # [${3}](https://github.com/cobalt-reactor/cobalt-reactor/commit/${2})" },
 ]
 
 [[package]]
 name = "reactor_core"
 changelog_include = [
-  "reactor_spatial",
-  "reactor_random",
-  "reactor_camera",
-  "reactor_proto",
-  "reactor_serial",
+    "reactor_spatial",
+    "reactor_random",
+    "reactor_camera",
+    "reactor_proto",
+    "reactor_serial",
 ]
 changelog_path = "crates/reactor_core/CHANGELOG.md"
+release = true
+publish = true
 
 [[package]]
 name = "reactor_spatial"
 changelog_path = "crates/reactor_spatial/CHANGELOG.md"
+release = true
+publish = true
 
 [[package]]
 name = "reactor_random"
 changelog_path = "crates/reactor_random/CHANGELOG.md"
+release = true
+publish = true
 
 [[package]]
 name = "reactor_camera"
 changelog_path = "crates/reactor_camera/CHANGELOG.md"
+release = true
+publish = true
 
 [[package]]
 name = "reactor_proto"
 changelog_path = "crates/reactor_proto/CHANGELOG.md"
+release = true
+publish = true
 
 [[package]]
 name = "reactor_serial"
 changelog_path = "crates/reactor_serial/CHANGELOG.md"
+release = true
+publish = true
