@@ -1,17 +1,24 @@
-name: Release Plz
+name: Release Crates
 
 permissions:
   pull-requests: write
   contents: write
 
 on:
-  push:
-    branches:
-      - main
+  pull_request:
+    types:
+      - closed
+    paths:
+      - 'crates/**'
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   release-plz:
     name: Release-plz
+    if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
