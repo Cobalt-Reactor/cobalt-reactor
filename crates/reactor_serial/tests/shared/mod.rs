@@ -1,4 +1,4 @@
-use std::fs;
+use std::{fs, thread::sleep};
 
 use bevy::prelude::*;
 use reactor_proto::prelude::*;
@@ -8,6 +8,7 @@ use serde::{Deserialize, Serialize};
 // Allowed because for some reason Rust Analyzer thinks this is dead code when it isn't
 #[allow(dead_code)]
 pub fn check_file_exists(path: &str) -> bool {
+    sleep(std::time::Duration::from_millis(100)); // Give the OS time to do the thing
     std::path::Path::new(path).exists()
 }
 
