@@ -22,6 +22,8 @@ jobs:
           fetch-depth: 0
       - name: Install Rust toolchain
         uses: dtolnay/rust-toolchain@nightly
+        with:
+            components: rustfmt, clippy
       - name: Handle Cache
         uses: actions/cache@v4
         with:
@@ -34,5 +36,14 @@ jobs:
           key: ${{ runner.os }}-cargo-build-nightly-${{ hashFiles('**/Cargo.toml') }}
       - name: Install Linux dependencies
         uses: ./.github/actions/install-linux-deps
-      - name: Testing
-        uses: Kristories/cargo-test@v1.0.0
+        with:
+          wayland: true
+          xkb: true
+      - name: Format
+        run: cargo fmt --all -- --check
+      - name: Clippy
+        run: cargo clippy --all-targets --all-features -- -D warnings
+      - name: Test
+        run: cargo test --all-targets --all-features
+      - name: Build
+        run: cargo build --all-targets --all-features

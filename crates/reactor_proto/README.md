@@ -37,7 +37,7 @@ Extensions to 'Commands', 'World' and '`CommandQueue`' are provided that introdu
 
 I didn't want to be specific about how locations were handled, so this is left up to you. My recommendation is to add a position to your prototypes, and edit that position before calling `spawn_prototype`.
 
-## EntityBuilder
+## `EntityBuilder`
 
 For convenience an `EntityBuilder` is also included. This is a struct that is used for creating and updating entities from `Module`s and is ideal for use in prototypes. Calling `build` will call `install` on each module. Calling `rebuild` will call `update` on each module.
 
