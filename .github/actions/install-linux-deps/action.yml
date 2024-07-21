@@ -41,7 +41,7 @@ runs:
       if: ${{ runner.os == 'linux' }}
       run: >
         sudo apt-get update
-        sudo apt-get install lld clang
+
         sudo apt-get install --no-install-recommends
         ${{ fromJSON(inputs.alsa) && 'libasound2-dev' || '' }}
         ${{ fromJSON(inputs.udev) && 'libudev-dev' || '' }}
