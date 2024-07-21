@@ -1,4 +1,7 @@
-name: Test Dev
+name: Test Development Branch
+
+env:
+  CARGO_TERM_COLOR: always
 
 permissions:
   contents: read
