@@ -1,0 +1,38 @@
+name: Test Dev
+
+permissions:
+  contents: read
+
+on:
+  push:
+    branches:
+      - dev
+
+jobs:
+  test:
+    name: Test
+    strategy:
+      matrix:
+        os: [windows-latest, ubuntu-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Install Rust toolchain
+        uses: dtolnay/rust-toolchain@stable
+      - name: Handle Cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo/bin/
+            ~/.cargo/registry/index/
+            ~/.cargo/registry/cache/
+            ~/.cargo/git/db/
+            target/
+          key: ${{ runner.os }}-cargo-build-stable-${{ hashFiles('**/Cargo.toml') }}
+      - name: Install Linux dependencies
+        uses: ./.github/actions/install-linux-deps
+      - name: Testing
+        uses: Kristories/cargo-test@v1.0.0
