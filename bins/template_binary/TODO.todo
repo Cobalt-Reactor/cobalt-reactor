@@ -1,12 +1,8 @@
 Todo:
-  - Local packaging (cargo packager?)
+  - Packaging
+    - Compile without dynamic linking
+    - Copy all assets and the binary somewhere
+    - Set the apps icon
+    - Add them to a zip file
   - Bevy asset cladding (write a lib)
-  - mdbook
-  - Building book
-  - Auto spell checking
-  - Commit hooks for fmt, clippy, typos
-  - Converting book to PDF
-  - Cross? Possibly move all cross compilation to cross (for libs too)
-  - profile.release in Cargo.toml or .cargo/config
-  - Testing builds in dev
-  - Building and releasing from main
+    - Ability to read assets normally but in release they're cladded

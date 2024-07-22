@@ -23,7 +23,7 @@ reactor_core = { path = "crates/reactor_core", version = "1.0" }
 ##########
 
 ########## BEVY
-bevy = "0.14"
+bevy = { version = "0.14", features = ["dynamic_linking"] }
 bevy_common_assets = { version = "0.11", default-features = false }
 iyes_progress = "0.12"
 ##########
