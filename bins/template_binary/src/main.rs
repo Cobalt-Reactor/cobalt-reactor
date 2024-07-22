@@ -1,4 +1,4 @@
-//! Entry point for the `cobalt_tilemap` binary.
+//! Entry point for the `template_binary`.
 fn main() {
     println!("Hello, world!");
 }
