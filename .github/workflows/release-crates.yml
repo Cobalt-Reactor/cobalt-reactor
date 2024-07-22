@@ -5,9 +5,9 @@ permissions:
   contents: write
 
 on:
-  pull_request:
-    types: [closed]
-    paths: ['crates/**']
+  workflow_run:
+    workflows: [Build Crates]
+    types: [completed]
     branches: [main]
 
 concurrency:
@@ -16,16 +16,17 @@ concurrency:
 
 jobs:
   release-plz:
-    name: Release-plz
-    if: ${{ github.event.pull_request.merged == true }}
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+
       - name: Install Rust toolchain
         uses: dtolnay/rust-toolchain@nightly
+
       - name: Run release-plz
         uses: MarcoIeni/release-plz-action@v0.5
         env:
