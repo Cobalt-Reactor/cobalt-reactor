@@ -1,0 +1,8 @@
+Todo:
+  - Packaging
+    - Compile without dynamic linking
+    - Copy all assets and the binary somewhere
+    - Set the apps icon
+    - Add them to a zip file
+  - Bevy asset cladding (write a lib)
+    - Ability to read assets normally but in release they're cladded

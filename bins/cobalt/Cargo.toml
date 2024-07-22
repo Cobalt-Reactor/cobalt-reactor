@@ -1,0 +1,16 @@
+[package]
+name = "Cobalt"
+version = "0.1.0"
+authors.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+homepage.workspace = true
+keywords.workspace = true
+categories.workspace = true
+
+[dependencies]
+bevy = { workspace = true }
+
+[lints]
+workspace = true
