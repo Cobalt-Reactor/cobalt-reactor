@@ -39,7 +39,7 @@ jobs:
             ~/.cargo/registry/cache/
             ~/.cargo/git/db/
             target/
-          key: ${{ runner.os }}-crates-nightly-${{ hashFiles('**/Cargo.toml') }}
+          key: ${{ runner.os }}-dev-nightly-${{ hashFiles('**/Cargo.toml') }}
 
       - name: Install Linux dependencies
         uses: ./.github/actions/install-linux-deps
