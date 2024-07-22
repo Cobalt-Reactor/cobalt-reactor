@@ -1,0 +1,11 @@
+Todo:
+  - Local packaging (cargo packager?)
+  - Bevy asset cladding (write a lib)
+  - mdbook
+  - Building book
+  - Auto spell checking
+  - Commit hooks for fmt, clippy, typos
+  - Converting book to PDF
+  - Cross? Possibly move all cross compilation to cross (for libs too)
+  - Testing builds in dev
+  - Building and releasing from main
