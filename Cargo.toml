@@ -1,6 +1,6 @@
 [workspace]
 resolver = "2"
-members = [ "bins/cobalt_tilemap","crates/*"]
+members = ["bins/*", "crates/*"]
 default-members = ["crates/*"]
 
 [workspace.package]
