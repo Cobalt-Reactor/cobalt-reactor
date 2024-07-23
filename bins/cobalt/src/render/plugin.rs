@@ -1,4 +1,7 @@
-use super::{grid::plugin::GridPlugin, panning::plugin::CameraPanningPlugin, systems::*};
+use super::{
+    focus::plugin::FocusPlugin, grid::plugin::GridPlugin, panning::plugin::CameraPanningPlugin,
+    systems::*,
+};
 use crate::{resources::*, CobaltState};
 use bevy::prelude::*;
 
@@ -20,7 +23,8 @@ impl RenderPlugin {
 
     fn add_plugins(&self, app: &mut App) {
         app.add_plugins(GridPlugin::without_floor_grid())
-            .add_plugins(CameraPanningPlugin);
+            .add_plugins(CameraPanningPlugin)
+            .add_plugins(FocusPlugin);
     }
 
     fn register_types(&self, _: &mut App) {}

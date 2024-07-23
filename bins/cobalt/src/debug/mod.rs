@@ -1,8 +1,7 @@
 #[cfg(debug_assertions)]
 pub mod plugin {
     use super::systems::setup_fps_counter;
-    use bevy::{input::common_conditions::input_toggle_active, prelude::*};
-    use bevy_inspector_egui::{quick::WorldInspectorPlugin, DefaultInspectorConfigPlugin};
+    use bevy::{diagnostic::FrameTimeDiagnosticsPlugin, prelude::*};
     use iyes_perf_ui::prelude::PerfUiPlugin;
 
     pub struct DebugPlugin;
@@ -16,11 +15,7 @@ pub mod plugin {
 
     impl DebugPlugin {
         pub fn add_plugins(app: &mut App) {
-            app.add_plugins(DefaultInspectorConfigPlugin)
-                .add_plugins(
-                    WorldInspectorPlugin::new().run_if(input_toggle_active(true, KeyCode::F1)),
-                )
-                .add_plugins(bevy::diagnostic::FrameTimeDiagnosticsPlugin)
+            app.add_plugins(FrameTimeDiagnosticsPlugin)
                 .add_plugins(PerfUiPlugin);
         }
 
@@ -30,7 +25,6 @@ pub mod plugin {
     }
 }
 
-#[cfg(debug_assertions)]
 mod systems {
     use bevy::prelude::*;
     use iyes_perf_ui::prelude::*;

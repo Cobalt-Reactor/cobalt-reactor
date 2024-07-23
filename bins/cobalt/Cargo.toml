@@ -12,7 +12,6 @@ categories.workspace = true
 [dependencies]
 ########## BEVY
 bevy = { workspace = true }
-bevy-inspector-egui = { workspace = true }
 iyes_perf_ui = { workspace = true }
 iyes_progress = { workspace = true }
 bevy_asset_loader = { workspace = true }
