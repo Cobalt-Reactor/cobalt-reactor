@@ -1,11 +1,10 @@
 //! Core lib for cobalt
-mod cobalt_state;
-pub(crate) use cobalt_state::CobaltState;
-mod cobalt;
 pub use cobalt::Cobalt;
-mod debug;
-/// Defines
+pub(crate) use states::cobalt_state::CobaltState;
 pub(crate) mod defines;
+
+mod cobalt;
+mod debug;
 mod render;
 mod states;
 
