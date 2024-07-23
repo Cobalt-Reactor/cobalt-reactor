@@ -1,5 +1,5 @@
 [package]
-name = "Cobalt"
+name = "cobalt"
 version = "0.1.0"
 authors.workspace = true
 edition.workspace = true
@@ -10,7 +10,17 @@ keywords.workspace = true
 categories.workspace = true
 
 [dependencies]
+########## BEVY
 bevy = { workspace = true }
+bevy-inspector-egui = { workspace = true }
+iyes_perf_ui = { workspace = true }
+iyes_progress = { workspace = true }
+bevy_asset_loader = { workspace = true }
+##########
+
+########## Reactor
+reactor_core = { workspace = true }
+##########
 
 [lints]
 workspace = true

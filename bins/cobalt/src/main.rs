@@ -1,4 +1,4 @@
 //! Entry point
 fn main() {
-    println!("Hello, world!");
+    cobalt::Cobalt::new().run();
 }
