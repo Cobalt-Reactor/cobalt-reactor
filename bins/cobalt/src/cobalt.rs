@@ -4,6 +4,7 @@ use crate::{
     CobaltState,
 };
 use bevy::{log::LogPlugin, prelude::*, window::WindowResolution};
+use reactor_core::ReactorCorePlugin;
 
 /// Core game struct
 pub struct Cobalt {
@@ -40,10 +41,14 @@ impl Default for Cobalt {
                     ..default()
                 }),
                 ..default()
-            }),))
+            })
+            .set(ImagePlugin::default_nearest()),))
             .init_state::<CobaltState>()
+            // External plugins
+            .add_plugins(ReactorCorePlugin::new("cobalt"))
             // Internal plugins
-            .add_plugins(StatesPlugin);
+            .add_plugins(StatesPlugin)
+            .add_plugins(RenderPlugin);
 
         #[cfg(debug_assertions)]
         app.add_plugins(DebugPlugin);

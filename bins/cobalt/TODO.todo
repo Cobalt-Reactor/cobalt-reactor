@@ -1,4 +1,26 @@
+GOAL:
+  - Tilemap Editor
+  - Outputs RON
+  - Can charge $5 on itch.io/cobaltreactor.com/steam?
+
 Todo:
+  - Infinite grid
+    - Scrollable
+      - fades in and out when you zoom
+      - grid is infinite
+  - Can place tiles
+    - reactor_tiles
+    - Can output tilemaps
+      - tilemap has name
+      - tilemap has list of layers
+      - layer has list of tiles
+    - Tiles can be rendered
+      - Do naive rendering first (spritesheet with atlas per tile)
+      - Then move to some kind of quad with a texture on it, quad has a maximum size of, say 512x512
+      - We'll need to flood the tilemap to work out how many quads we need
+      - layers can be made transparent/partially transparency if certain things are underneath them
+  - Can load tilesets
+    - Can select tilesets and when we place a tile it places the tile we have selected
   - Packaging
     - Compile without dynamic linking
     - Copy all assets and the binary somewhere
@@ -6,3 +28,18 @@ Todo:
     - Add them to a zip file
   - Bevy asset cladding (write a lib)
     - Ability to read assets normally but in release they're cladded
+
+Backlog:
+  - Can set colliders on tilsets
+    - Naively generate a collider for each tile
+    - Move to generate maximum size colliders per tilemapchunk
+  - Can add Markers
+    - "Spawner", "SpawnPoint", etc.
+    - Markers have tags
+    - tags are strings
+    - Optionally, can output markers as a rust enum for use in your project
+      - If we output the rustenum then markers use the enum for tags, otherwise use strings
+  - Auto-tiling
+    - Can set autotiling rules
+    - Check how its done in godot, simple editor, tiled, etc.
+  - Can add tags to any tile (any tile can be used as a marker
