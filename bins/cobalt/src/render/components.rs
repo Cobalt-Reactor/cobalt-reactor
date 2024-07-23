@@ -1,1 +1,1 @@
-pub use super::grid::components::*;
+pub use super::{grid::components::*, panning::components::*};

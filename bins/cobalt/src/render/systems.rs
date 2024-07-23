@@ -20,14 +20,15 @@ pub fn spawn_camera(mut commands: Commands) {
             },
             ..default()
         })
+        .insert(PanCam::default())
         .insert(MainCamera);
 }
 
 pub fn create_grid(mut commands: Commands) {
     commands.spawn((
         Grid {
-            spacing: 32.0,
-            count: 32,
+            spacing: 16.0,
+            count: 128,
             color: Color::Srgba(tailwind::GRAY_900),
             alpha_mode: AlphaMode::Opaque,
         },
