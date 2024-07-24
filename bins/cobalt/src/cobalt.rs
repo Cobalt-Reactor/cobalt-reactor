@@ -48,6 +48,7 @@ impl Default for Cobalt {
             .add_plugins(ReactorCorePlugin::new("cobalt"))
             // Internal plugins
             .add_plugins(StatesPlugin)
+            .add_plugins(UiPlugin)
             .add_plugins(RenderPlugin);
 
         #[cfg(debug_assertions)]

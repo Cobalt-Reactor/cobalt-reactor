@@ -1,17 +1,19 @@
 //! Core lib for cobalt
 pub use cobalt::Cobalt;
 pub(crate) use states::cobalt_state::CobaltState;
-pub(crate) mod defines;
 
 mod cobalt;
 mod debug;
 mod render;
 mod states;
+mod ui;
 
-/// Plugins
+pub(crate) mod defines;
+
 pub(crate) mod plugins {
     pub use crate::{
         debug::plugin::DebugPlugin, render::plugin::RenderPlugin, states::plugin::StatesPlugin,
+        ui::plugin::UiPlugin,
     };
 }
 
@@ -49,15 +51,15 @@ pub(crate) mod components {
 // }
 //
 // impl TemplatePlugin {
-//     pub fn add_events(&self, _: &mut App) {}
+//     fn add_events(&self, _: &mut App) {}
 //
-//     pub fn add_plugins(&self, _: &mut App) {}
+//     fn add_plugins(&self, _: &mut App) {}
 //
-//     pub fn register_types(&self, _: &mut App) {}
+//     fn register_types(&self, _: &mut App) {}
 //
-//     pub fn insert_resources(&self, _: &mut App) {}
+//     fn insert_resources(&self, _: &mut App) {}
 //
-//     pub fn add_systems(&self, _: &mut App) {}
+//     fn add_systems(&self, _: &mut App) {}
 //
-//     pub fn configure_sets(&self, _: &mut App) {}
+//     fn configure_sets(&self, _: &mut App) {}
 // }

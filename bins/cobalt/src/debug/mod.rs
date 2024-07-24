@@ -32,8 +32,7 @@ mod systems {
     pub fn setup_fps_counter(mut commands: Commands) {
         commands.spawn((
             PerfUiRoot {
-                display_labels: false,
-                layout_horizontal: true,
+                display_labels: true,
                 ..default()
             },
             PerfUiEntryFPSWorst::default(),

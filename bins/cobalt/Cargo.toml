@@ -10,11 +10,13 @@ keywords.workspace = true
 categories.workspace = true
 
 [dependencies]
-########## BEVY
+bevy_mod_picking = { workspace = true }
 bevy = { workspace = true }
+########## BEVY
 iyes_perf_ui = { workspace = true }
 iyes_progress = { workspace = true }
 bevy_asset_loader = { workspace = true }
+sickle_ui = { workspace = true }
 ##########
 
 ########## Reactor
