@@ -1,0 +1,20 @@
+[package]
+name = "reactor_ui"
+version = "1.0.0"
+readme = "README.md"
+description = "Sickle UI extensions for Bevy"
+authors.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+homepage.workspace = true
+keywords.workspace = true
+categories.workspace = true
+
+[dependencies]
+bevy = { workspace = true }
+sickle_ui = { workspace = true }
+bevy_mod_picking = { workspace = true }
+
+[lints]
+workspace = true

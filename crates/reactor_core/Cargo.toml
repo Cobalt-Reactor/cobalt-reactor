@@ -12,15 +12,23 @@ keywords.workspace = true
 categories.workspace = true
 
 [dependencies]
-bevy = { workspace = true, optional = true }
+########## REACTOR
 reactor_spatial = { workspace = true, features = ["serde"], optional = true }
 reactor_random = { workspace = true, optional = true }
 reactor_camera = { workspace = true, optional = true }
 reactor_proto = { workspace = true, optional = true }
 reactor_serial = { workspace = true, optional = true }
+reactor_ui = { workspace = true, optional = true }
+##########
+
+########## BEVY (or likely upstreamed eventually)
+bevy = { workspace = true, optional = true }
+sickle_ui = { workspace = true, optional = true }
+bevy_mod_picking = { workspace = true, optional = true }
+########## 
 
 [features]
-default = ["plugin", "spatial", "random", "camera", "proto", "serial"]
+default = ["plugin", "spatial", "random", "camera", "proto", "serial", "ui"]
 plugin = ["dep:bevy"]
 spatial = ["reactor_spatial"]
 random = ["reactor_random", "reactor_spatial/random"]
@@ -30,11 +38,13 @@ serial = ["reactor_serial"]
 progress = ["proto", "serial", "proto_progress", "serial_progress"]
 proto_progress = ["reactor_proto/progress_tracking"]
 serial_progress = ["reactor_serial/progress_tracking"]
+ui = ["reactor_ui", "sickle_ui", "picking"]
+picking = ["bevy_mod_picking"]
 
 # Additional prototype formats
 all_asset_loaders = [
-  "reactor_proto/all_asset_loaders",
-  "reactor_serial/all_asset_loaders",
+    "reactor_proto/all_asset_loaders",
+    "reactor_serial/all_asset_loaders",
 ]
 toml = ["reactor_proto/toml", "reactor_serial/toml"]
 yaml = ["reactor_proto/yaml", "reactor_serial/yaml"]

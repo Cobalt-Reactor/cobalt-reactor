@@ -35,3 +35,16 @@ pub mod proto {
 pub mod serial {
     pub use reactor_serial::prelude::*;
 }
+
+/// `reactor_ui` and `sickle_ui`
+#[cfg(feature = "ui")]
+pub mod ui {
+    pub use reactor_ui::prelude::*;
+    pub use sickle_ui::prelude::*;
+}
+
+/// `bevy_mod_picking`
+#[cfg(feature = "picking")]
+pub mod picking {
+    pub use bevy_mod_picking::prelude::*;
+}

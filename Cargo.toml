@@ -15,6 +15,7 @@ categories = ["game-engines"]
 [workspace.dependencies]
 ########## INTERNAL
 reactor_spatial = { path = "crates/reactor_spatial", version = "1.0" }
+reactor_ui = { path = "crates/reactor_ui", version = "1.0" }
 reactor_proto = { path = "crates/reactor_proto", version = "1.0" }
 reactor_random = { path = "crates/reactor_random", version = "1.0" }
 reactor_serial = { path = "crates/reactor_serial", version = "1.0" }
@@ -22,13 +23,15 @@ reactor_camera = { path = "crates/reactor_camera", version = "1.0" }
 reactor_core = { path = "crates/reactor_core", version = "1.0" }
 ##########
 
-########## BEVY
+########## BEVY (or likely upstreamed eventually)
 bevy = { version = "0.14", features = ["dynamic_linking"] }
 bevy_common_assets = { version = "0.11", default-features = false }
 iyes_progress = { version = "0.12", features = ["assets"] }
 bevy-inspector-egui = "0.25"
 iyes_perf_ui = "0.3"
 bevy_asset_loader = { version = "0.21", features = ["progress_tracking", "2d"] }
+sickle_ui = "0.2"
+bevy_mod_picking = "0.20"
 ##########
 
 ########## UTILS
