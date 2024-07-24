@@ -18,7 +18,6 @@ impl<'a> UiOnReleasedExt<'a> for EntityCommands<'a> {
         &mut self,
         callback: impl IntoSystem<(), (), Marker>,
     ) -> &mut EntityCommands<'a> {
-        self
-            .insert(On::<Pointer<Down>>::run(callback))
+        self.insert(On::<Pointer<Down>>::run(callback))
     }
 }
