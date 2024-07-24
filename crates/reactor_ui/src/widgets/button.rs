@@ -1,4 +1,4 @@
-use crate::sickle::{prelude::*, ui_commands::*};
+use crate::{prelude::*, sickle::prelude::*};
 use bevy::prelude::*;
 
 #[derive(Component)]
@@ -14,39 +14,26 @@ impl<'w, 's> UiReactorButtonExt<'w, 's> for UiBuilder<'_, UiRoot> {
     /// Creates a button.
     /// Returns an `UiBuilder` for further customization.
     fn button(&mut self, config: ReactorButtonConfig) -> UiBuilder<Entity> {
-        self.container((ImageBundle::default(), ReactorButton), |banner| {
-            banner
+        self.container((ImageBundle::default(), ReactorButton), |button| {
+            button
                 .style()
-                .position_type(PositionType::Absolute)
-                // Center the children (the label) horizontally.
-                .justify_content(JustifyContent::Center)
-                .width(Val::Px(401.0))
-                .height(Val::Px(79.0));
+                .with_alignment(&config.base_config.alignment)
+                .with_size(&config.base_config.size)
+                .with_position(&config.base_config.position);
 
             if let Some(image) = config.image {
-                banner.style().image(image);
+                button.style().image(image);
             }
 
-            if let Some(text) = config.label {
-                // And we'll want a customizable label on the banner.
-                let mut label = banner.label(LabelConfig::default());
+            if let Some(label_config) = config.label {
+                button.text_label(label_config);
+            }
 
-                label
-                    .style()
-                    // Align the label relative to the top of the banner.
-                    .align_self(AlignSelf::Start)
-                    // Move us a few pixels down so we look nice relative to our font.
-                    .top(Val::Px(20.0));
-
-                // We would like to set a default text style without having to pass in the
-                // AssetServer.
-                label.entity_commands().set_text(text, None);
+            if let Some(picking) = config.base_config.picking {
+                button
+                    .entity_commands()
+                    .pickable(picking.block_lower, picking.hoverable);
             }
         })
     }
-}
-
-pub struct ReactorButtonConfig {
-    pub label: Option<String>,
-    pub image: Option<ImageSource>,
 }

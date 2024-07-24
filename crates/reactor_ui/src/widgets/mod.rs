@@ -1,6 +1,8 @@
 #[allow(missing_docs)]
 mod button;
 pub use button::*;
+mod text_label;
+pub use text_label::*;
 
 // #[derive(Component)]
 // struct TemplateWidget;

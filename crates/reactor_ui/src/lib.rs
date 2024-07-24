@@ -1,11 +1,15 @@
 #![doc = include_str!("../README.md")]
-mod extensions;
+mod configs;
+mod picking_extensions;
 mod plugin;
+mod style_extensions;
 mod widgets;
 
 /// The contents of this module are re-exported by the `reactor_ui` crate.
 pub mod prelude {
-    pub use crate::{extensions::*, plugin::UiPlugin, widgets::*};
+    pub use crate::{
+        configs::*, picking_extensions::*, plugin::UiPlugin, style_extensions::*, widgets::*,
+    };
 }
 
 /// Re-export of `sickle_ui` for convenience.
