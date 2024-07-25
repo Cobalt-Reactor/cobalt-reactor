@@ -20,7 +20,19 @@ impl<'w, 's> UiReactorButtonExt<'w, 's> for UiBuilder<'_, Entity> {
                 .with_base_config(&config.base_config);
 
             if let Some(label_config) = config.label {
-                button.text_label(label_config);
+                let mut label = button.label(label_config.label.into());
+
+                label
+                    .style()
+                    .with_alignment(&label_config.base_config.alignment)
+                    .with_size(&label_config.base_config.size)
+                    .with_position(&label_config.base_config.position)
+                    .width(Val::Percent(100.0))
+                    .min_width(Val::Percent(100.0));
+
+                if let Some(font) = label_config.font {
+                    label.entity_commands().with_font(font);
+                }
             }
         })
     }
