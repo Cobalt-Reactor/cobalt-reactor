@@ -1,5 +1,5 @@
-# rantz_suite
+# cobalt_reactor
 
-Container repo for all my gamedev crates for Bevy. For docs on each crate see the crate README's in crates/*.
+[**Cobalt Reactor**](https://www.cobaltreactor.com) is the software company owned by [**Rantz**](https://www.github.com/bobg1983).
 
-For an overview of the rantz_suite crate see the readme in crates/rants_suite/readme.md.
+This mono-repo contains the various utility crates and tools used by Cobalt Reactor for game development using [Bevy](https://www.bevyengine.org).
