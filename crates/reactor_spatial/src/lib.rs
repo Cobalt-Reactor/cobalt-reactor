@@ -4,6 +4,7 @@ mod compass_halfwinds;
 mod compass_rose;
 mod degrees;
 mod draw_order;
+mod plugin;
 mod position2d;
 mod propagation_systems;
 mod radians;
@@ -12,7 +13,6 @@ mod random;
 mod rotation2d;
 mod scale2d;
 mod spatial_bundle;
-mod spatial_plugin;
 
 /// All components available in the crate
 pub mod components {
@@ -35,7 +35,7 @@ pub mod math {
 
 /// All plugins available in the crate
 pub mod plugins {
-    pub use crate::spatial_plugin::ReactorSpatialPlugin;
+    pub use crate::plugin::ReactorSpatialPlugin;
 }
 
 /// All systems available in the crate
