@@ -41,7 +41,7 @@ impl ReactorCorePlugin {
 
     fn add_plugins(&self, app: &mut App) {
         #[cfg(feature = "spatial")]
-        app.add_plugins(crate::spatial::ReactorSpatialPlugin);
+        app.add_plugins(crate::spatial::ReactorSpatialPlugin::new());
         #[cfg(feature = "camera")]
         app.add_plugins(crate::camera::ReactorCameraPlugin::new());
         #[cfg(all(feature = "proto", not(feature = "serial")))]
