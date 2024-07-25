@@ -1,8 +1,6 @@
 use super::systems::*;
 use crate::CobaltState;
 use bevy::prelude::*;
-use bevy_mod_picking::{backends::raycast::RaycastBackendSettings, prelude::*};
-use sickle_ui::SickleUiPlugin;
 
 pub struct UiPlugin;
 
@@ -20,19 +18,11 @@ impl Plugin for UiPlugin {
 impl UiPlugin {
     pub fn add_events(&self, _: &mut App) {}
 
-    pub fn add_plugins(&self, app: &mut App) {
-        app.add_plugins(SickleUiPlugin)
-            .add_plugins(DefaultPickingPlugins);
-    }
+    pub fn add_plugins(&self, _: &mut App) {}
 
     pub fn register_types(&self, _: &mut App) {}
 
-    pub fn insert_resources(&self, app: &mut App) {
-        app.insert_resource(RaycastBackendSettings {
-            require_markers: true,
-            ..default()
-        });
-    }
+    pub fn insert_resources(&self, _: &mut App) {}
 
     pub fn add_systems(&self, app: &mut App) {
         app.add_systems(OnEnter(CobaltState::Running), spawn_simple_widget);
