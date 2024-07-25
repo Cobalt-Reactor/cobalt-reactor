@@ -45,7 +45,7 @@ impl ReactorCorePlugin {
         #[cfg(feature = "camera")]
         app.add_plugins(crate::camera::ReactorCameraPlugin);
         #[cfg(all(feature = "proto", not(feature = "serial")))]
-        app.add_plugins(crate::proto::ReactorProtoPlugin);
+        app.add_plugins(crate::proto::ReactorProtoPlugin::new());
         #[cfg(feature = "serial")]
         app.add_plugins(crate::serial::ReactorSerialPlugin::new(&self.game_name));
         #[cfg(feature = "ui")]
