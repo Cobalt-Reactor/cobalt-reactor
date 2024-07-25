@@ -1,3 +1,4 @@
+use crate::sickle::SickleUiPlugin;
 use bevy::prelude::*;
 
 /// Plugin for all of `reactor_ui`. Add this to your app
@@ -23,7 +24,9 @@ impl UiPlugin {
 
     fn add_events(&self, _: &mut App) {}
 
-    fn add_plugins(&self, _: &mut App) {}
+    fn add_plugins(&self, app: &mut App) {
+        app.add_plugins(SickleUiPlugin);
+    }
 
     fn register_types(&self, _: &mut App) {}
 
