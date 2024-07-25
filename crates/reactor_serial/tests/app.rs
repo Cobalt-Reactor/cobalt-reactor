@@ -7,7 +7,7 @@ use std::path::PathBuf;
 #[test]
 fn root_save_path() {
     let mut app = App::new();
-    app.add_plugins(SerialPlugin::new("test_game"));
+    app.add_plugins(ReactorSerialPlugin::new("test_game"));
     let world = app.world_mut();
 
     let root_save_path = world.get_resource::<RootSavePath>().unwrap();
@@ -20,7 +20,7 @@ fn root_save_path() {
 fn register_save_data() {
     let mut app = App::new();
     app.add_plugins(TaskPoolPlugin::default())
-        .add_plugins(SerialPlugin::new("test_game"))
+        .add_plugins(ReactorSerialPlugin::new("test_game"))
         .register_save_data::<TestSaveFormatV3>();
 
     let world = app.world_mut();

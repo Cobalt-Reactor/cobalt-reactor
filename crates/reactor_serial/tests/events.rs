@@ -24,7 +24,7 @@ fn file_reading_and_writing() {
 fn save_event() {
     let mut app = App::new();
     app.add_plugins(TaskPoolPlugin::default())
-        .add_plugins(SerialPlugin::new("save_event"))
+        .add_plugins(ReactorSerialPlugin::new("save_event"))
         .register_save_data::<TestSaveFormatV3>()
         .add_systems(
             Update,
@@ -70,7 +70,7 @@ fn save_event() {
 fn save_event_global() {
     let mut app = App::new();
     app.add_plugins(TaskPoolPlugin::default())
-        .add_plugins(SerialPlugin::new("save_event_global"))
+        .add_plugins(ReactorSerialPlugin::new("save_event_global"))
         .register_save_data::<TestSaveFormatV3>();
 
     let world = app.world_mut();
@@ -98,7 +98,7 @@ fn save_event_global() {
 fn save_event_user() {
     let mut app = App::new();
     app.add_plugins(TaskPoolPlugin::default())
-        .add_plugins(SerialPlugin::new("save_event_user"))
+        .add_plugins(ReactorSerialPlugin::new("save_event_user"))
         .register_save_data::<TestSaveFormatV3>();
 
     let world = app.world_mut();
@@ -127,7 +127,7 @@ fn save_event_user() {
 fn save_event_user_without_id() {
     let mut app = App::new();
     app.add_plugins(TaskPoolPlugin::default())
-        .add_plugins(SerialPlugin::new("save_event_no_id"))
+        .add_plugins(ReactorSerialPlugin::new("save_event_no_id"))
         .register_save_data::<TestSaveFormatV3>();
 
     let world = app.world_mut();
@@ -163,7 +163,7 @@ fn save_event_user_without_id() {
 fn save_event_with_subdirectory() {
     let mut app = App::new();
     app.add_plugins(TaskPoolPlugin::default())
-        .add_plugins(SerialPlugin::new("sub_dir"))
+        .add_plugins(ReactorSerialPlugin::new("sub_dir"))
         .register_save_data::<TestSaveFormatV3>();
 
     let world = app.world_mut();
@@ -191,7 +191,7 @@ fn save_event_with_subdirectory() {
 fn load_event() {
     let mut app = App::new();
     app.add_plugins(TaskPoolPlugin::default())
-        .add_plugins(SerialPlugin::new("load_event"))
+        .add_plugins(ReactorSerialPlugin::new("load_event"))
         .register_save_data::<TestSaveFormatV3>()
         .add_systems(
             Update,
@@ -223,7 +223,7 @@ fn load_event() {
 fn load_event_with_old_version() {
     let mut app = App::new();
     app.add_plugins(TaskPoolPlugin::default())
-        .add_plugins(SerialPlugin::new("load_event"))
+        .add_plugins(ReactorSerialPlugin::new("load_event"))
         .register_save_data::<TestSaveFormatV3>();
 
     let world = app.world_mut();
@@ -249,7 +249,7 @@ fn load_event_with_old_version() {
 fn load_event_with_subdirectory() {
     let mut app = App::new();
     app.add_plugins(TaskPoolPlugin::default())
-        .add_plugins(SerialPlugin::new("load_event_sub_dir"))
+        .add_plugins(ReactorSerialPlugin::new("load_event_sub_dir"))
         .register_save_data::<TestSaveFormatV3>();
 
     let world = app.world_mut();

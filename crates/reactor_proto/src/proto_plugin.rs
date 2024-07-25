@@ -6,16 +6,16 @@ use bevy::prelude::*;
 use iyes_progress::{ProgressCounter, ProgressSystem, TrackedProgressSet};
 
 /// Plugin for all of `rantz_proto`. Add this to your app.
-pub struct ProtoPlugin;
+pub struct ReactorProtoPlugin;
 
-impl Plugin for ProtoPlugin {
+impl Plugin for ReactorProtoPlugin {
     fn build(&self, app: &mut App) {
         Self::init_resources(app);
         Self::add_systems(app);
     }
 }
 
-impl ProtoPlugin {
+impl ReactorProtoPlugin {
     fn init_resources(app: &mut App) {
         app.init_resource::<ManifestLoader>();
     }

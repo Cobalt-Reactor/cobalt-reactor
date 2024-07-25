@@ -28,7 +28,7 @@ pub mod prelude {
         error::CerealError,
         events::{Context, LoadComplete, LoadRequest, SaveComplete, SaveRequest},
         outcomes::{LoadOutcome, SaveOutcome},
-        plugins::SerialPlugin,
+        plugins::ReactorSerialPlugin,
         resources::{CurrentSaveSlot, CurrentUserID, RootSavePath, SaveSlot},
         save_data::{SaveData, SaveVersion},
         save_format::SaveFormat,

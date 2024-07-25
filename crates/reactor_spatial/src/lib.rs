@@ -35,7 +35,7 @@ pub mod math {
 
 /// All plugins available in the crate
 pub mod plugins {
-    pub use crate::spatial_plugin::SpatialPlugin;
+    pub use crate::spatial_plugin::ReactorSpatialPlugin;
 }
 
 /// All systems available in the crate

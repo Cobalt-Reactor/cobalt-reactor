@@ -3,16 +3,16 @@ use bevy::prelude::*;
 use reactor_spatial::prelude::*;
 
 /// The core plugin for `reactor_camera`, add this to your app
-pub struct CameraPlugin;
+pub struct ReactorCameraPlugin;
 
-impl Plugin for CameraPlugin {
+impl Plugin for ReactorCameraPlugin {
     fn build(&self, app: &mut App) {
         self.register_types(app);
         self.add_systems(app);
     }
 }
 
-impl CameraPlugin {
+impl ReactorCameraPlugin {
     fn register_types(&self, app: &mut App) {
         app.register_type::<MainCamera>()
             .register_type::<MainCameraShouldTarget>()

@@ -5,7 +5,7 @@ use bevy::prelude::*;
 use reactor_proto::prelude::*;
 
 /// Plugin for all of `reactor_serial`. Add this to your app.
-pub struct SerialPlugin {
+pub struct ReactorSerialPlugin {
     /// The root save path for the game.
     /// It is generally you're game name, with a default of `default_game`.
     /// This folder will be created in the users data directory in release builds:
@@ -22,7 +22,7 @@ pub struct SerialPlugin {
     pub root_save_path: PathBuf,
 }
 
-impl Plugin for SerialPlugin {
+impl Plugin for ReactorSerialPlugin {
     fn build(&self, app: &mut App) {
         self.init_resources(app);
         self.add_systems(app);
@@ -30,7 +30,7 @@ impl Plugin for SerialPlugin {
     }
 }
 
-impl SerialPlugin {
+impl ReactorSerialPlugin {
     /// Creates a new `CerealPlugin` with a save root equal to the game name
     pub fn new(game_name: &str) -> Self {
         let game_name = game_name.replace(|c: char| !c.is_ascii(), "_");
@@ -63,11 +63,11 @@ impl SerialPlugin {
     }
 
     fn add_plugins(&self, app: &mut App) {
-        app.add_plugins(ProtoPlugin);
+        app.add_plugins(ReactorProtoPlugin);
     }
 }
 
-impl Default for SerialPlugin {
+impl Default for ReactorSerialPlugin {
     fn default() -> Self {
         Self::new("default_game")
     }

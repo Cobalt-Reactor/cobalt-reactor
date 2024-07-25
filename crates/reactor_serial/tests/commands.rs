@@ -19,7 +19,7 @@ fn set_user_id() {
 fn set_current_save_slot() {
     let mut app = App::new();
     app.add_plugins(TaskPoolPlugin::default())
-        .add_plugins(SerialPlugin::new("test_game"))
+        .add_plugins(ReactorSerialPlugin::new("test_game"))
         .register_save_data::<TestSaveFormatV3>();
 
     let world = app.world_mut();

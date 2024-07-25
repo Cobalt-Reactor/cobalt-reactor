@@ -41,13 +41,13 @@ impl ReactorCorePlugin {
 
     fn add_plugins(&self, app: &mut App) {
         #[cfg(feature = "spatial")]
-        app.add_plugins(crate::spatial::SpatialPlugin);
+        app.add_plugins(crate::spatial::ReactorSpatialPlugin);
         #[cfg(feature = "camera")]
-        app.add_plugins(crate::camera::CameraPlugin);
+        app.add_plugins(crate::camera::ReactorCameraPlugin);
         #[cfg(all(feature = "proto", not(feature = "serial")))]
-        app.add_plugins(crate::proto::ProtoPlugin);
+        app.add_plugins(crate::proto::ReactorProtoPlugin);
         #[cfg(feature = "serial")]
-        app.add_plugins(crate::serial::SerialPlugin::new(&self.game_name));
+        app.add_plugins(crate::serial::ReactorSerialPlugin::new(&self.game_name));
         #[cfg(feature = "ui")]
         app.add_plugins(crate::ui::UiPlugin::new());
         #[cfg(feature = "perf_ui")]

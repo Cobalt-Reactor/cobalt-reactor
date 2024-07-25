@@ -36,7 +36,7 @@ pub mod prelude {
         manifest_format::ManifestFormat,
         manifest_trait::Manifest,
         module::Module,
-        proto_plugin::ProtoPlugin,
+        proto_plugin::ReactorProtoPlugin,
         prototype_library::PrototypeLibrary,
         prototype_trait::Prototype,
         register::RegisterPrototype,

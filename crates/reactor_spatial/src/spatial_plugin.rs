@@ -2,9 +2,9 @@ use crate::prelude::*;
 use bevy::prelude::*;
 
 /// The core plugin for spatial2d, add this to your app
-pub struct SpatialPlugin;
+pub struct ReactorSpatialPlugin;
 
-impl Plugin for SpatialPlugin {
+impl Plugin for ReactorSpatialPlugin {
     fn build(&self, app: &mut App) {
         app.register_type::<DrawOrder>()
             .register_type::<RotationPropagation>()
