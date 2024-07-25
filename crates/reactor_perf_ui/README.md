@@ -1,3 +1,3 @@
-# `reactor_ui`
+# `reactor_perf_ui`
 
-A set of extensions for `sickle_ui` in the form of widgets.
+Performance windows using Sickle UI via Reactor UI
