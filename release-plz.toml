@@ -85,3 +85,9 @@ name = "reactor_perf_ui"
 changelog_path = "crates/reactor_perf_ui/CHANGELOG.md"
 release = true
 publish = true
+
+[[package]]
+name = "cobalt"
+changelog_path = "bins/cobalt/CHANGELOG.md"
+release = false
+publish = false
