@@ -1,4 +1,7 @@
-use crate::sickle::SickleUiPlugin;
+use crate::{
+    picking::{backends::raycast::RaycastBackendSettings, DefaultPickingPlugins},
+    sickle::SickleUiPlugin,
+};
 use bevy::prelude::*;
 
 /// Plugin for all of `reactor_ui`. Add this to your app
@@ -25,12 +28,18 @@ impl UiPlugin {
     fn add_events(&self, _: &mut App) {}
 
     fn add_plugins(&self, app: &mut App) {
-        app.add_plugins(SickleUiPlugin);
+        app.add_plugins(SickleUiPlugin)
+            .add_plugins(DefaultPickingPlugins);
     }
 
     fn register_types(&self, _: &mut App) {}
 
-    fn insert_resources(&self, _: &mut App) {}
+    fn insert_resources(&self, app: &mut App) {
+        app.insert_resource(RaycastBackendSettings {
+            require_markers: true,
+            ..default()
+        });
+    }
 
     fn add_systems(&self, _: &mut App) {}
 
