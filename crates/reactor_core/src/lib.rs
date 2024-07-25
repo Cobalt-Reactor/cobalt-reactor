@@ -39,8 +39,7 @@ pub mod serial {
 /// `reactor_ui` and `sickle_ui`
 #[cfg(feature = "ui")]
 pub mod ui {
-    pub use reactor_ui::prelude::*;
-    pub use sickle_ui::prelude::*;
+    pub use reactor_ui::{picking, prelude::*, sickle};
 }
 
 /// `bevy_mod_picking`
