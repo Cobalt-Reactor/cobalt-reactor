@@ -1,8 +1,6 @@
 #[cfg(debug_assertions)]
 pub mod plugin {
-    use super::systems::setup_fps_counter;
     use bevy::{diagnostic::FrameTimeDiagnosticsPlugin, prelude::*};
-    use iyes_perf_ui::prelude::PerfUiPlugin;
 
     pub struct DebugPlugin;
 
@@ -15,28 +13,9 @@ pub mod plugin {
 
     impl DebugPlugin {
         pub fn add_plugins(app: &mut App) {
-            app.add_plugins(FrameTimeDiagnosticsPlugin)
-                .add_plugins(PerfUiPlugin);
+            app.add_plugins(FrameTimeDiagnosticsPlugin);
         }
 
-        pub fn add_systems(app: &mut App) {
-            app.add_systems(Startup, setup_fps_counter);
-        }
-    }
-}
-
-mod systems {
-    use bevy::prelude::*;
-    use iyes_perf_ui::prelude::*;
-
-    pub fn setup_fps_counter(mut commands: Commands) {
-        commands.spawn((
-            PerfUiRoot {
-                display_labels: true,
-                ..default()
-            },
-            PerfUiEntryFPSWorst::default(),
-            PerfUiEntryFPS::default(),
-        ));
+        pub fn add_systems(_: &mut App) {}
     }
 }
