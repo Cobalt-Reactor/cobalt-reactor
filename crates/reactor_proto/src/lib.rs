@@ -9,7 +9,7 @@ mod manifest_format;
 mod manifest_loader;
 mod manifest_trait;
 mod module;
-mod proto_plugin;
+mod plugin;
 mod prototype_library;
 mod prototype_trait;
 mod register;
@@ -36,7 +36,7 @@ pub mod prelude {
         manifest_format::ManifestFormat,
         manifest_trait::Manifest,
         module::Module,
-        proto_plugin::ReactorProtoPlugin,
+        plugin::ReactorProtoPlugin,
         prototype_library::PrototypeLibrary,
         prototype_trait::Prototype,
         register::RegisterPrototype,
