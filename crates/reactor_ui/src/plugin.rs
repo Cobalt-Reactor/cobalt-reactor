@@ -6,9 +6,9 @@ use bevy::prelude::*;
 
 /// Plugin for all of `reactor_ui`. Add this to your app
 #[derive(Default)]
-pub struct UiPlugin;
+pub struct ReactorUiPlugin;
 
-impl Plugin for UiPlugin {
+impl Plugin for ReactorUiPlugin {
     fn build(&self, app: &mut App) {
         self.add_events(app);
         self.add_plugins(app);
@@ -19,7 +19,7 @@ impl Plugin for UiPlugin {
     }
 }
 
-impl UiPlugin {
+impl ReactorUiPlugin {
     /// Creates a new `reactor_ui` with the given save root
     pub fn new() -> Self {
         Default::default()

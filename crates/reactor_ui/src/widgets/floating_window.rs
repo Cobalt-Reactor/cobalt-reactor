@@ -15,8 +15,8 @@ impl<'w, 's> UiReactorFloatingWindowExt<'w, 's> for UiBuilder<'_, UiRoot> {
     /// Returns an `UiBuilder` for further customization.
     fn floating_window(&mut self, config: ReactorFloatingWindowConfig) -> UiBuilder<Entity> {
         let base = ReactorBaseConfig {
-            position: config.position,
-            size: config.size,
+            position: config.position.clone(),
+            size: config.size.clone(),
             alignment: ReactorAlignment {
                 child_alignment: Some(ReactorChildAlignment {
                     horizontal: Some(JustifyItems::Start),

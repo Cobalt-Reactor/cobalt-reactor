@@ -9,14 +9,11 @@ mod widgets;
 /// The contents of this module are re-exported by the `reactor_ui` crate.
 pub mod prelude {
     pub use crate::{
-        configs::*, picking_extensions::*, plugin::UiPlugin, style_extensions::*, widgets::*,
+        configs::*, picking_extensions::*, plugin::ReactorUiPlugin, style_extensions::*, widgets::*,
     };
     pub use bevy::{
-        color::palettes,
-        prelude::{
-            AlignContent, AlignItems, AlignSelf, Color, FlexWrap, JustifyContent, JustifyItems,
-            JustifySelf, PositionType, UiRect, Val,
-        },
+        color::{palettes::*, prelude::*},
+        ui::prelude::*,
     };
 }
 
