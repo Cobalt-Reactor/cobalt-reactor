@@ -11,6 +11,13 @@ pub mod prelude {
     pub use crate::{
         configs::*, picking_extensions::*, plugin::UiPlugin, style_extensions::*, widgets::*,
     };
+    pub use bevy::{
+        color::palettes,
+        prelude::{
+            AlignContent, AlignItems, AlignSelf, Color, FlexWrap, JustifyContent, JustifyItems,
+            JustifySelf, PositionType, UiRect, Val,
+        },
+    };
 }
 
 /// Re-export of `sickle_ui` for convenience.
