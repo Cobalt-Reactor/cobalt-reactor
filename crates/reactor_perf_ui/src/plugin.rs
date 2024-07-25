@@ -1,8 +1,13 @@
-use bevy::prelude::*;
+use crate::prelude::*;
+use bevy::{asset::load_internal_binary_asset, prelude::*};
 
 /// The main plugin for the Reactor Perf UI crate. Add this to your app to enable the Reactor Perf
 /// UIs.
-pub struct ReactorPerfUiPlugin;
+#[derive(Default)]
+pub struct ReactorPerfUiPlugin {
+    start_visible: bool,
+    perf_panel: Option<PerfPanelConfig>,
+}
 
 impl Plugin for ReactorPerfUiPlugin {
     fn build(&self, app: &mut App) {
@@ -12,10 +17,35 @@ impl Plugin for ReactorPerfUiPlugin {
         self.insert_resources(app);
         self.add_systems(app);
         self.configure_sets(app);
+        self.load_assets(app);
+        self.add_widgets(app);
     }
 }
 
 impl ReactorPerfUiPlugin {
+    /// Creates a new instance of the Reactor Perf UI plugin.
+    pub fn new() -> Self {
+        Default::default()
+    }
+
+    /// Sets the various widgets to be visible by default.
+    pub fn start_visible(mut self) -> Self {
+        self.start_visible = true;
+        self
+    }
+
+    /// Enables the FPS counter.
+    pub fn with_perf_panel(mut self) -> Self {
+        self.perf_panel = Some(PerfPanelConfig::default());
+        self
+    }
+
+    /// Enables the FPS counter.
+    pub fn with_perf_panel_config(mut self, config: PerfPanelConfig) -> Self {
+        self.perf_panel = Some(config);
+        self
+    }
+
     fn add_events(&self, _: &mut App) {}
 
     fn add_plugins(&self, _: &mut App) {}
@@ -27,4 +57,37 @@ impl ReactorPerfUiPlugin {
     fn add_systems(&self, _: &mut App) {}
 
     fn configure_sets(&self, _: &mut App) {}
+
+    fn load_assets(&self, app: &mut App) {
+        load_internal_binary_asset!(
+            app,
+            font_defines::BOLD,
+            "fonts/bold.ttf",
+            |bytes: &[u8], _path: String| { Font::try_from_bytes(bytes.to_vec()).unwrap() }
+        );
+        load_internal_binary_asset!(
+            app,
+            font_defines::STD,
+            "fonts/std.ttf",
+            |bytes: &[u8], _path: String| { Font::try_from_bytes(bytes.to_vec()).unwrap() }
+        );
+        load_internal_binary_asset!(
+            app,
+            font_defines::NARROW,
+            "fonts/narrow.ttf",
+            |bytes: &[u8], _path: String| { Font::try_from_bytes(bytes.to_vec()).unwrap() }
+        );
+        load_internal_binary_asset!(
+            app,
+            font_defines::SQUARE,
+            "fonts/square.ttf",
+            |bytes: &[u8], _path: String| { Font::try_from_bytes(bytes.to_vec()).unwrap() }
+        );
+    }
+
+    fn add_widgets(&self, app: &mut App) {
+        if let Some(perf_panel) = &self.perf_panel {
+            app.add_perf_ui_widget::<ReactorPerfPanel, _>(perf_panel.clone());
+        }
+    }
 }

@@ -14,8 +14,17 @@ categories.workspace = true
 [dependencies]
 bevy = { workspace = true }
 reactor_ui = { workspace = true }
+chrono = { workspace = true, optional = true, features = ["clock"] }
 
 [features]
+default = ["entries", "widgets", "sysinfo"]
+# Enable the collection of built-in Perf UI Entries
+entries = []
+# Enable the collection of additional built-in Perf UI Widgets
+widgets = []
+sysinfo = ["bevy/sysinfo_plugin", "bevy/multi_threaded"]
+# Enable optional `chrono` dependency for timezone support in the Clock entry
+chrono = ["dep:chrono"]
 
 [lints]
 workspace = true
