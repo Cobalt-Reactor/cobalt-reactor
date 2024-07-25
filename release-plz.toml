@@ -37,6 +37,8 @@ changelog_include = [
     "reactor_camera",
     "reactor_proto",
     "reactor_serial",
+    "reactor_ui",
+    "reactor_perf_ui",
 ]
 changelog_path = "crates/reactor_core/CHANGELOG.md"
 release = true
@@ -69,5 +71,17 @@ publish = true
 [[package]]
 name = "reactor_serial"
 changelog_path = "crates/reactor_serial/CHANGELOG.md"
+release = true
+publish = true
+
+[[package]]
+name = "reactor_ui"
+changelog_path = "crates/reactor_ui/CHANGELOG.md"
+release = true
+publish = true
+
+[[package]]
+name = "reactor_perf_ui"
+changelog_path = "crates/reactor_perf_ui/CHANGELOG.md"
 release = true
 publish = true
