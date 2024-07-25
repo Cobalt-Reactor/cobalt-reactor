@@ -16,6 +16,7 @@ categories = ["game-engines"]
 ########## INTERNAL
 reactor_spatial = { path = "crates/reactor_spatial", version = "1.0" }
 reactor_ui = { path = "crates/reactor_ui", version = "1.0" }
+reactor_perf_ui = { path = "crates/reactor_perf_ui", version = "1.0" }
 reactor_proto = { path = "crates/reactor_proto", version = "1.0" }
 reactor_random = { path = "crates/reactor_random", version = "1.0" }
 reactor_serial = { path = "crates/reactor_serial", version = "1.0" }

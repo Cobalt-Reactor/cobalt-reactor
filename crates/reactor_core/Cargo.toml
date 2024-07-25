@@ -18,6 +18,7 @@ reactor_random = { workspace = true, optional = true }
 reactor_camera = { workspace = true, optional = true }
 reactor_proto = { workspace = true, optional = true }
 reactor_serial = { workspace = true, optional = true }
+reactor_perf_ui = { workspace = true, optional = true }
 reactor_ui = { workspace = true, optional = true }
 ##########
 
@@ -40,6 +41,7 @@ proto_progress = ["reactor_proto/progress_tracking"]
 serial_progress = ["reactor_serial/progress_tracking"]
 ui = ["reactor_ui", "sickle_ui", "picking"]
 picking = ["bevy_mod_picking"]
+perf_ui = ["reactor_perf_ui"]
 
 # Additional prototype formats
 all_asset_loaders = [

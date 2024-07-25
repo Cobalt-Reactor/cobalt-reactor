@@ -1,6 +1,6 @@
 use bevy::prelude::*;
 
-/// Plugin for all of `reactor_ui_ext`. Add this to your app
+/// Plugin for all of `reactor_ui`. Add this to your app
 #[derive(Default)]
 pub struct UiPlugin;
 
@@ -16,7 +16,7 @@ impl Plugin for UiPlugin {
 }
 
 impl UiPlugin {
-    /// Creates a new `serialPlugin` with the given save root
+    /// Creates a new `reactor_ui` with the given save root
     pub fn new() -> Self {
         Default::default()
     }

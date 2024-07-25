@@ -3531,6 +3531,7 @@ dependencies = [
  "bevy",
  "bevy_mod_picking",
  "reactor_camera",
+ "reactor_perf_ui",
  "reactor_proto",
  "reactor_random",
  "reactor_serial",

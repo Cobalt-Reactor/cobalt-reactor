@@ -48,6 +48,10 @@ impl ReactorCorePlugin {
         app.add_plugins(crate::proto::ProtoPlugin);
         #[cfg(feature = "serial")]
         app.add_plugins(crate::serial::SerialPlugin::new(&self.game_name));
+        #[cfg(feature = "ui")]
+        app.add_plugins(crate::ui::UiPlugin::new());
+        #[cfg(feature = "perf_ui")]
+        app.add_plugins(crate::perf_ui::ReactorPerfUiPlugin::new());
     }
 }
 

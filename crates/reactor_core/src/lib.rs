@@ -48,3 +48,9 @@ pub mod ui {
 pub mod picking {
     pub use bevy_mod_picking::prelude::*;
 }
+
+/// `reactor_ui` and `sickle_ui`
+#[cfg(feature = "perf_ui")]
+pub mod perf_ui {
+    pub use reactor_perf_ui::prelude::*;
+}
