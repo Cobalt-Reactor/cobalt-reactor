@@ -13,7 +13,8 @@ pub mod logging_defines {
     pub const DEFAULT_LEVEL: bevy::log::Level = bevy::log::Level::DEBUG;
     /// Default log filter
     #[cfg(debug_assertions)]
-    pub const DEFAULT_FILTER: &str = "error,wgpu_hal=off,reactor_core=debug,cobalt=debug";
+    pub const DEFAULT_FILTER: &str =
+        "error,wgpu_hal=off,reactor_core=debug,reactor_ui=debug,cobalt=debug";
 
     /// Default log level
     #[cfg(not(debug_assertions))]

@@ -1,6 +1,7 @@
 use super::systems::*;
 use crate::{events::CloseCobalt, schedules::StateHandlingSchedule, CobaltState};
 use bevy::prelude::*;
+use reactor_core::perf_ui::ReactorPerfUiSchedule;
 
 pub struct RunningStatePlugin;
 
@@ -27,6 +28,12 @@ impl RunningStatePlugin {
         app.configure_sets(
             Update,
             (StateHandlingSchedule::Running).run_if(in_state(CobaltState::Running)),
+        );
+
+        app.configure_sets(
+            Update,
+            (ReactorPerfUiSchedule::Spawn, ReactorPerfUiSchedule::Update)
+                .run_if(in_state(CobaltState::Running)),
         );
     }
 }

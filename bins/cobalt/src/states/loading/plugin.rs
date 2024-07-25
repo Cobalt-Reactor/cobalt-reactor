@@ -3,7 +3,7 @@ use crate::{schedules::StateHandlingSchedule, CobaltState};
 use bevy::prelude::*;
 use bevy_asset_loader::loading_state::{LoadingState, LoadingStateAppExt, LoadingStateSet};
 use iyes_progress::prelude::ProgressPlugin;
-use reactor_core::proto::ProtoSchedule;
+use reactor_core::{perf_ui::ReactorPerfUiSchedule, proto::ProtoSchedule};
 
 pub struct LoadingStatePlugin;
 
@@ -42,6 +42,11 @@ impl LoadingStatePlugin {
                 .chain()
                 .run_if(in_state(CobaltState::Loading))
                 .after(LoadingStateSet(CobaltState::Loading)),
+        );
+
+        app.configure_sets(
+            Update,
+            ReactorPerfUiSchedule::Setup.run_if(in_state(CobaltState::Loading)),
         );
     }
 }
