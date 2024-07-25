@@ -17,18 +17,40 @@ impl PerfUiAppExt for App {
     ) -> &mut Self {
         self.insert_resource(config.clone());
 
-        let widget = W::default();
-        widget.setup(self, config);
+        self.add_systems(
+            Update,
+            setup_widget::<W, C>.in_set(ReactorPerfUiSchedule::Setup),
+        );
 
-        self.add_systems(Startup, spawn_widget::<W, C>);
+        self.add_systems(
+            Update,
+            spawn_widget::<W, C>.in_set(ReactorPerfUiSchedule::Spawn),
+        );
 
         self
     }
 }
 
+pub(crate) fn setup_widget<W: ReactorPerfUiWidget<Config = C>, C: Resource + Clone>(
+    commands: Commands,
+    config: Res<C>,
+    mut setup_complete: Local<bool>,
+) {
+    if *setup_complete {
+        return;
+    }
+    W::setup(commands, config);
+    *setup_complete = true;
+}
+
 pub(crate) fn spawn_widget<W: ReactorPerfUiWidget<Config = C>, C: Resource + Clone>(
     commands: Commands,
     config: Res<C>,
+    mut spawn_complete: Local<bool>,
 ) {
+    if *spawn_complete {
+        return;
+    }
     W::spawn(commands, config);
+    *spawn_complete = true;
 }

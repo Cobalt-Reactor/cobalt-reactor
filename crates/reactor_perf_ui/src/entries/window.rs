@@ -1,15 +1,11 @@
 use super::PerfUiEntry;
-use crate::utils::next_sort_key;
 use bevy::{diagnostic::DiagnosticsStore, ecs::system::lifetimeless::SRes, prelude::*};
 
-#[derive(Component, Debug, Clone)]
-pub struct PerfUiEntryWindow {
-    /// Sort Key (control where the entry will appear in the Perf UI).
-    pub sort_key: i32,
-}
+#[derive(Component, Debug, Clone, Default)]
+pub struct PerfUiEntryWindow;
 
 impl PerfUiEntry for PerfUiEntryWindow {
-    fn setup(_: &mut App) {}
+    fn setup(_: Commands) {}
 
     type SystemParamUpdate = SRes<DiagnosticsStore>;
 
@@ -19,17 +15,5 @@ impl PerfUiEntry for PerfUiEntryWindow {
         _: Entity,
         _: &mut <Self::SystemParamUpdate as bevy::ecs::system::SystemParam>::Item<'_, '_>,
     ) {
-    }
-
-    fn sort_key(&self) -> i32 {
-        self.sort_key
-    }
-}
-
-impl Default for PerfUiEntryWindow {
-    fn default() -> Self {
-        Self {
-            sort_key: next_sort_key(),
-        }
     }
 }

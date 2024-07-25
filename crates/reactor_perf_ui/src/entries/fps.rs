@@ -1,35 +1,29 @@
 use super::PerfUiEntry;
-use crate::utils::next_sort_key;
-use bevy::{diagnostic::DiagnosticsStore, ecs::system::lifetimeless::SRes, prelude::*};
+use bevy::{
+    diagnostic::DiagnosticsStore,
+    ecs::system::{lifetimeless::SRes, SystemParam},
+    prelude::*,
+};
+use reactor_ui::sickle::prelude::*;
 
-#[derive(Component, Debug, Clone)]
-pub struct PerfUiEntryFps {
-    /// Sort Key (control where the entry will appear in the Perf UI).
-    pub sort_key: i32,
-}
+#[derive(Component, Debug, Clone, Default)]
+pub struct PerfUiEntryFps;
 
 impl PerfUiEntry for PerfUiEntryFps {
-    fn setup(_: &mut App) {}
+    fn setup(_: Commands) {}
 
     type SystemParamUpdate = SRes<DiagnosticsStore>;
 
-    fn spawn(_: &mut reactor_ui::sickle::prelude::UiBuilder<Entity>) {}
-
-    fn update(
-        _: Entity,
-        _: &mut <Self::SystemParamUpdate as bevy::ecs::system::SystemParam>::Item<'_, '_>,
-    ) {
+    fn spawn(row: &mut UiBuilder<Entity>) {
+        row.label(LabelConfig {
+            label: "FPS".into(),
+            ..default()
+        })
+        .style()
+        .height(Val::Px(20.0))
+        .entity_commands()
+        .insert(PerfUiEntryFps);
     }
 
-    fn sort_key(&self) -> i32 {
-        self.sort_key
-    }
-}
-
-impl Default for PerfUiEntryFps {
-    fn default() -> Self {
-        Self {
-            sort_key: next_sort_key(),
-        }
-    }
+    fn update(_: Entity, _: &mut <Self::SystemParamUpdate as SystemParam>::Item<'_, '_>) {}
 }

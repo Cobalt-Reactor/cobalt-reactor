@@ -7,7 +7,7 @@ pub trait PerfUiEntry: Component {
 
     // Setup the entry. This is called once when the entry is added to the app.
     // Useful for loading resources, registering events, etc.
-    fn setup(app: &mut App);
+    fn setup(commands: Commands);
 
     // Spawn the entry
     // If you need any additional data, you can put Bevy system parameters
@@ -22,7 +22,4 @@ pub trait PerfUiEntry: Component {
     // you need to update the UI. Put them in `type SystemParamUpdate`
     // and access them via `param`.
     fn update(entity: Entity, param: &mut <Self::SystemParamUpdate as SystemParam>::Item<'_, '_>);
-
-    /// The sort key of the entry that the widget is displaying.
-    fn sort_key(&self) -> i32;
 }

@@ -6,40 +6,48 @@ use reactor_ui::{prelude::*, sickle::prelude::*};
 impl ReactorPerfUiWidget for ReactorPerfPanel {
     type Config = PerfPanelConfig;
 
-    fn setup(&self, app: &mut App, config: Self::Config) {
+    fn setup(mut commands: Commands, config: Res<Self::Config>) {
         if config.fps {
-            PerfUiEntryFps::setup(app);
+            PerfUiEntryFps::setup(commands.reborrow());
         }
 
         if config.ecs {
-            PerfUiEntryEcs::setup(app);
+            PerfUiEntryEcs::setup(commands.reborrow());
         }
 
         if config.window {
-            PerfUiEntryWindow::setup(app);
+            PerfUiEntryWindow::setup(commands.reborrow());
         }
 
         if config.system {
-            PerfUiEntrySystem::setup(app);
+            PerfUiEntrySystem::setup(commands.reborrow());
         }
     }
 
-    fn spawn(mut commands: Commands, _: bevy::prelude::Res<Self::Config>) {
+    fn spawn(mut commands: Commands, config: Res<Self::Config>) {
         commands
             .ui_builder(UiRoot)
             .floating_window(perf_panel_ui_config())
             .row(|row| {
                 row.style()
                     .width(Val::Percent(100.0))
-                    .min_width(Val::Percent(100.0))
-                    .justify_content(JustifyContent::Center);
+                    .min_width(Val::Percent(100.0));
+
+                if config.fps {
+                    PerfUiEntryFps::spawn(row);
+                }
+
+                if config.ecs {
+                    PerfUiEntryEcs::spawn(row);
+                }
+
+                if config.window {
+                    PerfUiEntryWindow::spawn(row);
+                }
+
+                if config.system {
+                    PerfUiEntrySystem::spawn(row);
+                }
             });
     }
-
-    // fn update(
-    //     entity: bevy::prelude::Entity,
-    //     param: &mut <Self::SystemParamUpdate as bevy::ecs::system::SystemParam>::Item<'_, '_>,
-    // ) {
-    //     todo!()
-    // }
 }

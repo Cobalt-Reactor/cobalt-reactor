@@ -5,6 +5,8 @@ use bevy::prelude::*;
 pub enum ReactorPerfUiSchedule {
     /// Setting up widgets
     Setup,
+    /// Spawning widgets
+    Spawn,
     /// Updating widgets
     Update,
 }
