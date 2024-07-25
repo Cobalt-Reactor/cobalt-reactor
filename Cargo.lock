@@ -811,7 +811,7 @@ dependencies = [
  "proc-macro2",
  "quote",
  "syn 2.0.72",
- "toml_edit 0.22.16",
+ "toml_edit 0.22.17",
 ]
 
 [[package]]
@@ -2543,9 +2543,9 @@ checksum = "8eaf4bc02d17cbdd7ff4c7438cafcdf7fb9a4613313ad11b4f8fefe7d3fa0130"
 
 [[package]]
 name = "jobserver"
-version = "0.1.31"
+version = "0.1.32"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "d2b099aaa34a9751c5bf0878add70444e1ed2dd73f347be99003d4577277de6e"
+checksum = "48d1dbcbbeb6a7fec7e059840aa538bd62aaccf972c7346c4d9d2059312853d0"
 dependencies = [
  "libc",
 ]
@@ -3466,9 +3466,9 @@ dependencies = [
 
 [[package]]
 name = "quick-xml"
-version = "0.36.0"
+version = "0.36.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "4091e032efecb09d7b1f711f487b85ab925632a842627e3200fb088382cde32c"
+checksum = "96a05e2e8efddfa51a84ca47cec303fac86c8541b686d37cac5efc0e094417bc"
 dependencies = [
  "memchr",
  "serde",
@@ -3540,6 +3540,14 @@ dependencies = [
 ]
 
 [[package]]
+name = "reactor_perf_ui"
+version = "1.0.0"
+dependencies = [
+ "bevy",
+ "reactor_ui",
+]
+
+[[package]]
 name = "reactor_proto"
 version = "1.0.0"
 dependencies = [
@@ -3565,7 +3573,7 @@ dependencies = [
  "bevy",
  "csv",
  "dirs",
- "quick-xml 0.36.0",
+ "quick-xml 0.36.1",
  "reactor_proto",
  "reactor_serial",
  "rmp-serde",
@@ -3814,9 +3822,9 @@ dependencies = [
 
 [[package]]
 name = "serde_spanned"
-version = "0.6.6"
+version = "0.6.7"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "79e674e01f999af37c49f70a6ede167a8a60b2503e56c5599532a65baa5969a0"
+checksum = "eb5b1b31579f3811bf615c144393417496f152e12ac8b7663bf664f4a815306d"
 dependencies = [
  "serde",
 ]
@@ -4070,21 +4078,21 @@ checksum = "1f3ccbac311fea05f86f61904b462b55fb3df8837a366dfc601a0161d0532f20"
 
 [[package]]
 name = "toml"
-version = "0.8.15"
+version = "0.8.16"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "ac2caab0bf757388c6c0ae23b3293fdb463fee59434529014f85e3263b995c28"
+checksum = "81967dd0dd2c1ab0bc3468bd7caecc32b8a4aa47d0c8c695d8c2b2108168d62c"
 dependencies = [
  "serde",
  "serde_spanned",
  "toml_datetime",
- "toml_edit 0.22.16",
+ "toml_edit 0.22.17",
 ]
 
 [[package]]
 name = "toml_datetime"
-version = "0.6.6"
+version = "0.6.7"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "4badfd56924ae69bcc9039335b2e017639ce3f9b001c393c1b2d1ef846ce2cbf"
+checksum = "f8fb9f64314842840f1d940ac544da178732128f1c78c21772e876579e0da1db"
 dependencies = [
  "serde",
 ]
@@ -4102,15 +4110,15 @@ dependencies = [
 
 [[package]]
 name = "toml_edit"
-version = "0.22.16"
+version = "0.22.17"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "278f3d518e152219c994ce877758516bca5e118eaed6996192a774fb9fbf0788"
+checksum = "8d9f8729f5aea9562aac1cc0441f5d6de3cff1ee0c5d67293eeca5eb36ee7c16"
 dependencies = [
  "indexmap",
  "serde",
  "serde_spanned",
  "toml_datetime",
- "winnow 0.6.15",
+ "winnow 0.6.16",
 ]
 
 [[package]]
@@ -4909,9 +4917,9 @@ dependencies = [
 
 [[package]]
 name = "winnow"
-version = "0.6.15"
+version = "0.6.16"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "557404e450152cd6795bb558bca69e43c585055f4606e3bcae5894fc6dac9ba0"
+checksum = "b480ae9340fc261e6be3e95a1ba86d54ae3f9171132a73ce8d4bbaf68339507c"
 dependencies = [
  "memchr",
 ]
