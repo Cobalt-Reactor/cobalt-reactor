@@ -1,7 +1,7 @@
 use bevy::prelude::*;
 
 /// Alignment configuration for widgets
-#[derive(Default, Debug)]
+#[derive(Default, Debug, Clone)]
 pub struct ReactorAlignment {
     /// Self alignment.
     pub self_alignment: Option<ReactorSelfAlignment>,
@@ -10,7 +10,7 @@ pub struct ReactorAlignment {
 }
 
 /// Configuration self alignment.
-#[derive(Default, Debug)]
+#[derive(Default, Debug, Clone)]
 pub struct ReactorSelfAlignment {
     /// Horizontal alignment. Default is auto.
     pub horizontal: Option<JustifySelf>,
@@ -19,7 +19,7 @@ pub struct ReactorSelfAlignment {
 }
 
 /// Configuration child alignment.
-#[derive(Default, Debug)]
+#[derive(Default, Debug, Clone)]
 pub struct ReactorChildAlignment {
     /// Horizontal alignment. Default is `Default` (i.e. no alignment).
     pub horizontal: Option<JustifyItems>,

@@ -1,8 +1,8 @@
 [package]
-name = "reactor_ui"
+name = "reactor_perf_ui"
 version = "1.0.0"
 readme = "README.md"
-description = "Sickle UI extensions for Bevy"
+description = "Performance windows using Sickle UI via Reactor UI"
 authors.workspace = true
 edition.workspace = true
 license.workspace = true
@@ -13,8 +13,7 @@ categories.workspace = true
 
 [dependencies]
 bevy = { workspace = true }
-sickle_ui = { workspace = true }
-bevy_mod_picking = { workspace = true }
+reactor_ui = { workspace = true }
 
 [features]
 

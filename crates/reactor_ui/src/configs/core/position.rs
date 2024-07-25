@@ -1,7 +1,7 @@
 use bevy::prelude::*;
 
 /// Configuration anything with a position.
-#[derive(Default, Debug)]
+#[derive(Default, Debug, Clone)]
 pub struct ReactorPosition {
     /// The type of position to use. Absolute or relative. Default is relative.
     pub position_type: PositionType,

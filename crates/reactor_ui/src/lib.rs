@@ -1,4 +1,5 @@
 #![doc = include_str!("../README.md")]
+#![feature(float_minimum_maximum)]
 mod configs;
 mod picking_extensions;
 mod plugin;

@@ -1,7 +1,7 @@
 use crate::prelude::*;
 
 /// Basic configuration for all widgets
-#[derive(Default, Debug)]
+#[derive(Default, Debug, Clone)]
 pub struct ReactorBaseConfig {
     /// The position of the widget.
     pub position: ReactorPosition,

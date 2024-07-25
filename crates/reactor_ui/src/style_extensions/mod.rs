@@ -6,3 +6,7 @@ mod with_alignment;
 pub use with_alignment::*;
 mod with_font;
 pub use with_font::*;
+mod with_background;
+pub use with_background::*;
+mod with_base_config;
+pub use with_base_config::*;

@@ -10,30 +10,29 @@ pub trait UiReactorButtonExt<'w, 's> {
     fn button(&mut self, config: ReactorButtonConfig) -> UiBuilder<Entity>;
 }
 
-impl<'w, 's> UiReactorButtonExt<'w, 's> for UiBuilder<'_, UiRoot> {
+impl<'w, 's> UiReactorButtonExt<'w, 's> for UiBuilder<'_, Entity> {
     /// Creates a button.
     /// Returns an `UiBuilder` for further customization.
     fn button(&mut self, config: ReactorButtonConfig) -> UiBuilder<Entity> {
-        self.container((ImageBundle::default(), ReactorButton), |button| {
+        self.container(ReactorButton, |button| {
             button
-                .style()
-                .with_alignment(&config.base_config.alignment)
-                .with_size(&config.base_config.size)
-                .with_position(&config.base_config.position);
-
-            if let Some(image) = config.image {
-                button.style().image(image);
-            }
+                .with_background(&config.background)
+                .with_base_config(&config.base_config);
 
             if let Some(label_config) = config.label {
                 button.text_label(label_config);
             }
-
-            if let Some(picking) = config.base_config.picking {
-                button
-                    .entity_commands()
-                    .pickable(picking.block_lower, picking.hoverable);
-            }
         })
     }
+}
+
+/// Configuration for a button widget.
+#[derive(Default, Debug, Clone)]
+pub struct ReactorButtonConfig {
+    /// The base config of the button (size, position, alignment, etc).
+    pub base_config: ReactorBaseConfig,
+    /// The image to display as the button's background.
+    pub background: ReactorBackground,
+    /// The text label to display on the button.
+    pub label: Option<ReactorTextLabelConfig>,
 }

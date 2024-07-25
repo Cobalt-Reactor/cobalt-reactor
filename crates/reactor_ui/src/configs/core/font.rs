@@ -1,7 +1,7 @@
 use bevy::prelude::*;
 
 /// Configuration anything with a size.
-#[derive(Default, Debug)]
+#[derive(Default, Debug, Clone)]
 pub struct ReactorFontConfig {
     /// The path to the font file.
     pub path: String,

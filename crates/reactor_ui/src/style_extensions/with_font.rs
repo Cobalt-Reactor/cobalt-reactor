@@ -21,12 +21,12 @@ impl EntityCommand for ReactorFontConfig {
 
 /// Adds a font to the entity. font is the path to the font asset. This file can be loaded ahead of
 /// time if you want to avoid loads during runtime.
-pub trait UiFontCommand<'a> {
+pub trait UiFontCommandExt<'a> {
     /// Adds a font to the entity.
     fn with_font(&'a mut self, font: ReactorFontConfig) -> &mut EntityCommands<'a>;
 }
 
-impl<'a> UiFontCommand<'a> for EntityCommands<'a> {
+impl<'a> UiFontCommandExt<'a> for EntityCommands<'a> {
     fn with_font(&'a mut self, font: ReactorFontConfig) -> &mut EntityCommands<'a> {
         self.add(font)
     }
