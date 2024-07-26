@@ -5,7 +5,7 @@ use bevy::{
     diagnostic::{DiagnosticsStore, FrameTimeDiagnosticsPlugin},
     prelude::*,
 };
-use reactor_ui::sickle::prelude::*;
+use reactor_ui::{prelude::*, sickle::prelude::*};
 
 #[derive(Component, Debug, Clone, Default)]
 pub struct PerfUiEntryFps;
@@ -34,6 +34,7 @@ impl Default for PerfUiEntryFpsWorstData {
 
 impl PerfUiEntry for PerfUiEntryFps {
     fn setup(app: &mut App) {
+        app.add_plugins(FrameTimeDiagnosticsPlugin);
         app.add_systems(
             Update,
             (Self::update_fps, Self::update_fps_worst).in_set(ReactorPerfUiSchedule::Update),
@@ -44,6 +45,10 @@ impl PerfUiEntry for PerfUiEntryFps {
         let config = PanelEntryCollapsibleConfig {
             label: "FPS".into(),
         };
+
+        list.insert(PerfUiEntryFps)
+            .style()
+            .background_color(Color::Srgba(tailwind::GREEN_700));
 
         // Add a collapsible List Item here with other list items in it
         list.panel_entry_collapsible(config, |collapse| {
@@ -61,8 +66,6 @@ impl PerfUiEntry for PerfUiEntryFps {
                 content_component: PerfUiEntryFpsWorstData::default(),
             });
         });
-
-        list.insert(PerfUiEntryFps);
     }
 }
 

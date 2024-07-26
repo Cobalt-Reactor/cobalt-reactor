@@ -1,6 +1,6 @@
 #[cfg(debug_assertions)]
 pub mod plugin {
-    use bevy::{diagnostic::FrameTimeDiagnosticsPlugin, prelude::*};
+    use bevy::prelude::*;
 
     pub struct DebugPlugin;
 
@@ -12,9 +12,7 @@ pub mod plugin {
     }
 
     impl DebugPlugin {
-        pub fn add_plugins(app: &mut App) {
-            app.add_plugins(FrameTimeDiagnosticsPlugin);
-        }
+        pub fn add_plugins(_: &mut App) {}
 
         pub fn add_systems(_: &mut App) {}
     }

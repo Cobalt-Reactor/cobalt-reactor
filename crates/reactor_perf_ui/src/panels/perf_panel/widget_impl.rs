@@ -12,7 +12,7 @@ impl ReactorPerfUiPanel for ReactorPerfPanel {
         }
 
         if config.ecs {
-            PerfUiEntryEcs::setup(app);
+            PerfUiEntryEngine::setup(app);
         }
 
         if config.window {
@@ -34,7 +34,7 @@ impl ReactorPerfUiPanel for ReactorPerfPanel {
                     }
 
                     if config.ecs {
-                        PerfUiEntryEcs::spawn(list);
+                        PerfUiEntryEngine::spawn(list);
                     }
 
                     if config.window {

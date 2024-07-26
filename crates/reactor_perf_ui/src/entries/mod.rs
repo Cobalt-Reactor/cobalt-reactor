@@ -4,8 +4,8 @@ mod fps;
 pub use fps::*;
 mod window;
 pub use window::*;
-mod ecs;
-pub use ecs::*;
+mod engine;
+pub use engine::*;
 mod system;
 pub use system::*;
 
@@ -37,9 +37,6 @@ pub use system::*;
 
 // #[derive(Component, Debug, Clone)]
 // pub struct PerfUiEntryFixedOverstep;
-
-// #[derive(Component, Debug, Clone)]
-// pub struct PerfUiEntryFPSWorst;
 
 // #[derive(Component, Debug, Clone)]
 // pub struct PerfUiEntryFrameTime;
