@@ -20,13 +20,14 @@ impl<'w, 's> UiReactorListExt<'w, 's> for UiBuilder<'_, Entity> {
     fn list(
         &mut self,
         config: ReactorListConfig,
-        content_builder: impl FnOnce(&mut UiBuilder<Entity>),
+        spawn_children: impl FnOnce(&mut UiBuilder<Entity>),
     ) -> UiBuilder<Entity> {
         self.scroll_view(Some(ScrollAxis::Vertical), |scroll| {
             scroll.with_background(&config.background);
 
             scroll
                 .style()
+                .with_size(&config.size)
                 .width(Val::Percent(100.0))
                 .min_width(Val::Percent(100.0))
                 .justify_self(JustifySelf::Start)
@@ -36,14 +37,16 @@ impl<'w, 's> UiReactorListExt<'w, 's> for UiBuilder<'_, Entity> {
                 .entity_commands()
                 .insert(ReactorList);
 
-            content_builder(scroll);
+            spawn_children(scroll);
         })
     }
 }
 
 /// Configuration for a list widget.
-#[derive(Default, Debug, Clone)]
+#[derive(Debug, Clone, Default)]
 pub struct ReactorListConfig {
     /// The background of the list.
     pub background: ReactorBackground,
+    /// The size of the list (width is overridden to 100%)
+    pub size: ReactorSize,
 }

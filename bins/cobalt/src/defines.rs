@@ -14,7 +14,7 @@ pub mod logging_defines {
     /// Default log filter
     #[cfg(debug_assertions)]
     pub const DEFAULT_FILTER: &str =
-        "error,wgpu_hal=off,reactor_core=debug,reactor_ui=debug,cobalt=debug";
+        "error,wgpu_hal=off,reactor_core=debug,reactor_ui=debug,reactor_perf_ui=debug,cobalt=debug";
 
     /// Default log level
     #[cfg(not(debug_assertions))]

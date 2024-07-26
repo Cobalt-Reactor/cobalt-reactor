@@ -4,7 +4,7 @@ use crate::{prelude::*, sickle::prelude::*};
 /// Note: This has exclusive World access and thus can't be used in parallel with other systems.
 /// That means that if you are doing a lot of stuff, or doing things every frame it's going to get
 /// expensive Use with caution.
-pub trait StyleWithAlignmentExt<'a> {
+pub trait UiStyleWithAlignmentExt<'a> {
     /// Adds all alignment to the widget.
     fn with_alignment(&mut self, alignment: &ReactorAlignment) -> &mut UiStyle<'a>;
     /// Adds self alignment to the widget.
@@ -13,7 +13,7 @@ pub trait StyleWithAlignmentExt<'a> {
     fn with_child_alignment(&mut self, alignment: &ReactorChildAlignment) -> &mut UiStyle<'a>;
 }
 
-impl<'a> StyleWithAlignmentExt<'a> for UiStyle<'a> {
+impl<'a> UiStyleWithAlignmentExt<'a> for UiStyle<'a> {
     fn with_alignment(&mut self, alignment: &ReactorAlignment) -> &mut UiStyle<'a> {
         if let Some(self_align) = &alignment.self_alignment {
             self.with_self_alignment(self_align);
@@ -57,4 +57,17 @@ impl<'a> StyleWithAlignmentExt<'a> for UiStyle<'a> {
 
         self
     }
+}
+
+/// Calls the callback when the widget is clicked (pressed and released).
+/// Note: This has exclusive World access and thus can't be used in parallel with other systems.
+/// That means that if you are doing a lot of stuff, or doing things every frame it's going to get
+/// expensive Use with caution.
+pub trait StyleBuilderWithAlignmentExt {
+    /// Adds all alignment to the widget.
+    fn with_alignment(&mut self, alignment: &ReactorAlignment) -> &mut StyleBuilder;
+    /// Adds self alignment to the widget.
+    fn with_self_alignment(&mut self, alignment: &ReactorSelfAlignment) -> &mut StyleBuilder;
+    /// Adds child alignment to the widget.
+    fn with_child_alignment(&mut self, alignment: &ReactorChildAlignment) -> &mut StyleBuilder;
 }

@@ -39,9 +39,6 @@ pub use system::*;
 // pub struct PerfUiEntryFixedOverstep;
 
 // #[derive(Component, Debug, Clone)]
-// pub struct PerfUiEntryFPS;
-
-// #[derive(Component, Debug, Clone)]
 // pub struct PerfUiEntryFPSWorst;
 
 // #[derive(Component, Debug, Clone)]

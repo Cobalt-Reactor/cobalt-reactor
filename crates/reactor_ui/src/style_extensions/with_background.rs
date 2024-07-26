@@ -2,12 +2,12 @@ use crate::{prelude::*, sickle::prelude::*};
 use bevy::prelude::*;
 
 /// Fast handling of `ReactorBackground`.
-pub trait StyleWithBackgroundExt {
+pub trait UiStyleWithBackgroundExt {
     /// Calls `callback` when the widget is clicked.
     fn with_background(&mut self, background: &ReactorBackground) -> &mut Self;
 }
 
-impl StyleWithBackgroundExt for UiBuilder<'_, Entity> {
+impl UiStyleWithBackgroundExt for UiBuilder<'_, Entity> {
     fn with_background(&mut self, background: &ReactorBackground) -> &mut Self {
         let background = background.clone();
 

@@ -11,6 +11,11 @@ pub trait UiOnDraggableDroppedExt<'a> {
         &mut self,
         callback: impl IntoSystem<(), (), Marker>,
     ) -> &mut EntityCommands<'a>;
+
+    /// Emits the event when an object that is being dragged is dropped on the widget.
+    fn on_draggable_dropped_event<F: Event + From<ListenerInput<Pointer<Drop>>>>(
+        &mut self,
+    ) -> &mut EntityCommands<'a>;
 }
 
 impl<'a> UiOnDraggableDroppedExt<'a> for EntityCommands<'a> {
@@ -19,5 +24,11 @@ impl<'a> UiOnDraggableDroppedExt<'a> for EntityCommands<'a> {
         callback: impl IntoSystem<(), (), Marker>,
     ) -> &mut EntityCommands<'a> {
         self.insert(On::<Pointer<Drop>>::run(callback))
+    }
+
+    fn on_draggable_dropped_event<F: Event + From<ListenerInput<Pointer<Drop>>>>(
+        &mut self,
+    ) -> &mut EntityCommands<'a> {
+        self.insert(On::<Pointer<Drop>>::send_event::<F>())
     }
 }

@@ -22,3 +22,5 @@ mod corner_radius;
 pub use corner_radius::*;
 mod border;
 pub use border::*;
+mod icon;
+pub use icon::*;

@@ -3,24 +3,24 @@ use crate::{entries::*, prelude::*};
 use bevy::prelude::*;
 use reactor_ui::{prelude::*, sickle::prelude::*};
 
-impl ReactorPerfUiWidget for ReactorPerfPanel {
+impl ReactorPerfUiPanel for ReactorPerfPanel {
     type Config = PerfPanelConfig;
 
-    fn setup(mut commands: Commands, config: Res<Self::Config>) {
+    fn setup(app: &mut App, config: Self::Config) {
         if config.fps {
-            PerfUiEntryFps::setup(commands.reborrow());
+            PerfUiEntryFps::setup(app);
         }
 
         if config.ecs {
-            PerfUiEntryEcs::setup(commands.reborrow());
+            PerfUiEntryEcs::setup(app);
         }
 
         if config.window {
-            PerfUiEntryWindow::setup(commands.reborrow());
+            PerfUiEntryWindow::setup(app);
         }
 
         if config.system {
-            PerfUiEntrySystem::setup(commands.reborrow());
+            PerfUiEntrySystem::setup(app);
         }
     }
 
@@ -45,6 +45,8 @@ impl ReactorPerfUiWidget for ReactorPerfPanel {
                         PerfUiEntrySystem::spawn(list);
                     }
                 });
-            });
+            })
+            .entity_commands()
+            .insert(ReactorPerfPanel);
     }
 }

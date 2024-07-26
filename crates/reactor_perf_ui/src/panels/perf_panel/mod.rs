@@ -4,8 +4,9 @@ mod widget_impl;
 pub use config::*;
 
 use bevy::prelude::*;
+use reactor_ui::sickle::{theme::UiContext, UiContext};
 
-#[derive(Debug, Component, Default)]
+#[derive(Debug, Component, Default, UiContext)]
 pub struct ReactorPerfPanel;
 
 impl ReactorPerfPanel {

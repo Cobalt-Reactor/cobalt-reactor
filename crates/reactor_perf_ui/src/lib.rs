@@ -1,7 +1,9 @@
 #![doc = include_str!("../README.md")]
 mod app_ext;
-mod defines;
 mod entries;
+mod fonts;
+mod icons;
+mod panels;
 mod plugin;
 mod schedule;
 mod utils;
@@ -9,8 +11,8 @@ mod widgets;
 
 /// Crate prelude
 pub mod prelude {
-    pub(crate) use crate::{app_ext::*, defines::*, widgets::*};
+    pub(crate) use crate::{app_ext::*, panels::*, widgets::*};
     pub use crate::{
-        plugin::ReactorPerfUiPlugin, schedule::ReactorPerfUiSchedule, widgets::PerfPanelConfig,
+        panels::PerfPanelConfig, plugin::ReactorPerfUiPlugin, schedule::ReactorPerfUiSchedule,
     };
 }

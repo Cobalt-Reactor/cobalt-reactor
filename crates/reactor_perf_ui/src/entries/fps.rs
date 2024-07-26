@@ -1,89 +1,99 @@
 use super::PerfUiEntry;
+use crate::{prelude::*, utils};
 use bevy::{
-    diagnostic::DiagnosticsStore,
-    ecs::system::{lifetimeless::SRes, SystemParam},
+    self,
+    diagnostic::{DiagnosticsStore, FrameTimeDiagnosticsPlugin},
     prelude::*,
 };
-use reactor_ui::{prelude::*, sickle::prelude::*};
+use reactor_ui::sickle::prelude::*;
 
 #[derive(Component, Debug, Clone, Default)]
 pub struct PerfUiEntryFps;
 
 #[derive(Component, Debug, Clone, Default)]
-pub struct PerfUiEntryFpsLabel;
+pub struct PerfUiEntryFpsAvgLabel;
 
 #[derive(Component, Debug, Clone, Default)]
-pub struct PerfUiEntryFpsData;
+pub struct PerfUiEntryFpsAvgData;
 
-impl PerfUiEntry for PerfUiEntryFps {
-    fn setup(_: Commands) {}
+#[derive(Component, Debug, Clone, Default)]
+pub struct PerfUiEntryFpsWorstLabel;
 
-    type SystemParamUpdate = SRes<DiagnosticsStore>;
-
-    fn spawn(list: &mut UiBuilder<Entity>) {
-        let config = fps_list_item_config();
-        list.list_item(config.clone(), |item| {
-            item.with_background(&config.background)
-                .style()
-                .width(Val::Percent(100.0))
-                .min_width(Val::Percent(100.0))
-                .entity_commands()
-                .insert(PerfUiEntryFps);
-
-            // TODO: Add a small border between columns and align content to the center vertically
-            item.column(|col| {
-                col.style()
-                    .width(Val::Percent(50.0))
-                    .min_width(Val::Percent(50.0))
-                    .height(config.size.height)
-                    .entity_commands()
-                    .insert(PerfUiEntryFpsLabel);
-
-                col.label(LabelConfig {
-                    label: "FPS :".to_string(),
-                    ..default()
-                })
-                .style()
-                .width(Val::Percent(100.0))
-                .min_width(Val::Percent(100.0))
-                .height(config.size.height);
-            });
-
-            item.column(|col| {
-                col.style()
-                    .width(Val::Percent(50.0))
-                    .min_width(Val::Percent(50.0))
-                    .height(config.size.height)
-                    .entity_commands()
-                    .insert(PerfUiEntryFpsLabel);
-
-                col.label(LabelConfig {
-                    label: "1.0".to_string(),
-                    ..default()
-                })
-                .style()
-                .width(Val::Percent(100.0))
-                .min_width(Val::Percent(100.0))
-                .height(config.size.height);
-            });
-        });
-    }
-
-    fn update(_: Entity, _: &mut <Self::SystemParamUpdate as SystemParam>::Item<'_, '_>) {}
+#[derive(Component, Debug, Clone)]
+pub struct PerfUiEntryFpsWorstData {
+    pub(crate) worst_fps: f64,
 }
 
-pub fn fps_list_item_config() -> ReactorListItemConfig {
-    ReactorListItemConfig {
-        background: ReactorBackground::Flat(ReactorFlatBackground {
-            border_config: Some(ReactorBorder {
-                border_color: Color::Srgba(tailwind::GRAY_900),
-                border_width: UiRect::vertical(Val::Px(2.0)),
-            }),
-            ..default()
-        }),
-        size: ReactorSize {
-            height: Val::Px(24.0),
-            ..default()
-        },
+impl Default for PerfUiEntryFpsWorstData {
+    fn default() -> Self {
+        Self {
+            worst_fps: f64::MAX,
+        }
+    }
+}
+
+impl PerfUiEntry for PerfUiEntryFps {
+    fn setup(app: &mut App) {
+        app.add_systems(
+            Update,
+            (Self::update_fps, Self::update_fps_worst).in_set(ReactorPerfUiSchedule::Update),
+        );
+    }
+
+    fn spawn(list: &mut UiBuilder<Entity>) {
+        let config = PanelEntryCollapsibleConfig {
+            label: "FPS".into(),
+        };
+
+        // Add a collapsible List Item here with other list items in it
+        list.panel_entry_collapsible(config, |collapse| {
+            collapse.panel_entry_text(PanelEntryTextConfig {
+                title_text: "FPS (avg):".to_string(),
+                title_component: PerfUiEntryFpsAvgLabel,
+                content_text: "1.0".to_string(),
+                content_component: PerfUiEntryFpsAvgData,
+            });
+
+            collapse.panel_entry_text(PanelEntryTextConfig {
+                title_text: "FPS (worst):".to_string(),
+                title_component: PerfUiEntryFpsWorstLabel,
+                content_text: "1.0".to_string(),
+                content_component: PerfUiEntryFpsWorstData::default(),
+            });
+        });
+
+        list.insert(PerfUiEntryFps);
+    }
+}
+
+impl PerfUiEntryFps {
+    fn update_fps(
+        mut text_children: Query<&mut Text, With<PerfUiEntryFpsAvgData>>,
+        diagnostics: Res<DiagnosticsStore>,
+    ) {
+        for mut text in text_children.iter_mut() {
+            let fps = diagnostics
+                .get(&FrameTimeDiagnosticsPlugin::FPS)
+                .and_then(bevy::diagnostic::Diagnostic::average)
+                .unwrap_or(0.0);
+            text.sections[0].value = utils::format_pretty_float(3, 0, fps);
+        }
+    }
+
+    fn update_fps_worst(
+        mut text_children: Query<(&mut Text, &mut PerfUiEntryFpsWorstData)>,
+        diagnostics: Res<DiagnosticsStore>,
+    ) {
+        for (mut text, mut data) in text_children.iter_mut() {
+            let fps = diagnostics
+                .get(&FrameTimeDiagnosticsPlugin::FPS)
+                .and_then(bevy::diagnostic::Diagnostic::average)
+                .unwrap_or(0.0);
+
+            if fps < data.worst_fps {
+                data.worst_fps = fps;
+                text.sections[0].value = utils::format_pretty_float(3, 0, fps);
+            }
+        }
     }
 }

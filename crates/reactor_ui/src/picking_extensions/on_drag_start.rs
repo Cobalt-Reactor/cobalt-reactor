@@ -11,6 +11,11 @@ pub trait UiOnDragStartExt<'a> {
         &mut self,
         callback: impl IntoSystem<(), (), Marker>,
     ) -> &mut EntityCommands<'a>;
+
+    /// Emits the event when the widget starts being dragged.
+    fn on_drag_start_event<F: Event + From<ListenerInput<Pointer<DragStart>>>>(
+        &mut self,
+    ) -> &mut EntityCommands<'a>;
 }
 
 impl<'a> UiOnDragStartExt<'a> for EntityCommands<'a> {
@@ -19,5 +24,12 @@ impl<'a> UiOnDragStartExt<'a> for EntityCommands<'a> {
         callback: impl IntoSystem<(), (), Marker>,
     ) -> &mut EntityCommands<'a> {
         self.insert(On::<Pointer<DragStart>>::run(callback))
+    }
+
+    /// Emits the event when the widget starts being dragged.
+    fn on_drag_start_event<F: Event + From<ListenerInput<Pointer<DragStart>>>>(
+        &mut self,
+    ) -> &mut EntityCommands<'a> {
+        self.insert(On::<Pointer<DragStart>>::send_event::<F>())
     }
 }

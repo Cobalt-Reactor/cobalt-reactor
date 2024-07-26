@@ -6,10 +6,15 @@ use bevy::{ecs::system::EntityCommands, prelude::*};
 /// That means that if you are doing a lot of stuff, or doing things every frame it's going to get
 /// expensive Use with caution.
 pub trait UiOnPressedExt<'a> {
-    /// Creates a button.
+    /// Calls the callback when the widget is clicked, on button press.
     fn on_pressed<Marker>(
         &mut self,
         callback: impl IntoSystem<(), (), Marker>,
+    ) -> &mut EntityCommands<'a>;
+
+    /// Emits the event when the widget is clicked, on button press.
+    fn on_pressed_event<F: Event + From<ListenerInput<Pointer<Down>>>>(
+        &mut self,
     ) -> &mut EntityCommands<'a>;
 }
 
@@ -19,5 +24,11 @@ impl<'a> UiOnPressedExt<'a> for EntityCommands<'a> {
         callback: impl IntoSystem<(), (), Marker>,
     ) -> &mut EntityCommands<'a> {
         self.insert(On::<Pointer<Down>>::run(callback))
+    }
+
+    fn on_pressed_event<F: Event + From<ListenerInput<Pointer<Down>>>>(
+        &mut self,
+    ) -> &mut EntityCommands<'a> {
+        self.insert(On::<Pointer<Down>>::send_event::<F>())
     }
 }

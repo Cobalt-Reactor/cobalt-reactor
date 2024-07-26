@@ -11,6 +11,11 @@ pub trait UiOnHoverStartExt<'a> {
         &mut self,
         callback: impl IntoSystem<(), (), Marker>,
     ) -> &mut EntityCommands<'a>;
+
+    /// Emits the event when the widget is hovered over and that hover starts.
+    fn on_hover_start_event<F: Event + From<ListenerInput<Pointer<Over>>>>(
+        &mut self,
+    ) -> &mut EntityCommands<'a>;
 }
 
 impl<'a> UiOnHoverStartExt<'a> for EntityCommands<'a> {
@@ -19,5 +24,11 @@ impl<'a> UiOnHoverStartExt<'a> for EntityCommands<'a> {
         callback: impl IntoSystem<(), (), Marker>,
     ) -> &mut EntityCommands<'a> {
         self.insert(On::<Pointer<Over>>::run(callback))
+    }
+
+    fn on_hover_start_event<F: Event + From<ListenerInput<Pointer<Over>>>>(
+        &mut self,
+    ) -> &mut EntityCommands<'a> {
+        self.insert(On::<Pointer<Over>>::send_event::<F>())
     }
 }

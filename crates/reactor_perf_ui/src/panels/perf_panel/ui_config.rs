@@ -1,21 +1,22 @@
-#![allow(dead_code)]
-use bevy::{color::palettes::tailwind, prelude::*};
-use reactor_core::ui::*;
+use bevy::color::palettes::tailwind;
+use reactor_ui::prelude::*;
 
-pub fn floating_window_config() -> ReactorFloatingWindowConfig {
+use crate::fonts;
+
+pub fn perf_panel_ui_config() -> ReactorFloatingWindowConfig {
     ReactorFloatingWindowConfig {
         size: ReactorSize {
-            width: Val::Px(320.0),
-            height: Val::Px(768.0),
+            width: Val::Px(320.0).into(),
+            height: Val::Px(768.0).into(),
         },
         position: ReactorPosition {
             position_type: PositionType::Absolute,
             left: Some(Val::Px(32.0)),
             top: Some(Val::Px(32.0)),
-            ..default()
+            ..Default::default()
         },
         background: ReactorBackground::Flat(ReactorFlatBackground {
-            background_color: Some(Color::Srgba(tailwind::GRAY_700)),
+            background_color: Some(Color::Srgba(tailwind::GRAY_600)),
             corner_radius: Some(ReactorCornerRadius::from(10.0)),
             border_config: Some(ReactorBorder {
                 border_color: Color::Srgba(tailwind::GRAY_900),
@@ -23,11 +24,11 @@ pub fn floating_window_config() -> ReactorFloatingWindowConfig {
             }),
         }),
         header_config: Some(ReactorHeaderConfig {
-            label: "Floating Window".into(),
+            label: "Performance".into(),
             font: Some(ReactorFontConfig {
-                size: 24.0,
+                size: 16.0,
                 color: Color::Srgba(tailwind::GRAY_50),
-                path: "fonts/std.ttf".into(),
+                font: fonts::STD.into(),
             }),
         }),
     }

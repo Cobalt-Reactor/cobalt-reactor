@@ -11,6 +11,20 @@ pub trait StyleWithSizeExt<'a> {
 
 impl<'a> StyleWithSizeExt<'a> for UiStyle<'a> {
     fn with_size(&mut self, size: &ReactorSize) -> &mut UiStyle<'a> {
-        self.width(size.width).height(size.height)
+        match &size.width {
+            ReactorSizeType::Set(width) => self.width(width.base).max_width(width.max),
+            ReactorSizeType::Fill => self
+                .min_width(Val::Percent(100.0))
+                .justify_self(JustifySelf::Stretch),
+        };
+
+        match &size.height {
+            ReactorSizeType::Set(height) => self.height(height.base).max_height(height.max),
+            ReactorSizeType::Fill => self
+                .min_height(Val::Percent(100.0))
+                .align_self(AlignSelf::Stretch),
+        };
+
+        self
     }
 }

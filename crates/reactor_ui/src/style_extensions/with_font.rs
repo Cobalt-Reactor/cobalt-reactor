@@ -6,12 +6,20 @@ use bevy::{
 
 impl EntityCommand for ReactorFontConfig {
     fn apply(self, entity: Entity, world: &mut World) {
-        let asset_server = world.resource::<AssetServer>();
-        let font = asset_server.load(&self.path);
+        let font = match self.font {
+            ReactorFontType::Path(path) => {
+                let asset_server = world.resource::<AssetServer>();
+                Some(asset_server.load(&path))
+            }
+            ReactorFontType::Handle(handle) => Some(handle),
+            ReactorFontType::BuiltIn => None,
+        };
 
         if let Some(mut text) = world.entity_mut(entity).get_mut::<Text>() {
             for text_section in &mut text.sections {
-                text_section.style.font = font.clone();
+                if let Some(font) = font.clone() {
+                    text_section.style.font = font;
+                }
                 text_section.style.font_size = self.size;
                 text_section.style.color = self.color;
             }

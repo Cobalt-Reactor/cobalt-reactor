@@ -1,6 +1,4 @@
-mod perf_panel;
-pub use perf_panel::*;
-mod widget_trait;
-pub use widget_trait::*;
-
-// Also want an entity Hierarchy
+mod panel_entry_text;
+pub use panel_entry_text::*;
+mod panel_entry_collapsible;
+pub use panel_entry_collapsible::*;

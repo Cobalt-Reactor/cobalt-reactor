@@ -11,6 +11,11 @@ pub trait UiOnDraggableExitedExt<'a> {
         &mut self,
         callback: impl IntoSystem<(), (), Marker>,
     ) -> &mut EntityCommands<'a>;
+
+    /// Emits the event when an object that is being dragged leaves the widget.
+    fn on_draggable_exited_event<F: Event + From<ListenerInput<Pointer<DragLeave>>>>(
+        &mut self,
+    ) -> &mut EntityCommands<'a>;
 }
 
 impl<'a> UiOnDraggableExitedExt<'a> for EntityCommands<'a> {
@@ -19,5 +24,11 @@ impl<'a> UiOnDraggableExitedExt<'a> for EntityCommands<'a> {
         callback: impl IntoSystem<(), (), Marker>,
     ) -> &mut EntityCommands<'a> {
         self.insert(On::<Pointer<DragLeave>>::run(callback))
+    }
+
+    fn on_draggable_exited_event<F: Event + From<ListenerInput<Pointer<DragLeave>>>>(
+        &mut self,
+    ) -> &mut EntityCommands<'a> {
+        self.insert(On::<Pointer<DragLeave>>::send_event::<F>())
     }
 }

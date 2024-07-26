@@ -3,20 +3,7 @@
 //! Mostly stuff for implementing new `PerfUiEntry` types and
 //! formatting of values.
 #![allow(dead_code)]
-use std::sync::atomic::{AtomicI32, Ordering};
-
 use bevy::{math::FloatOrd, prelude::*, utils::Duration};
-
-static NEXT_SORT_KEY: AtomicI32 = AtomicI32::new(1);
-
-/// Generate a new incrementally-increasing sort key.
-///
-/// Useful for `Default` impls of `PerfUiEntry` types, so
-/// that whenever a user constructs a new entry, it always
-/// appears after any previously-constructed entries.
-pub fn next_sort_key() -> i32 {
-    NEXT_SORT_KEY.fetch_add(1, Ordering::SeqCst)
-}
 
 /// Represents a color gradient with any number of stops.
 ///

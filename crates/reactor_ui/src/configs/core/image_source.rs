@@ -3,11 +3,13 @@ use bevy::prelude::*;
 
 /// Configuration for an image source.
 #[derive(Debug, Clone)]
-pub enum ReactorImageBackground {
+pub enum ReactorImageSource {
     /// A path to an image file.
     Path(String),
     /// A path to an image file and a layout for a texture atlas.
     Atlas(String, ReactorAtlasLayout),
+    /// A path to an image file.
+    Handle(Handle<Image>),
 }
 
 /// Configuration a texture atlas.
@@ -25,22 +27,24 @@ pub struct ReactorAtlasLayout {
     pub offset: Option<UVec2>,
 }
 
-impl From<ReactorImageBackground> for ImageSource {
-    fn from(source: ReactorImageBackground) -> Self {
+impl From<ReactorImageSource> for ImageSource {
+    fn from(source: ReactorImageSource) -> Self {
         match source {
-            ReactorImageBackground::Path(path) => ImageSource::Path(path),
-            ReactorImageBackground::Atlas(path, layout) => ImageSource::Atlas(path, layout.into()),
+            ReactorImageSource::Path(path) => ImageSource::Path(path),
+            ReactorImageSource::Atlas(path, layout) => ImageSource::Atlas(path, layout.into()),
+            ReactorImageSource::Handle(handle) => ImageSource::Handle(handle),
         }
     }
 }
 
-impl From<&ReactorImageBackground> for ImageSource {
-    fn from(source: &ReactorImageBackground) -> Self {
+impl From<&ReactorImageSource> for ImageSource {
+    fn from(source: &ReactorImageSource) -> Self {
         match source {
-            ReactorImageBackground::Path(path) => ImageSource::Path(path.to_string()),
-            ReactorImageBackground::Atlas(path, layout) => {
+            ReactorImageSource::Path(path) => ImageSource::Path(path.to_string()),
+            ReactorImageSource::Atlas(path, layout) => {
                 ImageSource::Atlas(path.to_string(), layout.into())
             }
+            ReactorImageSource::Handle(handle) => ImageSource::Handle(handle.clone()),
         }
     }
 }
@@ -69,14 +73,20 @@ impl From<&ReactorAtlasLayout> for TextureAtlasLayout {
     }
 }
 
-impl From<&str> for ReactorImageBackground {
+impl From<&str> for ReactorImageSource {
     fn from(path: &str) -> Self {
         Self::Path(path.to_string())
     }
 }
 
-impl From<String> for ReactorImageBackground {
+impl From<String> for ReactorImageSource {
     fn from(path: String) -> Self {
         Self::Path(path)
+    }
+}
+
+impl From<Handle<Image>> for ReactorImageSource {
+    fn from(handle: Handle<Image>) -> Self {
+        Self::Path(handle.id().to_string())
     }
 }

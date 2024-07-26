@@ -20,7 +20,7 @@ impl<'w, 's> UiReactorFloatingWindowExt<'w, 's> for UiBuilder<'_, UiRoot> {
     fn floating_window(
         &mut self,
         config: ReactorFloatingWindowConfig,
-        content_builder: impl FnOnce(&mut UiBuilder<Entity>),
+        spawn_children: impl FnOnce(&mut UiBuilder<Entity>),
     ) -> UiBuilder<Entity> {
         let base = ReactorBaseConfig {
             position: config.position.clone(),
@@ -75,7 +75,7 @@ impl<'w, 's> UiReactorFloatingWindowExt<'w, 's> for UiBuilder<'_, UiRoot> {
                             label.entity_commands().with_font(font);
                         }
                     });
-                    content_builder(column);
+                    spawn_children(column);
                 });
             }
         })

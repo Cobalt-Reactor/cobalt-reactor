@@ -11,6 +11,11 @@ pub trait UiOnClickExt<'a> {
         &mut self,
         callback: impl IntoSystem<(), (), Marker>,
     ) -> &mut EntityCommands<'a>;
+
+    /// Emits the event when the object is clicked.
+    fn on_click_event<F: Event + From<ListenerInput<Pointer<Click>>>>(
+        &mut self,
+    ) -> &mut EntityCommands<'a>;
 }
 
 impl<'a> UiOnClickExt<'a> for EntityCommands<'a> {
@@ -19,5 +24,12 @@ impl<'a> UiOnClickExt<'a> for EntityCommands<'a> {
         callback: impl IntoSystem<(), (), Marker>,
     ) -> &mut EntityCommands<'a> {
         self.insert(On::<Pointer<Click>>::run(callback))
+    }
+
+    /// Emits the event when the object is clicked.
+    fn on_click_event<F: Event + From<ListenerInput<Pointer<Click>>>>(
+        &mut self,
+    ) -> &mut EntityCommands<'a> {
+        self.insert(On::<Pointer<Click>>::send_event::<F>())
     }
 }

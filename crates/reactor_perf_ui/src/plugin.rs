@@ -1,5 +1,5 @@
 use crate::prelude::*;
-use bevy::{asset::load_internal_binary_asset, prelude::*};
+use bevy::{asset::io::embedded::EmbeddedAssetRegistry, prelude::*};
 
 /// The main plugin for the Reactor Perf UI crate. Add this to your app to enable the Reactor Perf
 /// UIs.
@@ -59,30 +59,9 @@ impl ReactorPerfUiPlugin {
     fn configure_sets(&self, _: &mut App) {}
 
     fn load_assets(&self, app: &mut App) {
-        load_internal_binary_asset!(
-            app,
-            font_defines::BOLD,
-            "fonts/bold.ttf",
-            |bytes: &[u8], _path: String| { Font::try_from_bytes(bytes.to_vec()).unwrap() }
-        );
-        load_internal_binary_asset!(
-            app,
-            font_defines::STD,
-            "fonts/std.ttf",
-            |bytes: &[u8], _path: String| { Font::try_from_bytes(bytes.to_vec()).unwrap() }
-        );
-        load_internal_binary_asset!(
-            app,
-            font_defines::NARROW,
-            "fonts/narrow.ttf",
-            |bytes: &[u8], _path: String| { Font::try_from_bytes(bytes.to_vec()).unwrap() }
-        );
-        load_internal_binary_asset!(
-            app,
-            font_defines::SQUARE,
-            "fonts/square.ttf",
-            |bytes: &[u8], _path: String| { Font::try_from_bytes(bytes.to_vec()).unwrap() }
-        );
+        app.init_resource::<EmbeddedAssetRegistry>();
+        crate::fonts::load(app);
+        crate::icons::load(app);
     }
 
     fn add_widgets(&self, app: &mut App) {

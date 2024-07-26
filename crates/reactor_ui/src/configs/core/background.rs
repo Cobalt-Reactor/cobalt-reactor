@@ -5,7 +5,7 @@ use bevy::prelude::*;
 #[derive(Debug, Clone)]
 pub enum ReactorBackground {
     /// A background using an image source.
-    Image(ReactorImageBackground),
+    Image(ReactorImageSource),
     /// A flat background.
     Flat(ReactorFlatBackground),
     /// No background.

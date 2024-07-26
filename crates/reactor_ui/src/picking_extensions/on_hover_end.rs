@@ -11,6 +11,11 @@ pub trait UiOnHoverEndExt<'a> {
         &mut self,
         callback: impl IntoSystem<(), (), Marker>,
     ) -> &mut EntityCommands<'a>;
+
+    /// Emits the event when the widget is hovered over, when that hover ends.
+    fn on_hover_end_event<F: Event + From<ListenerInput<Pointer<Out>>>>(
+        &mut self,
+    ) -> &mut EntityCommands<'a>;
 }
 
 impl<'a> UiOnHoverEndExt<'a> for EntityCommands<'a> {
@@ -19,5 +24,11 @@ impl<'a> UiOnHoverEndExt<'a> for EntityCommands<'a> {
         callback: impl IntoSystem<(), (), Marker>,
     ) -> &mut EntityCommands<'a> {
         self.insert(On::<Pointer<Out>>::run(callback))
+    }
+
+    fn on_hover_end_event<F: Event + From<ListenerInput<Pointer<Out>>>>(
+        &mut self,
+    ) -> &mut EntityCommands<'a> {
+        self.insert(On::<Pointer<Out>>::send_event::<F>())
     }
 }

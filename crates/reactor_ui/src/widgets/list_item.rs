@@ -10,7 +10,7 @@ pub trait UiReactorListItemExt<'w, 's> {
     fn list_item(
         &mut self,
         config: ReactorListItemConfig,
-        content: impl FnOnce(&mut UiBuilder<Entity>),
+        spawn_children: impl FnOnce(&mut UiBuilder<Entity>),
     ) -> UiBuilder<Entity>;
 }
 
@@ -20,21 +20,16 @@ impl<'w, 's> UiReactorListItemExt<'w, 's> for UiBuilder<'_, Entity> {
     fn list_item(
         &mut self,
         config: ReactorListItemConfig,
-        content_builder: impl FnOnce(&mut UiBuilder<Entity>),
+        children: impl FnOnce(&mut UiBuilder<Entity>),
     ) -> UiBuilder<Entity> {
         self.row(|row| {
             row.with_background(&config.background);
             row.style()
-                .height(config.size.height)
-                .justify_self(JustifySelf::Start)
-                .align_self(AlignSelf::Start)
-                .justify_items(JustifyItems::Start)
-                .align_items(AlignItems::Start)
-                .justify_content(JustifyContent::SpaceBetween)
+                .with_size(&config.size)
                 .entity_commands()
                 .insert(ReactorListItem);
 
-            content_builder(row);
+            children(row);
         })
     }
 }

@@ -9,3 +9,7 @@ mod list;
 pub use list::*;
 mod list_item;
 pub use list_item::*;
+mod collapsible;
+pub use collapsible::*;
+mod plugin;
+pub(crate) use plugin::*;

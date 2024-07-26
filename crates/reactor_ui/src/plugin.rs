@@ -1,5 +1,6 @@
 use crate::{
     picking::{backends::raycast::RaycastBackendSettings, DefaultPickingPlugins},
+    prelude::WidgetPlugin,
     sickle::SickleUiPlugin,
 };
 use bevy::prelude::*;
@@ -29,7 +30,8 @@ impl ReactorUiPlugin {
 
     fn add_plugins(&self, app: &mut App) {
         app.add_plugins(SickleUiPlugin)
-            .add_plugins(DefaultPickingPlugins);
+            .add_plugins(DefaultPickingPlugins)
+            .add_plugins(WidgetPlugin);
     }
 
     fn register_types(&self, _: &mut App) {}
