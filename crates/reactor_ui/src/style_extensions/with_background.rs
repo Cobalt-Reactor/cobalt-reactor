@@ -18,15 +18,22 @@ impl StyleWithBackgroundExt for UiBuilder<'_, Entity> {
             }
             ReactorBackground::Flat(flat) => {
                 self.entity_commands().insert(NodeBundle::default());
-                self.style()
-                    .border_color(flat.border_color)
-                    .background_color(flat.background_color)
-                    .border_radius(flat.corner_radius.into());
 
-                if let Some(border_width) = flat.border_width {
-                    self.style().border(UiRect::all(border_width));
+                if let Some(color) = flat.background_color {
+                    self.style().background_color(color);
+                }
+
+                if let Some(corner_radius) = flat.corner_radius {
+                    self.style().border_radius(corner_radius.into());
+                }
+
+                if let Some(config) = flat.border_config {
+                    self.style()
+                        .border_color(config.border_color)
+                        .border(config.border_width);
                 }
             }
+            ReactorBackground::None => {}
         };
 
         self

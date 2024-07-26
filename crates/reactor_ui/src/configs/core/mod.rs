@@ -20,3 +20,5 @@ mod background;
 pub use background::*;
 mod corner_radius;
 pub use corner_radius::*;
+mod border;
+pub use border::*;

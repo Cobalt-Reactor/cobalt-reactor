@@ -15,10 +15,12 @@ pub fn floating_window_config() -> ReactorFloatingWindowConfig {
             ..default()
         },
         background: ReactorBackground::Flat(ReactorFlatBackground {
-            background_color: Color::Srgba(tailwind::GRAY_700),
-            border_color: Color::Srgba(tailwind::GRAY_900),
-            corner_radius: ReactorCornerRadius::from(10.0),
-            border_width: Some(Val::Px(2.0)),
+            background_color: Some(Color::Srgba(tailwind::GRAY_700)),
+            corner_radius: Some(ReactorCornerRadius::from(10.0)),
+            border_config: Some(ReactorBorder {
+                border_color: Color::Srgba(tailwind::GRAY_900),
+                border_width: UiRect::all(Val::Px(2.0)),
+            }),
         }),
         header_config: Some(ReactorHeaderConfig {
             label: "Floating Window".into(),

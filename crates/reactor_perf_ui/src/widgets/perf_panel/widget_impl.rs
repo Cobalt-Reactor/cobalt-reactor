@@ -27,27 +27,24 @@ impl ReactorPerfUiWidget for ReactorPerfPanel {
     fn spawn(mut commands: Commands, config: Res<Self::Config>) {
         commands
             .ui_builder(UiRoot)
-            .floating_window(perf_panel_ui_config())
-            .row(|row| {
-                row.style()
-                    .width(Val::Percent(100.0))
-                    .min_width(Val::Percent(100.0));
+            .floating_window(perf_panel_ui_config(), |window| {
+                window.list(ReactorListConfig::default(), |list| {
+                    if config.fps {
+                        PerfUiEntryFps::spawn(list);
+                    }
 
-                if config.fps {
-                    PerfUiEntryFps::spawn(row);
-                }
+                    if config.ecs {
+                        PerfUiEntryEcs::spawn(list);
+                    }
 
-                if config.ecs {
-                    PerfUiEntryEcs::spawn(row);
-                }
+                    if config.window {
+                        PerfUiEntryWindow::spawn(list);
+                    }
 
-                if config.window {
-                    PerfUiEntryWindow::spawn(row);
-                }
-
-                if config.system {
-                    PerfUiEntrySystem::spawn(row);
-                }
+                    if config.system {
+                        PerfUiEntrySystem::spawn(list);
+                    }
+                });
             });
     }
 }
