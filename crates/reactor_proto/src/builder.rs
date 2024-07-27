@@ -103,7 +103,5 @@ impl<'a> EntityBuilderExt<'a> for World {
     }
 }
 
-// TODO: `entity_builder` extension for EntityCommands and the CommandQueue equiv that
-// returns an entity builder for the given entity
 // TODO: Create a common modules crate for many of the modules in Zombies (and refactor hearing and
 // vision to have optional Fixed or Unlimited range)
