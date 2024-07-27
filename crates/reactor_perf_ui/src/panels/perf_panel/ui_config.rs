@@ -6,8 +6,8 @@ use crate::fonts;
 pub fn perf_panel_ui_config() -> ReactorFloatingWindowConfig {
     ReactorFloatingWindowConfig {
         size: ReactorSize {
-            width: Val::Px(320.0).into(),
-            height: Val::Px(768.0).into(),
+            width: Val::Px(290.0).into(),
+            height: Val::Px(290.0).into(),
         },
         position: ReactorPosition {
             position_type: PositionType::Absolute,
