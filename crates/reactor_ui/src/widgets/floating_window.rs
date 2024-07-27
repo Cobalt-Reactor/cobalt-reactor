@@ -40,14 +40,17 @@ impl<'w, 's> UiReactorFloatingWindowExt<'w, 's> for UiBuilder<'_, UiRoot> {
         self.container(ReactorFloatingWindow, |window| {
             window
                 .with_background(&config.background)
-                .with_base_config(&base);
+                .with_base_config(&base)
+                .style()
+                .height(Val::Auto);
 
             if let Some(header) = config.header_config {
                 window.column(|column| {
                     column
                         .style()
                         .width(Val::Percent(100.0))
-                        .min_width(Val::Percent(100.0));
+                        .min_width(Val::Percent(100.0))
+                        .height(Val::Auto);
 
                     column.row(|row| {
                         row.style()

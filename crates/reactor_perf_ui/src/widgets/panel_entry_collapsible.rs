@@ -54,7 +54,7 @@ fn internal_config(config: &PanelEntryCollapsibleConfig) -> ReactorCollapsibleCo
         open: true,
         background: ReactorBackground::default(),
         size: ReactorSize {
-            width: ReactorSizeType::Set(Val::Px(320.0).into()),
+            width: Val::Percent(100.0).into(),
             height: ReactorSizeType::Set(Val::Px(24.0).into()),
         },
         label: ReactorTextLabelConfig {

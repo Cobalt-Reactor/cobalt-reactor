@@ -2,27 +2,27 @@ use crate::{prelude::*, sickle::prelude::*};
 use bevy::prelude::*;
 
 #[derive(Component)]
-struct ReactorList;
+struct ReactorScrollableList;
 
 /// Fast way to create a list
-pub trait UiReactorListExt<'w, 's> {
+pub trait UiReactorScrollableListExt<'w, 's> {
     /// Creates a list.
-    fn list(
+    fn scrollable_list(
         &mut self,
-        config: ReactorListConfig,
+        config: ReactorScrollableListConfig,
         content: impl FnOnce(&mut UiBuilder<Entity>),
     ) -> UiBuilder<Entity>;
 }
 
-impl<'w, 's> UiReactorListExt<'w, 's> for UiBuilder<'_, Entity> {
+impl<'w, 's> UiReactorScrollableListExt<'w, 's> for UiBuilder<'_, Entity> {
     /// Creates a list
     /// Returns an `UiBuilder` for further customization.
-    fn list(
+    fn scrollable_list(
         &mut self,
-        config: ReactorListConfig,
+        config: ReactorScrollableListConfig,
         spawn_children: impl FnOnce(&mut UiBuilder<Entity>),
     ) -> UiBuilder<Entity> {
-        self.scroll_view(Some(ScrollAxis::Vertical), |scroll| {
+        let mut view = self.scroll_view(Some(ScrollAxis::Vertical), |scroll| {
             scroll.with_background(&config.background);
 
             scroll
@@ -35,16 +35,20 @@ impl<'w, 's> UiReactorListExt<'w, 's> for UiBuilder<'_, Entity> {
                 .justify_items(JustifyItems::Start)
                 .align_items(AlignItems::Start)
                 .entity_commands()
-                .insert(ReactorList);
+                .insert(ReactorScrollableList);
 
             spawn_children(scroll);
-        })
+        });
+
+        view.style().height(Val::Auto).min_height(Val::Auto);
+
+        view
     }
 }
 
 /// Configuration for a list widget.
 #[derive(Debug, Clone, Default)]
-pub struct ReactorListConfig {
+pub struct ReactorScrollableListConfig {
     /// The background of the list.
     pub background: ReactorBackground,
     /// The size of the list (width is overridden to 100%)

@@ -7,7 +7,7 @@ pub fn perf_panel_ui_config() -> ReactorFloatingWindowConfig {
     ReactorFloatingWindowConfig {
         size: ReactorSize {
             width: Val::Px(290.0).into(),
-            height: Val::Px(290.0).into(),
+            height: Val::Auto.into(),
         },
         position: ReactorPosition {
             position_type: PositionType::Absolute,

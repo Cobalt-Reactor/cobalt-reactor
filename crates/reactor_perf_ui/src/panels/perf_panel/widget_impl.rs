@@ -33,7 +33,7 @@ impl ReactorPerfUiPanel for ReactorPerfPanel {
         commands
             .ui_builder(UiRoot)
             .floating_window(perf_panel_ui_config(), |window| {
-                window.list(ReactorListConfig::default(), |list| {
+                window.growable_list(ReactorGrowableListConfig::default(), |list| {
                     if config.fps {
                         PerfUiEntryFps::spawn(list);
                     }
