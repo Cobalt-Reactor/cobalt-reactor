@@ -30,7 +30,7 @@ pub mod prelude {
     pub(crate) use crate::hot_reload::*;
 
     pub use crate::{
-        builder::EntityBuilder,
+        builder::{EntityBuilder, EntityBuilderExt},
         commands_ext::{SpawnPrototypeAsyncExt, SpawnPrototypeExt},
         id::Id,
         manifest_format::ManifestFormat,
