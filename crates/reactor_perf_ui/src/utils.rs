@@ -195,7 +195,7 @@ impl ColorGradient {
 
 /// Format a float in a pretty way.
 ///
-/// - Right aligned
+/// - Left aligned
 /// - Padded with spaces to accommodate total width (digits + precision + decimal point (if any))
 /// - Clamped to all 9s if above digits count (example: `99.999` if digits = 2 and precision = 3)
 pub fn format_pretty_float(digits: u8, precision: u8, mut value: f64) -> String {
@@ -207,7 +207,7 @@ pub fn format_pretty_float(digits: u8, precision: u8, mut value: f64) -> String 
     }
 
     format!(
-        "{number:>width$.prec$}",
+        "{number:<width$.prec$}",
         number = value,
         width = width_hint_pretty_float(digits, precision),
         prec = precision as usize,
@@ -225,7 +225,7 @@ pub fn width_hint_pretty_float(digits: u8, precision: u8) -> usize {
 
 /// Format an integer in a pretty way.
 ///
-/// - Right aligned
+/// - Left aligned
 /// - Padded with spaces to accommodate total width (digits)
 /// - Clamped to all 9s if above digits count (example: `99` if digits = 2)
 pub fn format_pretty_int(digits: u8, mut value: i64) -> String {
@@ -244,7 +244,7 @@ pub fn format_pretty_int(digits: u8, mut value: i64) -> String {
     };
 
     format!(
-        "{number:>width$}",
+        "{number:<width$}",
         number = value,
         width = width_hint_pretty_int(digits),
     )
@@ -287,45 +287,22 @@ pub fn format_pretty_time(precision: u8, value: Duration) -> String {
 
 /// Format time (provided as hours, minutes, seconds, nanoseconds) in a pretty way.
 ///
-/// - Right aligned
+/// - Left aligned
 /// - `HH:MM:SS.f*` (hours, minutes, seconds, fractional seconds)
-/// - Fractional part optional (precision = 0 to disable)
-/// - Automatically omits hours and minutes if they would be zero
-/// - Padded with spaces to accommodate maximum width
 pub fn format_pretty_time_hms(precision: u8, h: u32, m: u32, s: u32, nanos: u32) -> String {
     // sanitize
     let hrs = h % 100;
     let mins = m % 60;
     let secs = s % 60;
     let frac = nanos / 10u32.pow(9 - (precision as u32).min(9));
-    if precision > 0 {
-        if hrs > 0 {
-            return format!(
-                "{:2}:{:02}:{:02}.{:0w$}",
-                hrs,
-                mins,
-                secs,
-                frac,
-                w = precision as usize
-            );
-        } else if mins > 0 {
-            return format!(
-                "{:5}:{:02}.{:0w$}",
-                mins,
-                secs,
-                frac,
-                w = precision as usize
-            );
-        }
-        return format!("{:8}.{:0w$}", secs, frac, w = precision as usize);
-    }
-    if hrs > 0 {
-        format!("{:2}:{:02}:{:02}", hrs, mins, secs)
-    } else if mins > 0 {
-        format!("{:5}:{:02}", mins, secs)
-    } else {
-        format!("{:8}", secs)
-    }
+    format!(
+        "{:02}:{:02}:{:02}.{:0w$}",
+        hrs,
+        mins,
+        secs,
+        frac,
+        w = precision as usize
+    )
 }
 
 /// Width hint for a value formatted with `format_pretty_time`/`format_pretty_time_hms`

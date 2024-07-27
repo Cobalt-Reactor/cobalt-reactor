@@ -11,16 +11,21 @@ impl ReactorPerfUiPanel for ReactorPerfPanel {
             PerfUiEntryFps::setup(app);
         }
 
-        if config.ecs {
-            PerfUiEntryEngine::setup(app);
+        if config.time {
+            PerfUiEntryTime::setup(app);
         }
 
         if config.window {
             PerfUiEntryWindow::setup(app);
         }
 
+        #[cfg(feature = "sysinfo")]
         if config.system {
             PerfUiEntrySystem::setup(app);
+        }
+
+        if config.ecs {
+            PerfUiEntryEcs::setup(app);
         }
     }
 
@@ -33,16 +38,21 @@ impl ReactorPerfUiPanel for ReactorPerfPanel {
                         PerfUiEntryFps::spawn(list);
                     }
 
-                    if config.ecs {
-                        PerfUiEntryEngine::spawn(list);
+                    if config.time {
+                        PerfUiEntryTime::spawn(list);
                     }
 
                     if config.window {
                         PerfUiEntryWindow::spawn(list);
                     }
 
+                    #[cfg(feature = "sysinfo")]
                     if config.system {
                         PerfUiEntrySystem::spawn(list);
+                    }
+
+                    if config.ecs {
+                        PerfUiEntryEcs::spawn(list);
                     }
                 });
             })

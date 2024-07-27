@@ -76,7 +76,10 @@ impl<'w, 's> UiReactorCollapsibleExt<'w, 's> for UiBuilder<'_, Entity> {
         // Make a child container
         let mut container = self.panel("".to_string(), spawn_children);
         let container_id = container.id();
-        container.style().margin(UiRect::left(Val::Px(20.0)));
+        container
+            .style()
+            .margin(UiRect::left(Val::Px(20.0)))
+            .height(Val::Auto);
         if !config.open {
             self.commands().style(container_id).hide();
         }

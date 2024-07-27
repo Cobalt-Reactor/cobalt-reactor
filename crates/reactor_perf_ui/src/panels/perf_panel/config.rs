@@ -10,7 +10,10 @@ pub struct PerfPanelConfig {
     /// Show ECS data.
     pub(crate) ecs: bool,
     /// Show system data.
+    #[cfg(feature = "sysinfo")]
     pub(crate) system: bool,
+    /// Show time data.
+    pub(crate) time: bool,
 }
 
 impl PerfPanelConfig {
@@ -26,7 +29,7 @@ impl PerfPanelConfig {
     pub fn minimal() -> Self {
         Self {
             fps: true,
-            ecs: true,
+            time: true,
             ..default()
         }
     }
@@ -37,18 +40,15 @@ impl PerfPanelConfig {
             fps: true,
             window: true,
             ecs: true,
+            #[cfg(feature = "sysinfo")]
             system: true,
+            time: true,
         }
     }
 }
 
 impl Default for PerfPanelConfig {
     fn default() -> Self {
-        Self {
-            fps: true,
-            window: false,
-            ecs: false,
-            system: false,
-        }
+        Self::full()
     }
 }

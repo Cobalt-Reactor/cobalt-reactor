@@ -4,10 +4,14 @@ mod fps;
 pub use fps::*;
 mod window;
 pub use window::*;
-mod engine;
-pub use engine::*;
+mod ecs;
+pub use ecs::*;
+#[cfg(feature = "sysinfo")]
 mod system;
+#[cfg(feature = "sysinfo")]
 pub use system::*;
+mod time;
+pub use time::*;
 
 // use bevy::prelude::*;
 
@@ -25,31 +29,6 @@ pub use system::*;
 
 // #[derive(Component, Debug, Clone)]
 // pub struct PerfUiEntryCursorPosition;
-
-// #[derive(Component, Debug, Clone)]
-// pub struct PerfUiEntryRunningTime;
-
-// #[derive(Component, Debug, Clone)]
-// pub struct PerfUiEntryClock;
-
-// #[derive(Component, Debug, Clone)]
-// pub struct PerfUiEntryFixedTimeStepDuration;
-
-// #[derive(Component, Debug, Clone)]
-// pub struct PerfUiEntryFixedOverstep;
-
-// #[derive(Component, Debug, Clone)]
-// pub struct PerfUiEntryFrameTime;
-
-// #[derive(Component, Debug, Clone)]
-// pub struct PerfUiEntryFrameCount;
-
-// #[derive(Component, Debug, Clone)]
-// pub struct PerfUiEntryEntityCount;
-
-// #[cfg(feature = "sysinfo")]
-// #[derive(Component, Debug, Clone)]
-// pub struct PerfUiEntryCpuUsage;
 
 // #[cfg(feature = "sysinfo")]
 // #[derive(Component, Debug, Clone)]

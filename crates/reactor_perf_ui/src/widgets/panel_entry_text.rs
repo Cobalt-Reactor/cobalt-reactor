@@ -35,8 +35,8 @@ where
             item.column(|col| {
                 col.style()
                     .with_size(&internal_config.size)
-                    .width(Val::Percent(35.0))
-                    .min_width(Val::Percent(35.0))
+                    .width(Val::Percent(50.0))
+                    .min_width(Val::Percent(50.0))
                     .border_color(Color::Srgba(tailwind::GRAY_800))
                     .border(UiRect::left(Val::Px(2.0)));
 
@@ -63,8 +63,8 @@ where
             item.column(|col| {
                 col.style()
                     .with_size(&internal_config.size)
-                    .width(Val::Percent(65.0))
-                    .min_width(Val::Percent(65.0))
+                    .width(Val::Percent(50.0))
+                    .min_width(Val::Percent(50.0))
                     .border(UiRect {
                         left: Val::Px(2.0),
                         right: Val::Px(1.0),
