@@ -7,9 +7,10 @@ pub struct EntityBuilder<'a> {
 }
 
 pub enum EntityBuilderTarget<'a> {
-    Id(Entity, Commands<'a, 'a>),
-    Commands(&'a mut EntityCommands<'a>),
-    WorldMut(&'a mut EntityWorldMut<'a>),
+    World(Entity, &'a mut World),
+    Commands(Entity, &'a mut Commands<'a, 'a>),
+    EntityCommands(&'a mut EntityCommands<'a>),
+    EntityWorldMut(&'a mut EntityWorldMut<'a>),
 }
 
 impl<'a> EntityBuilder<'a> {
@@ -21,17 +22,22 @@ impl<'a> EntityBuilder<'a> {
     /// Adds a module to the associated entity
     pub fn install<M: Module + 'static>(&mut self, module: M) -> &Self {
         match &mut self.target {
-            EntityBuilderTarget::Commands(ref mut ec) => {
+            EntityBuilderTarget::EntityCommands(ref mut ec) => {
                 ec.add(move |mut ewm: EntityWorldMut| module.install(&mut ewm));
             }
-            EntityBuilderTarget::WorldMut(ref mut ewm) => {
+            EntityBuilderTarget::EntityWorldMut(ref mut ewm) => {
                 module.install(ewm);
             }
-            EntityBuilderTarget::Id(id, commands) => {
+            EntityBuilderTarget::Commands(id, commands) => {
                 if let Some(mut entity) = commands.get_entity(*id) {
                     entity.add(move |mut ewm: EntityWorldMut| {
                         module.install(&mut ewm);
                     });
+                }
+            }
+            EntityBuilderTarget::World(id, world) => {
+                if let Some(mut ewm) = world.get_entity_mut(*id) {
+                    module.install(&mut ewm);
                 }
             }
         };
@@ -43,17 +49,22 @@ impl<'a> EntityBuilder<'a> {
     #[cfg(feature = "hot_reload")]
     pub fn update<M: Module + 'static>(&mut self, module: M) -> &Self {
         match &mut self.target {
-            EntityBuilderTarget::Commands(ref mut ec) => {
+            EntityBuilderTarget::EntityCommands(ref mut ec) => {
                 ec.add(move |mut ewm: EntityWorldMut| module.update(&mut ewm));
             }
-            EntityBuilderTarget::WorldMut(ref mut ewm) => {
+            EntityBuilderTarget::EntityWorldMut(ref mut ewm) => {
                 module.update(ewm);
             }
-            EntityBuilderTarget::Id(id, commands) => {
+            EntityBuilderTarget::Commands(id, commands) => {
                 if let Some(mut entity) = commands.get_entity(*id) {
                     entity.add(move |mut ewm: EntityWorldMut| {
                         module.update(&mut ewm);
                     });
+                }
+            }
+            EntityBuilderTarget::World(id, world) => {
+                if let Some(mut ewm) = world.get_entity_mut(*id) {
+                    module.update(&mut ewm);
                 }
             }
         };
@@ -70,21 +81,25 @@ pub trait EntityBuilderExt<'a> {
 
 impl<'a> EntityBuilderExt<'a> for EntityCommands<'a> {
     fn entity_builder(&'a mut self) -> EntityBuilder<'a> {
-        EntityBuilder::new(EntityBuilderTarget::Commands(self))
+        EntityBuilder::new(EntityBuilderTarget::EntityCommands(self))
     }
 }
 
 impl<'a> EntityBuilderExt<'a> for EntityWorldMut<'a> {
     fn entity_builder(&'a mut self) -> EntityBuilder<'a> {
-        EntityBuilder::new(EntityBuilderTarget::WorldMut(self))
+        EntityBuilder::new(EntityBuilderTarget::EntityWorldMut(self))
     }
 }
 
 impl<'a> EntityBuilderExt<'a> for Commands<'a, 'a> {
     fn entity_builder(&'a mut self) -> EntityBuilder<'a> {
-        let id = self.spawn_empty().id();
+        EntityBuilder::new(EntityBuilderTarget::Commands(self.spawn_empty().id(), self))
+    }
+}
 
-        EntityBuilder::new(EntityBuilderTarget::Id(id, self.reborrow()))
+impl<'a> EntityBuilderExt<'a> for World {
+    fn entity_builder(&'a mut self) -> EntityBuilder<'a> {
+        EntityBuilder::new(EntityBuilderTarget::World(self.spawn_empty().id(), self))
     }
 }
 
