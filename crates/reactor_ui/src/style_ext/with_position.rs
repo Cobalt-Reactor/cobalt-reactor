@@ -12,7 +12,6 @@ pub trait StyleWithPositionExt<'a> {
 
 impl<'a> StyleWithPositionExt<'a> for UiStyle<'a> {
     fn with_position(&mut self, position: &ReactorPosition) -> &mut UiStyle<'a> {
-        info!("Position: {:?}", position);
         match position {
             ReactorPosition::Absolute(pos) => {
                 self.position_type(PositionType::Absolute);

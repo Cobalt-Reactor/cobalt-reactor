@@ -1,5 +1,3 @@
-use std::collections::VecDeque;
-
 use super::PerfUiEntry;
 use crate::{prelude::*, utils};
 use bevy::{
@@ -8,6 +6,7 @@ use bevy::{
     prelude::*,
 };
 use reactor_ui::{prelude::*, sickle::prelude::*};
+use std::collections::VecDeque;
 
 #[derive(Component, Debug, Clone, Default)]
 pub struct PerfUiEntryFps;

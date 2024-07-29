@@ -11,7 +11,5 @@ mod widgets;
 /// Crate prelude
 pub mod prelude {
     pub(crate) use crate::{app_ext::*, panels::*, widgets::*};
-    pub use crate::{
-        panels::PerfPanelConfig, plugin::ReactorPerfUiPlugin, schedule::ReactorPerfUiSchedule,
-    };
+    pub use crate::{panels::*, plugin::ReactorPerfUiPlugin, schedule::ReactorPerfUiSchedule};
 }

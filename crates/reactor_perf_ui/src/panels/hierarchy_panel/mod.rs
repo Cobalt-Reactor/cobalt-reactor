@@ -5,6 +5,6 @@ pub use config::*;
 use bevy::prelude::*;
 use reactor_ui::sickle::{theme::UiContext, UiContext};
 
-/// Marker trait for the Performance panel
+/// Marker trait for the Hierarchy panel
 #[derive(Debug, Component, Default, UiContext)]
-pub struct ReactorPerfPanel;
+pub struct ReactorHierarchyPanel;

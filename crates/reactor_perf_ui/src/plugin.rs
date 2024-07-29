@@ -7,6 +7,7 @@ use bevy::{asset::io::embedded::EmbeddedAssetRegistry, prelude::*};
 pub struct ReactorPerfUiPlugin {
     start_visible: bool,
     perf_panel: Option<PerfPanelConfig>,
+    hierarchy_panel: Option<HierarchyPanelConfig>,
 }
 
 impl Plugin for ReactorPerfUiPlugin {
@@ -33,15 +34,27 @@ impl ReactorPerfUiPlugin {
         self
     }
 
-    /// Enables the FPS counter.
+    /// Enables the Perf Panel (fps, cpu usage, etc).
     pub fn with_perf_panel(mut self) -> Self {
         self.perf_panel = Some(PerfPanelConfig::default());
         self
     }
 
-    /// Enables the FPS counter.
+    /// Enables the Perf Panel (fps, cpu usage, etc).
     pub fn with_perf_panel_config(mut self, config: PerfPanelConfig) -> Self {
         self.perf_panel = Some(config);
+        self
+    }
+
+    /// Enables the entity hierarchy panel
+    pub fn with_hierarchy_panel(mut self) -> Self {
+        self.hierarchy_panel = Some(HierarchyPanelConfig::default());
+        self
+    }
+
+    /// Enables the entity hierarchy panel
+    pub fn with_hierarchy_panel_config(mut self, config: HierarchyPanelConfig) -> Self {
+        self.hierarchy_panel = Some(config);
         self
     }
 
@@ -59,7 +72,11 @@ impl ReactorPerfUiPlugin {
 
     fn add_widgets(&self, app: &mut App) {
         if let Some(perf_panel) = &self.perf_panel {
-            app.add_perf_ui_widget::<ReactorPerfPanel, _>(perf_panel.clone());
+            app.add_panel::<ReactorPerfPanel, _>(perf_panel.clone());
+        }
+
+        if let Some(hierarchy_panel) = &self.hierarchy_panel {
+            app.add_panel::<ReactorHierarchyPanel, _>(hierarchy_panel.clone());
         }
     }
 }

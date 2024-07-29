@@ -54,7 +54,8 @@ impl ReactorCorePlugin {
         app.add_plugins(
             crate::perf_ui::ReactorPerfUiPlugin::new()
                 .start_visible()
-                .with_perf_panel_config(crate::perf_ui::PerfPanelConfig::full()),
+                .with_perf_panel_config(crate::perf_ui::PerfPanelConfig::full())
+                .with_hierarchy_panel_config(crate::perf_ui::HierarchyPanelConfig::full()),
         );
     }
 }
