@@ -102,6 +102,3 @@ impl<'a> EntityBuilderExt<'a> for World {
         EntityBuilder::new(EntityBuilderTarget::World(self.spawn_empty().id(), self))
     }
 }
-
-// TODO: Create a common modules crate for many of the modules in Zombies (and refactor hearing and
-// vision to have optional Fixed or Unlimited range)

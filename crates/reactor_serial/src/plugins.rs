@@ -47,7 +47,6 @@ impl ReactorSerialPlugin {
     }
 
     fn init_resources(&self, app: &mut App) {
-        // TODO: Might still want this to be a String
         app.insert_resource(RootSavePath(
             self.root_save_path.display().to_string().clone(),
         ))
