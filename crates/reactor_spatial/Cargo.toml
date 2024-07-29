@@ -1,6 +1,6 @@
 [package]
 name = "reactor_spatial"
-version = "1.0.0"
+version = "1.0.1"
 readme = "README.md"
 description = "A set of 2D spatial utilities for Bevy, including handling transform propagation"
 authors.workspace = true

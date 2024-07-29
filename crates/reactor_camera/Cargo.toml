@@ -1,6 +1,6 @@
 [package]
 name = "reactor_camera"
-version = "1.0.0"
+version = "1.0.1"
 readme = "README.md"
 description = "A 2D camera plugin for Bevy, inspired by the Love2D camera plugin - STALKER-X"
 authors.workspace = true
