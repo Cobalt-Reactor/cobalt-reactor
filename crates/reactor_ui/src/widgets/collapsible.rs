@@ -34,7 +34,7 @@ impl<'w, 's> UiReactorCollapsibleExt<'w, 's> for UiBuilder<'_, Entity> {
         let mut expanded_icon = None;
 
         // Fills width, has an icon, can be clicked, when clicked flips visibility of children
-        let button = self
+        let button_id = self
             .container(
                 (
                     Name::new(format!("Foldable [{}] - Button", name)),
@@ -62,15 +62,15 @@ impl<'w, 's> UiReactorCollapsibleExt<'w, 's> for UiBuilder<'_, Entity> {
                         .label(config.label.label.into())
                         .style()
                         .margin(UiRect::left(Val::Px(10.0)))
+                        .width(Val::Percent(100.0))
                         .entity_commands()
                         .with_font(config.label.font.as_ref().unwrap().clone());
                 },
             )
+            .with_background(&config.background)
             .style()
             .with_size(&config.size)
             .entity_commands()
-            .pickable(true, false)
-            .on_click_event::<CollapsibleClicked>()
             .id();
 
         // Make a child container
@@ -84,7 +84,7 @@ impl<'w, 's> UiReactorCollapsibleExt<'w, 's> for UiBuilder<'_, Entity> {
             .justify_content(JustifyContent::Stretch)
             .justify_items(JustifyItems::Stretch);
         if !config.open {
-            self.commands().style(container_id).hide();
+            container.style().hide();
         }
 
         let collapsible = ReactorCollapsible {
@@ -94,8 +94,14 @@ impl<'w, 's> UiReactorCollapsibleExt<'w, 's> for UiBuilder<'_, Entity> {
             container: container_id,
         };
 
-        self.commands().entity(button).insert(collapsible);
-        self.commands().ui_builder(button)
+        self.commands()
+            .get_entity(button_id)
+            .unwrap()
+            .insert(collapsible)
+            .pickable(true, false)
+            .on_click_event::<CollapsibleClicked>();
+
+        self.commands().ui_builder(button_id)
     }
 }
 

@@ -31,7 +31,7 @@ impl ReactorPerfUiPanel for ReactorPerfPanel {
     fn spawn(mut commands: Commands, config: Res<Self::Config>) {
         commands
             .ui_builder(UiRoot)
-            .floating_window(perf_panel_ui_config(), |window| {
+            .floating_window(internal_config(), |window| {
                 window.growable_list(ReactorGrowableListConfig::default(), |list| {
                     if config.fps {
                         PerfUiEntryFps::spawn(list);
@@ -60,7 +60,7 @@ impl ReactorPerfUiPanel for ReactorPerfPanel {
     }
 }
 
-fn perf_panel_ui_config() -> ReactorFloatingWindowConfig {
+fn internal_config() -> ReactorFloatingWindowConfig {
     ReactorFloatingWindowConfig {
         draggable: true,
         size: ReactorSize {

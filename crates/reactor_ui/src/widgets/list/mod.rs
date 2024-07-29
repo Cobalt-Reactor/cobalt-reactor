@@ -5,8 +5,10 @@ mod scrollable_list;
 pub use scrollable_list::*;
 mod list_item;
 pub use list_item::*;
-mod list_item_collapsible;
-pub use list_item_collapsible::*;
+mod list_item_collapsible_content;
+mod list_item_collapsible_header;
+pub use list_item_collapsible_content::*;
+pub use list_item_collapsible_header::*;
 mod list_item_two_text;
 pub use list_item_two_text::*;
 

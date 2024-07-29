@@ -1,4 +1,4 @@
-use super::PerfUiEntry;
+use super::{default_entry_header_config, PerfUiEntry};
 use crate::{prelude::*, utils};
 use bevy::{
     diagnostic::{DiagnosticsStore, EntityCountDiagnosticsPlugin},
@@ -24,11 +24,9 @@ impl PerfUiEntry for PerfUiEntryEcs {
         );
     }
     fn spawn(list: &mut UiBuilder<Entity>) {
-        let config = ListItemCollapsibleConfig {
-            label: "Engine".into(),
-        };
+        let config = default_entry_header_config("Engine".into());
 
-        list.list_item_collapsible(config, |collapse| {
+        list.list_item_collapsible_header(config, |collapse| {
             collapse.list_item_two_text(ListItemTwoTextConfig {
                 title_text: "Ent Count:".to_string(),
                 title_component: PerfUiEntryEcsEntityCountLabel,

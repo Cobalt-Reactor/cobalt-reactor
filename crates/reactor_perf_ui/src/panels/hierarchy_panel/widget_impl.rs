@@ -5,22 +5,30 @@ use reactor_ui::{prelude::*, sickle::prelude::*};
 impl ReactorPerfUiPanel for ReactorHierarchyPanel {
     type Config = HierarchyPanelConfig;
 
-    fn setup(_app: &mut App, _config: Self::Config) {}
+    fn setup(app: &mut App, config: Self::Config) {
+        if config.entity_list {
+            HierarchyUiEntryEntityList::setup(app);
+        }
+    }
 
-    fn spawn(mut commands: Commands, _config: Res<Self::Config>) {
+    fn spawn(mut commands: Commands, config: Res<Self::Config>) {
         commands
             .ui_builder(UiRoot)
-            .floating_window(perf_panel_ui_config(), |window| {
-                window.growable_list(ReactorGrowableListConfig::default(), |_list| {});
+            .floating_window(internal_config(), |window| {
+                window.growable_list(ReactorGrowableListConfig::default(), |list| {
+                    if config.entity_list {
+                        HierarchyUiEntryEntityList::spawn(list);
+                    }
+                });
             });
     }
 }
 
-fn perf_panel_ui_config() -> ReactorFloatingWindowConfig {
+fn internal_config() -> ReactorFloatingWindowConfig {
     ReactorFloatingWindowConfig {
         draggable: true,
         size: ReactorSize {
-            width: Val::Px(290.0).into(),
+            width: Val::Px(368.0).into(),
             height: Val::Auto.into(),
         },
         position: ReactorPosition::Absolute(ReactorPositionAbsolute { x: 328.0, y: 32.0 }),
