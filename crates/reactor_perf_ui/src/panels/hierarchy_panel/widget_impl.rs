@@ -23,7 +23,7 @@ fn perf_panel_ui_config() -> ReactorFloatingWindowConfig {
             width: Val::Px(290.0).into(),
             height: Val::Auto.into(),
         },
-        position: ReactorPosition::Absolute(ReactorPositionAbsolute { x: 32.0, y: 328.0 }),
+        position: ReactorPosition::Absolute(ReactorPositionAbsolute { x: 328.0, y: 32.0 }),
         background: ReactorBackground::Flat(ReactorFlatBackground {
             background_color: Some(Color::Srgba(tailwind::GRAY_600)),
             corner_radius: Some(ReactorCornerRadius::from(10.0)),
