@@ -1,6 +1,6 @@
 [package]
 name = "reactor_proto"
-version = "1.0.0"
+version = "1.1.0"
 readme = "README.md"
 description = "An opinionated rust library for transforming on-disk assets into Entities in Bevy."
 authors.workspace = true

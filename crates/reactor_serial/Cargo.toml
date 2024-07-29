@@ -1,6 +1,6 @@
 [package]
 name = "reactor_serial"
-version = "1.0.0"
+version = "1.0.1"
 readme = "README.md"
 description = "A plugin for Bevy for handling saving and loading"
 authors.workspace = true

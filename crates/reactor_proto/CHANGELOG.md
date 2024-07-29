@@ -5,3 +5,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+## [1.1.0](https://github.com/Cobalt-Reactor/cobalt-reactor/compare/reactor_proto-v1.0.0...reactor_proto-v1.1.0) - 2024-07-29
+
+### 1. New features
+- Added entity_builder to world
+- `entity_builder` added to Commands
+- Changed EntityBuilder to install modules immediately, and no longer requires you to call build
+
+### 2. Bug fixes
+- Renaming plugins to avoid name collisions with some third party crates
