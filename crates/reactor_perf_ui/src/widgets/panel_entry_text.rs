@@ -24,13 +24,9 @@ where
     fn panel_entry_text(&mut self, config: PanelEntryTextConfig<T, C>) -> UiBuilder<Entity> {
         let internal_config = internal_config();
 
-        let mut item = self.list_item(internal_config.clone(), |item| {
-            // TODO: This is too large and is overflowing the edge of its container
+        self.list_item(internal_config.clone(), |item| {
             item.with_background(&internal_config.background)
                 .style()
-                .width(Val::Percent(80.0))
-                .min_width(Val::Percent(80.0))
-                .background_color(Color::Srgba(tailwind::AMBER_700))
                 .entity_commands()
                 .insert(PanelEntryText);
 
@@ -94,11 +90,7 @@ where
                     })
                     .insert(config.content_component);
             });
-        });
-
-        item.style().width(Val::Auto).min_width(Val::Auto);
-
-        item
+        })
     }
 }
 

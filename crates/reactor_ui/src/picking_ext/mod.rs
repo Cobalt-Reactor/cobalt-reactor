@@ -15,6 +15,8 @@
 /// For more information see `bevy_mod_picking`'s documentation.
 mod pickable;
 pub use pickable::*;
+mod draggable;
+pub use draggable::*;
 
 mod on_click;
 pub use on_click::*;

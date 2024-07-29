@@ -57,6 +57,8 @@ impl ReactorPerfUiPanel for ReactorPerfPanel {
                 });
             })
             .entity_commands()
+            .draggable()
+            .pickable(false, true)
             .insert(ReactorPerfPanel);
     }
 }

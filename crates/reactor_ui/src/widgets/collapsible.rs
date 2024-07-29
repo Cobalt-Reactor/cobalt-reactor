@@ -78,8 +78,11 @@ impl<'w, 's> UiReactorCollapsibleExt<'w, 's> for UiBuilder<'_, Entity> {
         let container_id = container.id();
         container
             .style()
-            .margin(UiRect::left(Val::Px(20.0)))
-            .height(Val::Auto);
+            //.margin(UiRect::left(Val::Px(20.0)))
+            .height(Val::Auto)
+            .justify_self(JustifySelf::Stretch)
+            .justify_content(JustifyContent::Stretch)
+            .justify_items(JustifyItems::Stretch);
         if !config.open {
             self.commands().style(container_id).hide();
         }
