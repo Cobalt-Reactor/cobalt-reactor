@@ -1,4 +1,4 @@
-use super::{default_entry_header_config, PerfUiEntry};
+use super::{default_collapsible_header_config, PerfUiEntry};
 use crate::{prelude::*, utils};
 use bevy::{
     self,
@@ -70,7 +70,7 @@ impl PerfUiEntry for PerfUiEntryFps {
     }
 
     fn spawn(list: &mut UiBuilder<Entity>) {
-        let config = default_entry_header_config("FPS".into());
+        let config = default_collapsible_header_config("FPS".into());
 
         list.insert(PerfUiEntryFps);
 

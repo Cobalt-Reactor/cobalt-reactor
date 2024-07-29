@@ -30,19 +30,17 @@ impl PerfUiEntry for PerfUiEntrySystem {
         );
     }
     fn spawn(list: &mut UiBuilder<Entity>) {
-        let config = PanelEntryCollapsibleConfig {
-            label: "Engine".into(),
-        };
+        let config = default_collapsible_header_config("System".into());
 
-        list.panel_entry_collapsible(config, |collapse| {
-            collapse.panel_entry_text(PanelEntryTextConfig {
+        list.list_item_collapsible_header(config, |collapse| {
+            collapse.list_item_two_text(PanelEntryTextConfig {
                 title_text: "CPU Usage:".to_string(),
                 title_component: PerfUiEntryCpuUsageLabel,
                 content_text: "X %".to_string(),
                 content_component: PerfUiEntryCpuUsageData,
             });
 
-            collapse.panel_entry_text(PanelEntryTextConfig {
+            collapse.list_item_two_text(PanelEntryTextConfig {
                 title_text: "Mem Usage:".to_string(),
                 title_component: PerfUiEntryMemUsageLabel,
                 content_text: "X %".to_string(),

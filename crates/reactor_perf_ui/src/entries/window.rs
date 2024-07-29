@@ -1,4 +1,4 @@
-use super::{default_entry_header_config, PerfUiEntry};
+use super::{default_collapsible_header_config, PerfUiEntry};
 use crate::{prelude::*, utils};
 use bevy::{
     self,
@@ -49,7 +49,7 @@ impl PerfUiEntry for PerfUiEntryWindow {
         );
     }
     fn spawn(list: &mut reactor_ui::sickle::prelude::UiBuilder<Entity>) {
-        let config = default_entry_header_config("Window".into());
+        let config = default_collapsible_header_config("Window".into());
 
         list.insert(PerfUiEntryWindow);
 
