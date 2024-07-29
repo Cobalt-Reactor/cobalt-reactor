@@ -21,7 +21,7 @@ reactor_proto = { path = "crates/reactor_proto", version = "1.1" }
 reactor_random = { path = "crates/reactor_random", version = "1.0" }
 reactor_serial = { path = "crates/reactor_serial", version = "1.0" }
 reactor_camera = { path = "crates/reactor_camera", version = "1.0" }
-reactor_core = { path = "crates/reactor_core", version = "1.1" }
+reactor_core = { path = "crates/reactor_core", version = "1.2" }
 ##########
 
 ########## BEVY (or likely upstreamed eventually)
