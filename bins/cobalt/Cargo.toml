@@ -16,6 +16,7 @@ bevy = { workspace = true }
 iyes_progress = { workspace = true }
 bevy_asset_loader = { workspace = true }
 sickle_ui = { workspace = true }
+bevy-inspector-egui = { workspace = true }
 ##########
 
 ########## Reactor

@@ -7,7 +7,7 @@ use bevy::{
     diagnostic::{DiagnosticsStore, FrameTimeDiagnosticsPlugin},
     prelude::*,
 };
-use reactor_ui::sickle::prelude::*;
+use reactor_ui::{prelude::*, sickle::prelude::*};
 
 #[derive(Component, Debug, Clone, Default)]
 pub struct PerfUiEntryFps;
@@ -71,42 +71,42 @@ impl PerfUiEntry for PerfUiEntryFps {
     }
 
     fn spawn(list: &mut UiBuilder<Entity>) {
-        let config = PanelEntryCollapsibleConfig {
+        let config = ListItemCollapsibleConfig {
             label: "FPS".into(),
         };
 
         list.insert(PerfUiEntryFps);
 
-        list.panel_entry_collapsible(config, |collapse| {
-            collapse.panel_entry_text(PanelEntryTextConfig {
+        list.list_item_collapsible(config, |collapse| {
+            collapse.list_item_two_text(ListItemTwoTextConfig {
                 title_text: "FPS (avg):".to_string(),
                 title_component: PerfUiEntryFpsAvgLabel,
                 content_text: "1.0".to_string(),
                 content_component: PerfUiEntryFpsAvgData,
             });
 
-            collapse.panel_entry_text(PanelEntryTextConfig {
+            collapse.list_item_two_text(ListItemTwoTextConfig {
                 title_text: "FPS (worst):".to_string(),
                 title_component: PerfUiEntryFpsWorstLabel,
                 content_text: "1.0".to_string(),
                 content_component: PerfUiEntryFpsWorstData::default(),
             });
 
-            collapse.panel_entry_text(PanelEntryTextConfig {
+            collapse.list_item_two_text(ListItemTwoTextConfig {
                 title_text: "Frame Time (ms):".to_string(),
                 title_component: PerfUiEntryTimeFrameTimeLabel,
                 content_text: "1".to_string(),
                 content_component: PerfUiEntryTimeFrameTimeData,
             });
 
-            collapse.panel_entry_text(PanelEntryTextConfig {
+            collapse.list_item_two_text(ListItemTwoTextConfig {
                 title_text: "Fixed Time (ms):".to_string(),
                 title_component: PerfUiEntryTimeFixedTimeStepDurationLabel,
                 content_text: "1".to_string(),
                 content_component: PerfUiEntryTimeFixedTimeStepDurationData,
             });
 
-            collapse.panel_entry_text(PanelEntryTextConfig {
+            collapse.list_item_two_text(ListItemTwoTextConfig {
                 title_text: "Overstep (ms):".to_string(),
                 title_component: PerfUiEntryTimeFixedOverstepLabel,
                 content_text: "0".to_string(),

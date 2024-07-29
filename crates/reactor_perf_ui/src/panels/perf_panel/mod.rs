@@ -1,5 +1,4 @@
 mod config;
-mod ui_config;
 mod widget_impl;
 pub use config::*;
 

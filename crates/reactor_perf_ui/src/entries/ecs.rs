@@ -4,7 +4,7 @@ use bevy::{
     diagnostic::{DiagnosticsStore, EntityCountDiagnosticsPlugin},
     prelude::*,
 };
-use reactor_ui::sickle::prelude::*;
+use reactor_ui::{prelude::*, sickle::prelude::*};
 
 #[derive(Component, Debug, Clone, Default)]
 pub struct PerfUiEntryEcs;
@@ -24,12 +24,12 @@ impl PerfUiEntry for PerfUiEntryEcs {
         );
     }
     fn spawn(list: &mut UiBuilder<Entity>) {
-        let config = PanelEntryCollapsibleConfig {
+        let config = ListItemCollapsibleConfig {
             label: "Engine".into(),
         };
 
-        list.panel_entry_collapsible(config, |collapse| {
-            collapse.panel_entry_text(PanelEntryTextConfig {
+        list.list_item_collapsible(config, |collapse| {
+            collapse.list_item_two_text(ListItemTwoTextConfig {
                 title_text: "Ent Count:".to_string(),
                 title_component: PerfUiEntryEcsEntityCountLabel,
                 content_text: "1.0".to_string(),

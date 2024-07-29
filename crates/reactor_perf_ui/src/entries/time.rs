@@ -4,7 +4,7 @@ use bevy::{
     diagnostic::{DiagnosticsStore, FrameTimeDiagnosticsPlugin},
     prelude::*,
 };
-use reactor_ui::sickle::prelude::*;
+use reactor_ui::{prelude::*, sickle::prelude::*};
 
 #[derive(Component, Debug, Clone, Default)]
 pub struct PerfUiEntryTime;
@@ -39,25 +39,25 @@ impl PerfUiEntry for PerfUiEntryTime {
         );
     }
     fn spawn(list: &mut UiBuilder<Entity>) {
-        let config = PanelEntryCollapsibleConfig {
+        let config = ListItemCollapsibleConfig {
             label: "Time".into(),
         };
-        list.panel_entry_collapsible(config, |collapse| {
-            collapse.panel_entry_text(PanelEntryTextConfig {
+        list.list_item_collapsible(config, |collapse| {
+            collapse.list_item_two_text(ListItemTwoTextConfig {
                 title_text: "Wall Time:".to_string(),
                 title_component: PerfUiEntryClockTimeLabel,
                 content_text: "X".to_string(),
                 content_component: PerfUiEntryClockTimeData,
             });
 
-            collapse.panel_entry_text(PanelEntryTextConfig {
+            collapse.list_item_two_text(ListItemTwoTextConfig {
                 title_text: "Running Time:".to_string(),
                 title_component: PerfUiEntryRunningTimeLabel,
                 content_text: "X".to_string(),
                 content_component: PerfUiEntryRunningTimeData,
             });
 
-            collapse.panel_entry_text(PanelEntryTextConfig {
+            collapse.list_item_two_text(ListItemTwoTextConfig {
                 title_text: "Frame Count:".to_string(),
                 title_component: PerfUiEntryTimeFrameCountLabel,
                 content_text: "X".to_string(),

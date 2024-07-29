@@ -22,29 +22,19 @@ impl<'w, 's> UiReactorFloatingWindowExt<'w, 's> for UiBuilder<'_, UiRoot> {
         config: ReactorFloatingWindowConfig,
         spawn_children: impl FnOnce(&mut UiBuilder<Entity>),
     ) -> UiBuilder<Entity> {
-        let base = ReactorBaseConfig {
-            position: config.position.clone(),
-            size: config.size.clone(),
-            alignment: ReactorAlignment {
-                child_alignment: Some(ReactorChildAlignment {
-                    horizontal: Some(JustifyItems::Start),
-                    vertical: Some(AlignItems::Start),
-                    horizontal_distribution: Some(JustifyContent::SpaceEvenly),
-                    vertical_distribution: Some(AlignContent::Start),
-                }),
-                ..default()
-            },
-            picking: None,
-        };
-
         self.container(ReactorFloatingWindow, |window| {
-            window
-                .with_background(&config.background)
-                .with_base_config(&base)
-                .style()
-                .height(Val::Auto);
+            if config.draggable {
+                window.entity_commands().pickable(false, false).draggable();
+            }
 
             if let Some(header) = config.header_config {
+                window
+                    .with_background(&config.background)
+                    .style()
+                    .with_position(&config.position)
+                    .with_size(&config.size)
+                    .height(Val::Auto);
+
                 window.column(|column| {
                     column
                         .style()
@@ -78,6 +68,7 @@ impl<'w, 's> UiReactorFloatingWindowExt<'w, 's> for UiBuilder<'_, UiRoot> {
                             label.entity_commands().with_font(font);
                         }
                     });
+
                     spawn_children(column);
                 });
             }
@@ -97,6 +88,8 @@ pub struct ReactorFloatingWindowConfig {
     /// Config for the header, if provided a header will be added to the window, displaying
     /// the name.
     pub header_config: Option<ReactorHeaderConfig>,
+    /// Whether this window is draggable
+    pub draggable: bool,
 }
 
 /// Configuration for a button widget.

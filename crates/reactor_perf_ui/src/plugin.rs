@@ -17,7 +17,6 @@ impl Plugin for ReactorPerfUiPlugin {
         self.insert_resources(app);
         self.add_systems(app);
         self.configure_sets(app);
-        self.load_assets(app);
         self.add_widgets(app);
     }
 }
@@ -57,12 +56,6 @@ impl ReactorPerfUiPlugin {
     fn add_systems(&self, _: &mut App) {}
 
     fn configure_sets(&self, _: &mut App) {}
-
-    fn load_assets(&self, app: &mut App) {
-        app.init_resource::<EmbeddedAssetRegistry>();
-        crate::fonts::load(app);
-        crate::icons::load(app);
-    }
 
     fn add_widgets(&self, app: &mut App) {
         if let Some(perf_panel) = &self.perf_panel {

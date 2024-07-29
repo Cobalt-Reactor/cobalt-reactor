@@ -1,9 +1,10 @@
 use crate::{
-    picking::{backends::raycast::RaycastBackendSettings, DefaultPickingPlugins},
-    prelude::WidgetPlugin,
+    fonts, icons,
+    picking::{backends::raycast::RaycastBackendSettings, prelude::*},
+    prelude::*,
     sickle::SickleUiPlugin,
 };
-use bevy::prelude::*;
+use bevy::{asset::io::embedded::EmbeddedAssetRegistry, prelude::*};
 
 /// Plugin for all of `reactor_ui`. Add this to your app
 #[derive(Default)]
@@ -17,6 +18,7 @@ impl Plugin for ReactorUiPlugin {
         self.insert_resources(app);
         self.add_systems(app);
         self.configure_sets(app);
+        self.load_assets(app);
     }
 }
 
@@ -46,4 +48,10 @@ impl ReactorUiPlugin {
     fn add_systems(&self, _: &mut App) {}
 
     fn configure_sets(&self, _: &mut App) {}
+
+    fn load_assets(&self, app: &mut App) {
+        app.init_resource::<EmbeddedAssetRegistry>();
+        fonts::load(app);
+        icons::load(app);
+    }
 }

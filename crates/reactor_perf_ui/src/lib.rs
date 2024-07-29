@@ -1,8 +1,7 @@
 #![doc = include_str!("../README.md")]
+#![expect(unused_imports)]
 mod app_ext;
 mod entries;
-mod fonts;
-mod icons;
 mod panels;
 mod plugin;
 mod schedule;

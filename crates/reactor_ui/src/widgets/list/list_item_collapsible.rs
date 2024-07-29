@@ -1,26 +1,25 @@
-use crate::{fonts, icons};
+use crate::{fonts, icons, prelude::*, sickle::prelude::*};
 use bevy::prelude::*;
-use reactor_ui::{prelude::*, sickle::prelude::*};
 
 #[derive(Component)]
-struct PanelEntryCollapsible;
+struct ListItemCollapsible;
 
 /// Fast way to create a list item
-pub trait UiPanelEntryCollapsibleExt<'w, 's> {
+pub trait UiListItemCollapsibleExt<'w, 's> {
     /// Creates a list item.
-    fn panel_entry_collapsible(
+    fn list_item_collapsible(
         &mut self,
-        config: PanelEntryCollapsibleConfig,
+        config: ListItemCollapsibleConfig,
         spawn_children: impl FnOnce(&mut UiBuilder<Entity>),
     ) -> UiBuilder<Entity>;
 }
 
-impl<'w, 's> UiPanelEntryCollapsibleExt<'w, 's> for UiBuilder<'_, Entity> {
+impl<'w, 's> UiListItemCollapsibleExt<'w, 's> for UiBuilder<'_, Entity> {
     /// Creates a list item
     /// Returns an `UiBuilder` for further customization.
-    fn panel_entry_collapsible(
+    fn list_item_collapsible(
         &mut self,
-        config: PanelEntryCollapsibleConfig,
+        config: ListItemCollapsibleConfig,
         spawn_children: impl FnOnce(&mut UiBuilder<Entity>),
     ) -> UiBuilder<Entity> {
         let config = internal_config(&config);
@@ -37,19 +36,20 @@ impl<'w, 's> UiPanelEntryCollapsibleExt<'w, 's> for UiBuilder<'_, Entity> {
             .border(UiRect::vertical(Val::Px(2.0)))
             .border_color(Color::Srgba(tailwind::GRAY_900))
             .entity_commands()
-            .insert(PanelEntryCollapsible);
+            .insert(ListItemCollapsible);
 
         collapsible
     }
 }
 
-/// Configuration for a list item widget.
+/// Configuration for a collapsible list entry.
 #[derive(Default, Debug, Clone)]
-pub struct PanelEntryCollapsibleConfig {
+pub struct ListItemCollapsibleConfig {
+    /// The label of the list item.
     pub label: ReactorLabelConfig,
 }
 
-fn internal_config(config: &PanelEntryCollapsibleConfig) -> ReactorCollapsibleConfig {
+fn internal_config(config: &ListItemCollapsibleConfig) -> ReactorCollapsibleConfig {
     ReactorCollapsibleConfig {
         open: true,
         background: ReactorBackground::default(),

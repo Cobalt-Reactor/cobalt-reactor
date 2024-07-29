@@ -4,6 +4,7 @@ use crate::{
     CobaltState,
 };
 use bevy::{log::LogPlugin, prelude::*, window::WindowResolution};
+use bevy_inspector_egui::quick::WorldInspectorPlugin;
 use reactor_core::ReactorCorePlugin;
 
 /// Core game struct
@@ -52,7 +53,10 @@ impl Default for Cobalt {
             .add_plugins(RenderPlugin);
 
         #[cfg(debug_assertions)]
-        app.add_plugins(DebugPlugin);
+        {
+            app.add_plugins(DebugPlugin)
+                .add_plugins(WorldInspectorPlugin::new());
+        }
 
         Self { app }
     }

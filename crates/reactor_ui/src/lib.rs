@@ -1,6 +1,10 @@
 #![doc = include_str!("../README.md")]
 #![feature(float_minimum_maximum)]
 mod configs;
+/// A number of built-in font options
+pub mod fonts;
+/// A number of built-in icon options
+pub mod icons;
 mod picking_ext;
 mod plugin;
 mod schedule;
@@ -10,7 +14,8 @@ mod widgets;
 /// The contents of this module are re-exported by the `reactor_ui` crate.
 pub mod prelude {
     pub use crate::{
-        configs::*, picking_ext::*, plugin::ReactorUiPlugin, schedule::*, style_ext::*, widgets::*,
+        configs::*, fonts, icons, picking_ext::*, plugin::ReactorUiPlugin, schedule::*,
+        style_ext::*, widgets::*,
     };
     pub use bevy::{
         color::{palettes::*, prelude::*},

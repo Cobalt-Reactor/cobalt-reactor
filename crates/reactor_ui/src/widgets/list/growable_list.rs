@@ -45,7 +45,8 @@ impl<'w, 's> UiReactorGrowableListExt<'w, 's> for UiBuilder<'_, Entity> {
                     .justify_content(JustifyContent::Start)
                     .align_content(AlignContent::Start)
                     .entity_commands()
-                    .insert(ReactorGrowableList);
+                    .insert(ReactorGrowableList)
+                    .insert(ReactorList);
 
                 spawn_children(list);
             },

@@ -1,9 +1,9 @@
-use crate::fonts;
-use bevy::prelude::*;
-use reactor_ui::{
+use crate::{
+    fonts,
     prelude::*,
     sickle::{prelude::*, widgets::layout::label::SetLabelTextExt},
 };
+use bevy::prelude::*;
 
 #[derive(Component)]
 struct PanelEntryText;
@@ -11,7 +11,7 @@ struct PanelEntryText;
 /// Fast way to create a list item
 pub trait UiPanelEntryTextExt<'w, 's, T: Bundle, C: Bundle> {
     /// Creates a list item.
-    fn panel_entry_text(&mut self, config: PanelEntryTextConfig<T, C>) -> UiBuilder<Entity>;
+    fn list_item_two_text(&mut self, config: ListItemTwoTextConfig<T, C>) -> UiBuilder<Entity>;
 }
 
 impl<'w, 's, T, C> UiPanelEntryTextExt<'w, 's, T, C> for UiBuilder<'_, Entity>
@@ -21,7 +21,7 @@ where
 {
     /// Creates a list item
     /// Returns an `UiBuilder` for further customization.
-    fn panel_entry_text(&mut self, config: PanelEntryTextConfig<T, C>) -> UiBuilder<Entity> {
+    fn list_item_two_text(&mut self, config: ListItemTwoTextConfig<T, C>) -> UiBuilder<Entity> {
         let internal_config = internal_config();
 
         self.list_item(internal_config.clone(), |item| {
@@ -96,18 +96,22 @@ where
 
 /// Configuration for a list item widget.
 #[derive(Default, Debug, Clone)]
-pub struct PanelEntryTextConfig<T, C>
+pub struct ListItemTwoTextConfig<T, C>
 where
     T: Bundle,
     C: Bundle,
 {
+    /// The name of the list item, to appear in the left hand column
     pub title_text: String,
+    /// The marker component of the list item title
     pub title_component: T,
+    /// The content of the list item, to appear in the right hand column
     pub content_text: String,
+    /// The marker component of the list item content
     pub content_component: C,
 }
 
-pub fn internal_config() -> ReactorListItemConfig {
+fn internal_config() -> ReactorListItemConfig {
     ReactorListItemConfig {
         background: ReactorBackground::Flat(ReactorFlatBackground {
             border_config: Some(ReactorBorder {

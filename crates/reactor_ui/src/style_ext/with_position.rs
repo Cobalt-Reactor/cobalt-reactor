@@ -1,4 +1,5 @@
 use crate::{prelude::*, sickle::prelude::*};
+use bevy::prelude::*;
 
 /// Calls the callback when the widget is clicked (pressed and released).
 /// Note: This has exclusive World access and thus can't be used in parallel with other systems.
@@ -11,24 +12,22 @@ pub trait StyleWithPositionExt<'a> {
 
 impl<'a> StyleWithPositionExt<'a> for UiStyle<'a> {
     fn with_position(&mut self, position: &ReactorPosition) -> &mut UiStyle<'a> {
-        self.position_type(position.position_type);
+        info!("Position: {:?}", position);
+        match position {
+            ReactorPosition::Absolute(pos) => {
+                self.position_type(PositionType::Absolute);
+                self.absolute_position(Vec2::new(pos.x, pos.y))
+            }
+            ReactorPosition::Relative(pos) => {
+                self.position_type(PositionType::Relative);
 
-        if let Some(left) = position.left {
-            self.left(left);
+                self.left(pos.left);
+                self.right(pos.right);
+                self.top(pos.top);
+                self.bottom(pos.bottom);
+
+                self
+            }
         }
-
-        if let Some(right) = position.right {
-            self.right(right);
-        }
-
-        if let Some(top) = position.top {
-            self.top(top);
-        }
-
-        if let Some(bottom) = position.bottom {
-            self.bottom(bottom);
-        }
-
-        self
     }
 }
