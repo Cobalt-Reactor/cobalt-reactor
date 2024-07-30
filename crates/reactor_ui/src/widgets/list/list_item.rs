@@ -27,7 +27,8 @@ impl<'w, 's> UiReactorListItemExt<'w, 's> for UiBuilder<'_, Entity> {
             row.style()
                 .with_size(&config.size)
                 .entity_commands()
-                .insert(ReactorListItem).insert(Name::new("List Item"));
+                .insert(ReactorListItem)
+                .insert(Name::new("List Item"));
 
             children(row);
         })

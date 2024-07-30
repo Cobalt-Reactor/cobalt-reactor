@@ -78,11 +78,7 @@ fn internal_config() -> ReactorFloatingWindowConfig {
         }),
         header_config: Some(ReactorHeaderConfig {
             label: "Performance".into(),
-            font: Some(ReactorFontConfig {
-                size: 16.0,
-                color: Color::Srgba(tailwind::GRAY_50),
-                font: fonts::STD.into(),
-            }),
+            font: Some(panel_header_font()),
         }),
     }
 }

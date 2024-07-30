@@ -22,11 +22,11 @@ pub(crate) fn collapsible_header_config(text: String) -> ReactorCollapsibleConfi
         }),
         size: ReactorSize {
             width: Val::Percent(100.0).into(),
-            height: ReactorSizeType::Set(Val::Px(24.0).into()),
+            height: ReactorSizeType::Set(Val::Px(20.0).into()),
         },
         label: ReactorTextLabelConfig {
             label: text.into(),
-            font: Some(panel_header_font()),
+            font: Some(entry_header_font()),
             ..default()
         },
         expand_icon: icons::EXPAND.into(),
@@ -91,6 +91,14 @@ pub(crate) fn entry_label_font() -> ReactorFontConfig {
         font: fonts::STD.into(),
         size: 12.0,
         color: Color::Srgba(tailwind::GRAY_100),
+    }
+}
+
+pub(crate) fn entry_header_font() -> ReactorFontConfig {
+    ReactorFontConfig {
+        size: 15.0,
+        color: Color::Srgba(tailwind::GRAY_100),
+        font: fonts::STD.into(),
     }
 }
 
