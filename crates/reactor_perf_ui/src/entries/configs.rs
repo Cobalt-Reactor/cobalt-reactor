@@ -6,7 +6,7 @@ use bevy::{
 };
 use reactor_ui::{prelude::*, sickle::prelude::*};
 
-pub(crate) fn default_collapsible_header_config(text: String) -> ReactorCollapsibleConfig {
+pub(crate) fn collapsible_header_config(text: String) -> ReactorCollapsibleConfig {
     ReactorCollapsibleConfig {
         open: true,
         background: ReactorBackground::Flat(ReactorFlatBackground {
@@ -16,7 +16,7 @@ pub(crate) fn default_collapsible_header_config(text: String) -> ReactorCollapsi
                     bottom: Val::Px(2.0),
                     ..default()
                 },
-                border_color: Color::Srgba(tailwind::GRAY_900),
+                border_color: Color::Srgba(tailwind::GRAY_800),
             }),
             ..default()
         }),
@@ -26,11 +26,7 @@ pub(crate) fn default_collapsible_header_config(text: String) -> ReactorCollapsi
         },
         label: ReactorTextLabelConfig {
             label: text.into(),
-            font: Some(ReactorFontConfig {
-                size: 18.0,
-                color: Color::Srgba(tailwind::GRAY_100),
-                font: fonts::STD.into(),
-            }),
+            font: Some(panel_header_font()),
             ..default()
         },
         expand_icon: icons::EXPAND.into(),
@@ -38,17 +34,17 @@ pub(crate) fn default_collapsible_header_config(text: String) -> ReactorCollapsi
     }
 }
 
-pub(crate) fn default_collapsible_content_config(text: String) -> ReactorCollapsibleConfig {
+pub(crate) fn entity_entry_config(text: String) -> ReactorCollapsibleConfig {
     ReactorCollapsibleConfig {
-        open: true,
+        open: false,
         background: ReactorBackground::Flat(ReactorFlatBackground {
-            background_color: Some(Color::Srgba(tailwind::GRAY_700)),
+            background_color: Some(Color::Srgba(tailwind::GRAY_600)),
             border_config: Some(ReactorBorder {
                 border_width: UiRect {
                     bottom: Val::Px(2.0),
                     ..default()
                 },
-                border_color: Color::Srgba(tailwind::GRAY_900),
+                border_color: Color::Srgba(tailwind::GRAY_800),
             }),
             ..default()
         }),
@@ -58,14 +54,50 @@ pub(crate) fn default_collapsible_content_config(text: String) -> ReactorCollaps
         },
         label: ReactorTextLabelConfig {
             label: text.into(),
-            font: Some(ReactorFontConfig {
-                size: 14.0,
-                color: Color::Srgba(tailwind::GRAY_100),
-                font: fonts::STD.into(),
-            }),
+            font: Some(entry_content_font()),
             ..default()
         },
         expand_icon: icons::EXPAND.into(),
         collapse_icon: icons::COLLAPSE.into(),
+    }
+}
+
+pub(crate) fn list_item_config() -> ReactorListItemConfig {
+    ReactorListItemConfig {
+        background: ReactorBackground::Flat(ReactorFlatBackground {
+            border_config: Some(ReactorBorder {
+                border_color: Color::Srgba(tailwind::GRAY_900),
+                border_width: UiRect::bottom(Val::Px(2.0)),
+            }),
+            ..default()
+        }),
+        size: ReactorSize {
+            height: Val::Px(20.0).into(),
+            ..default()
+        },
+    }
+}
+
+pub(crate) fn entry_content_font() -> ReactorFontConfig {
+    ReactorFontConfig {
+        font: fonts::STD.into(),
+        size: 12.0,
+        color: Color::Srgba(tailwind::GRAY_100),
+    }
+}
+
+pub(crate) fn entry_label_font() -> ReactorFontConfig {
+    ReactorFontConfig {
+        font: fonts::STD.into(),
+        size: 12.0,
+        color: Color::Srgba(tailwind::GRAY_100),
+    }
+}
+
+pub(crate) fn panel_header_font() -> ReactorFontConfig {
+    ReactorFontConfig {
+        size: 18.0,
+        color: Color::Srgba(tailwind::GRAY_100),
+        font: fonts::STD.into(),
     }
 }

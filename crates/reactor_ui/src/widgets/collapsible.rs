@@ -49,6 +49,9 @@ impl<'w, 's> UiReactorCollapsibleExt<'w, 's> for UiBuilder<'_, Entity> {
                     if !config.open {
                         collapsed.style().show();
                     }
+                    collapsed
+                        .entity_commands()
+                        .insert(Name::new("Collapsed Icon"));
                     collapsed_icon = Some(collapsed.id());
 
                     let mut expanded = button.icon(config.collapse_icon);
@@ -56,6 +59,9 @@ impl<'w, 's> UiReactorCollapsibleExt<'w, 's> for UiBuilder<'_, Entity> {
                     if config.open {
                         expanded.style().show();
                     }
+                    expanded
+                        .entity_commands()
+                        .insert(Name::new("Expanded Icon"));
                     expanded_icon = Some(expanded.id());
 
                     button
@@ -82,7 +88,10 @@ impl<'w, 's> UiReactorCollapsibleExt<'w, 's> for UiBuilder<'_, Entity> {
             .height(Val::Auto)
             .justify_self(JustifySelf::Stretch)
             .justify_content(JustifyContent::Stretch)
-            .justify_items(JustifyItems::Stretch);
+            .justify_items(JustifyItems::Stretch)
+            .entity_commands()
+            .insert(Name::new(format!("Foldable [{}] - Container", name)));
+
         if !config.open {
             container.style().hide();
         }

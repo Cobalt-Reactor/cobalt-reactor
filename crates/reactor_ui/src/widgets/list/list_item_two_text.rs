@@ -1,5 +1,4 @@
 use crate::{
-    fonts,
     prelude::*,
     sickle::{prelude::*, widgets::layout::label::SetLabelTextExt},
 };
@@ -22,7 +21,7 @@ where
     /// Creates a list item
     /// Returns an `UiBuilder` for further customization.
     fn list_item_two_text(&mut self, config: ListItemTwoTextConfig<T, C>) -> UiBuilder<Entity> {
-        let internal_config = internal_config();
+        let internal_config = config.list_item_config;
 
         self.list_item(internal_config.clone(), |item| {
             item.with_background(&internal_config.background)
@@ -36,9 +35,12 @@ where
                     .width(Val::Percent(50.0))
                     .min_width(Val::Percent(50.0))
                     .border_color(Color::Srgba(tailwind::GRAY_800))
-                    .border(UiRect::left(Val::Px(2.0)));
+                    .border(UiRect::left(Val::Px(2.0)))
+                    .entity_commands()
+                    .insert(Name::new(format!("{} Title", config.title_text.clone())));
 
-                col.label(LabelConfig::default())
+                let mut title = col.label(LabelConfig::default());
+                title
                     .style()
                     .width(Val::Percent(90.0))
                     .with_size(&internal_config.size)
@@ -48,14 +50,14 @@ where
                         Val::Px(2.0),
                         Val::Px(2.0),
                     ))
+                    .align_self(AlignSelf::Center)
                     .entity_commands()
-                    .set_label_text(config.title_text)
-                    .with_font(ReactorFontConfig {
-                        font: fonts::SQUARE.into(),
-                        size: 16.0,
-                        color: Color::Srgba(tailwind::GRAY_100),
-                    })
+                    .set_label_text(config.title_text.clone())
                     .insert(config.title_component);
+
+                if let Some(font) = config.title_font {
+                    title.entity_commands().with_font(font);
+                }
             });
 
             item.column(|col| {
@@ -69,9 +71,12 @@ where
                         top: Val::Px(1.0),
                         bottom: Val::Px(1.0),
                     })
-                    .border_color(Color::Srgba(tailwind::GRAY_800));
+                    .border_color(Color::Srgba(tailwind::GRAY_800))
+                    .entity_commands()
+                    .insert(Name::new(format!("{} Content", &config.title_text.clone())));
 
-                col.label(LabelConfig::default())
+                let mut content = col.label(LabelConfig::default());
+                content
                     .style()
                     .width(Val::Percent(90.0))
                     .with_size(&internal_config.size)
@@ -81,14 +86,14 @@ where
                         Val::Px(2.0),
                         Val::Px(2.0),
                     ))
+                    .align_self(AlignSelf::Center)
                     .entity_commands()
                     .set_label_text(config.content_text)
-                    .with_font(ReactorFontConfig {
-                        font: fonts::SQUARE.into(),
-                        size: 16.0,
-                        color: Color::Srgba(tailwind::GRAY_100),
-                    })
                     .insert(config.content_component);
+
+                if let Some(font) = config.content_font {
+                    content.entity_commands().with_font(font);
+                }
             });
         })
     }
@@ -109,20 +114,10 @@ where
     pub content_text: String,
     /// The marker component of the list item content
     pub content_component: C,
-}
-
-fn internal_config() -> ReactorListItemConfig {
-    ReactorListItemConfig {
-        background: ReactorBackground::Flat(ReactorFlatBackground {
-            border_config: Some(ReactorBorder {
-                border_color: Color::Srgba(tailwind::GRAY_900),
-                border_width: UiRect::bottom(Val::Px(2.0)),
-            }),
-            ..default()
-        }),
-        size: ReactorSize {
-            height: Val::Px(20.0).into(),
-            ..default()
-        },
-    }
+    /// Config for the underlying list item
+    pub list_item_config: ReactorListItemConfig,
+    /// Font config for the title
+    pub title_font: Option<ReactorFontConfig>,
+    /// Font config for the content
+    pub content_font: Option<ReactorFontConfig>,
 }

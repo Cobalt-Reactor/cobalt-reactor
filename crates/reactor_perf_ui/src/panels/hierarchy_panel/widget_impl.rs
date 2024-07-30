@@ -20,7 +20,9 @@ impl ReactorPerfUiPanel for ReactorHierarchyPanel {
                         HierarchyUiEntryEntityList::spawn(list);
                     }
                 });
-            });
+            })
+            .entity_commands()
+            .insert(ReactorHierarchyPanel);
     }
 }
 
@@ -33,7 +35,7 @@ fn internal_config() -> ReactorFloatingWindowConfig {
         },
         position: ReactorPosition::Absolute(ReactorPositionAbsolute { x: 328.0, y: 32.0 }),
         background: ReactorBackground::Flat(ReactorFlatBackground {
-            background_color: Some(Color::Srgba(tailwind::GRAY_600)),
+            background_color: Some(Color::Srgba(tailwind::GRAY_500)),
             corner_radius: Some(ReactorCornerRadius::from(10.0)),
             border_config: Some(ReactorBorder {
                 border_color: Color::Srgba(tailwind::GRAY_900),

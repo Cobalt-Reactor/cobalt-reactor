@@ -1,4 +1,4 @@
-use super::{default_collapsible_header_config, PerfUiEntry};
+use super::*;
 use crate::{prelude::*, utils};
 use bevy::{
     self,
@@ -8,19 +8,19 @@ use bevy::{
 use reactor_ui::{prelude::*, sickle::prelude::*};
 use std::collections::VecDeque;
 
-#[derive(Component, Debug, Clone, Default)]
+#[derive(Component, Debug, Clone, Default, Reflect)]
 pub struct PerfUiEntryFps;
 
-#[derive(Component, Debug, Clone, Default)]
+#[derive(Component, Debug, Clone, Default, Reflect)]
 pub struct PerfUiEntryFpsAvgLabel;
 
-#[derive(Component, Debug, Clone, Default)]
+#[derive(Component, Debug, Clone, Default, Reflect)]
 pub struct PerfUiEntryFpsAvgData;
 
-#[derive(Component, Debug, Clone, Default)]
+#[derive(Component, Debug, Clone, Default, Reflect)]
 pub struct PerfUiEntryFpsWorstLabel;
 
-#[derive(Component, Debug, Clone)]
+#[derive(Component, Debug, Clone, Reflect)]
 pub struct PerfUiEntryFpsWorstData {
     pub(crate) worst_fps: f64,
 }
@@ -33,22 +33,22 @@ impl Default for PerfUiEntryFpsWorstData {
     }
 }
 
-#[derive(Component, Debug, Clone, Default)]
+#[derive(Component, Debug, Clone, Default, Reflect)]
 pub struct PerfUiEntryTimeFixedTimeStepDurationLabel;
 
-#[derive(Component, Debug, Clone, Default)]
+#[derive(Component, Debug, Clone, Default, Reflect)]
 pub struct PerfUiEntryTimeFixedTimeStepDurationData;
 
-#[derive(Component, Debug, Clone, Default)]
+#[derive(Component, Debug, Clone, Default, Reflect)]
 pub struct PerfUiEntryTimeFixedOverstepLabel;
 
-#[derive(Component, Debug, Clone, Default)]
+#[derive(Component, Debug, Clone, Default, Reflect)]
 pub struct PerfUiEntryTimeFixedOverstepData;
 
-#[derive(Component, Debug, Clone, Default)]
+#[derive(Component, Debug, Clone, Default, Reflect)]
 pub struct PerfUiEntryTimeFrameTimeLabel;
 
-#[derive(Component, Debug, Clone, Default)]
+#[derive(Component, Debug, Clone, Default, Reflect)]
 pub struct PerfUiEntryTimeFrameTimeData;
 
 impl PerfUiEntry for PerfUiEntryFps {
@@ -56,6 +56,7 @@ impl PerfUiEntry for PerfUiEntryFps {
         if !app.is_plugin_added::<FrameTimeDiagnosticsPlugin>() {
             app.add_plugins(FrameTimeDiagnosticsPlugin);
         }
+
         app.add_systems(
             Update,
             (
@@ -67,10 +68,22 @@ impl PerfUiEntry for PerfUiEntryFps {
             )
                 .in_set(ReactorPerfUiSchedule::Update),
         );
+
+        app.register_type::<PerfUiEntryFps>()
+            .register_type::<PerfUiEntryFpsAvgLabel>()
+            .register_type::<PerfUiEntryFpsAvgData>()
+            .register_type::<PerfUiEntryFpsWorstLabel>()
+            .register_type::<PerfUiEntryFpsWorstData>()
+            .register_type::<PerfUiEntryTimeFixedTimeStepDurationLabel>()
+            .register_type::<PerfUiEntryTimeFixedTimeStepDurationData>()
+            .register_type::<PerfUiEntryTimeFixedOverstepLabel>()
+            .register_type::<PerfUiEntryTimeFixedOverstepData>()
+            .register_type::<PerfUiEntryTimeFrameTimeLabel>()
+            .register_type::<PerfUiEntryTimeFrameTimeData>();
     }
 
     fn spawn(list: &mut UiBuilder<Entity>) {
-        let config = default_collapsible_header_config("FPS".into());
+        let config = collapsible_header_config("FPS".into());
 
         list.insert(PerfUiEntryFps);
 
@@ -80,6 +93,9 @@ impl PerfUiEntry for PerfUiEntryFps {
                 title_component: PerfUiEntryFpsAvgLabel,
                 content_text: "1.0".to_string(),
                 content_component: PerfUiEntryFpsAvgData,
+                list_item_config: list_item_config(),
+                title_font: Some(entry_label_font()),
+                content_font: Some(entry_content_font()),
             });
 
             collapse.list_item_two_text(ListItemTwoTextConfig {
@@ -87,6 +103,9 @@ impl PerfUiEntry for PerfUiEntryFps {
                 title_component: PerfUiEntryFpsWorstLabel,
                 content_text: "1.0".to_string(),
                 content_component: PerfUiEntryFpsWorstData::default(),
+                list_item_config: list_item_config(),
+                title_font: Some(entry_label_font()),
+                content_font: Some(entry_content_font()),
             });
 
             collapse.list_item_two_text(ListItemTwoTextConfig {
@@ -94,6 +113,9 @@ impl PerfUiEntry for PerfUiEntryFps {
                 title_component: PerfUiEntryTimeFrameTimeLabel,
                 content_text: "1".to_string(),
                 content_component: PerfUiEntryTimeFrameTimeData,
+                list_item_config: list_item_config(),
+                title_font: Some(entry_label_font()),
+                content_font: Some(entry_content_font()),
             });
 
             collapse.list_item_two_text(ListItemTwoTextConfig {
@@ -101,6 +123,9 @@ impl PerfUiEntry for PerfUiEntryFps {
                 title_component: PerfUiEntryTimeFixedTimeStepDurationLabel,
                 content_text: "1".to_string(),
                 content_component: PerfUiEntryTimeFixedTimeStepDurationData,
+                list_item_config: list_item_config(),
+                title_font: Some(entry_label_font()),
+                content_font: Some(entry_content_font()),
             });
 
             collapse.list_item_two_text(ListItemTwoTextConfig {
@@ -108,6 +133,9 @@ impl PerfUiEntry for PerfUiEntryFps {
                 title_component: PerfUiEntryTimeFixedOverstepLabel,
                 content_text: "0".to_string(),
                 content_component: PerfUiEntryTimeFixedOverstepData,
+                list_item_config: list_item_config(),
+                title_font: Some(entry_label_font()),
+                content_font: Some(entry_content_font()),
             });
         });
     }

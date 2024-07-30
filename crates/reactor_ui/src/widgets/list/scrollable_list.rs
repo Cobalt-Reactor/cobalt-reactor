@@ -10,7 +10,7 @@ pub trait UiReactorScrollableListExt<'w, 's> {
     fn scrollable_list(
         &mut self,
         config: ReactorScrollableListConfig,
-        content: impl FnOnce(&mut UiBuilder<(Entity, ReactorList)>),
+        content: impl FnOnce(&mut UiBuilder<Entity>),
     ) -> UiBuilder<Entity>;
 }
 
@@ -20,7 +20,7 @@ impl<'w, 's> UiReactorScrollableListExt<'w, 's> for UiBuilder<'_, Entity> {
     fn scrollable_list(
         &mut self,
         config: ReactorScrollableListConfig,
-        spawn_children: impl FnOnce(&mut UiBuilder<(Entity, ReactorList)>),
+        spawn_children: impl FnOnce(&mut UiBuilder<Entity>),
     ) -> UiBuilder<Entity> {
         let mut view = self.scroll_view(Some(ScrollAxis::Vertical), |scroll| {
             scroll.with_background(&config.background);
@@ -35,12 +35,11 @@ impl<'w, 's> UiReactorScrollableListExt<'w, 's> for UiBuilder<'_, Entity> {
                 .justify_items(JustifyItems::Start)
                 .align_items(AlignItems::Start)
                 .entity_commands()
+                .insert(Name::new("Scrollable List"))
                 .insert(ReactorScrollableList)
                 .insert(ReactorList);
 
-            let id = scroll.id();
-            let mut builder = scroll.commands().ui_builder((id, ReactorList));
-            spawn_children(&mut builder);
+            spawn_children(scroll);
         });
 
         view.style().height(Val::Auto).min_height(Val::Auto);

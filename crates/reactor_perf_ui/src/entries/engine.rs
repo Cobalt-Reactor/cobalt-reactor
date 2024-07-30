@@ -1,4 +1,4 @@
-use super::{default_collapsible_header_config, PerfUiEntry};
+use super::*;
 use crate::{prelude::*, utils};
 use bevy::{
     diagnostic::{DiagnosticsStore, EntityCountDiagnosticsPlugin},
@@ -6,13 +6,13 @@ use bevy::{
 };
 use reactor_ui::{prelude::*, sickle::prelude::*};
 
-#[derive(Component, Debug, Clone, Default)]
+#[derive(Component, Debug, Clone, Default, Reflect)]
 pub struct PerfUiEntryEcs;
 
-#[derive(Component, Debug, Clone, Default)]
+#[derive(Component, Debug, Clone, Default, Reflect)]
 pub struct PerfUiEntryEcsEntityCountLabel;
 
-#[derive(Component, Debug, Clone, Default)]
+#[derive(Component, Debug, Clone, Default, Reflect)]
 pub struct PerfUiEntryEcsEntityCountData;
 
 impl PerfUiEntry for PerfUiEntryEcs {
@@ -22,9 +22,13 @@ impl PerfUiEntry for PerfUiEntryEcs {
             Update,
             (update_entity_count).in_set(ReactorPerfUiSchedule::Update),
         );
+        app.register_type::<PerfUiEntryEcs>()
+            .register_type::<PerfUiEntryEcsEntityCountLabel>()
+            .register_type::<PerfUiEntryEcsEntityCountData>();
     }
+
     fn spawn(list: &mut UiBuilder<Entity>) {
-        let config = default_collapsible_header_config("Engine".into());
+        let config = collapsible_header_config("Engine".into());
 
         list.list_item_collapsible_header(config, |collapse| {
             collapse.list_item_two_text(ListItemTwoTextConfig {
@@ -32,6 +36,9 @@ impl PerfUiEntry for PerfUiEntryEcs {
                 title_component: PerfUiEntryEcsEntityCountLabel,
                 content_text: "1.0".to_string(),
                 content_component: PerfUiEntryEcsEntityCountData,
+                list_item_config: list_item_config(),
+                title_font: Some(entry_label_font()),
+                content_font: Some(entry_content_font()),
             });
         });
 

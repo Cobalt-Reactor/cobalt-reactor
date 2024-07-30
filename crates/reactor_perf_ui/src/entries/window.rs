@@ -1,4 +1,4 @@
-use super::{default_collapsible_header_config, PerfUiEntry};
+use super::*;
 use crate::{prelude::*, utils};
 use bevy::{
     self,
@@ -8,31 +8,31 @@ use bevy::{
 };
 use reactor_ui::{prelude::*, sickle::prelude::*};
 
-#[derive(Component, Debug, Clone, Default)]
+#[derive(Component, Debug, Clone, Default, Reflect)]
 pub struct PerfUiEntryWindow;
 
-#[derive(Component, Debug, Clone)]
+#[derive(Component, Debug, Clone, Default, Reflect)]
 pub struct PerfUiEntryWindowResolutionLabel;
 
-#[derive(Component, Debug, Clone)]
+#[derive(Component, Debug, Clone, Default, Reflect)]
 pub struct PerfUiEntryWindowResolutionData;
 
-#[derive(Component, Debug, Clone)]
+#[derive(Component, Debug, Clone, Default, Reflect)]
 pub struct PerfUiEntryWindowScaleLabel;
 
-#[derive(Component, Debug, Clone)]
+#[derive(Component, Debug, Clone, Default, Reflect)]
 pub struct PerfUiEntryWindowScaleData;
 
-#[derive(Component, Debug, Clone)]
+#[derive(Component, Debug, Clone, Default, Reflect)]
 pub struct PerfUiEntryWindowModeLabel;
 
-#[derive(Component, Debug, Clone)]
+#[derive(Component, Debug, Clone, Default, Reflect)]
 pub struct PerfUiEntryWindowModeData;
 
-#[derive(Component, Debug, Clone)]
+#[derive(Component, Debug, Clone, Default, Reflect)]
 pub struct PerfUiEntryWindowPresentModeLabel;
 
-#[derive(Component, Debug, Clone)]
+#[derive(Component, Debug, Clone, Default, Reflect)]
 pub struct PerfUiEntryWindowPresentModeData;
 
 impl PerfUiEntry for PerfUiEntryWindow {
@@ -47,9 +47,20 @@ impl PerfUiEntry for PerfUiEntryWindow {
             )
                 .in_set(ReactorPerfUiSchedule::Update),
         );
+
+        app.register_type::<PerfUiEntryWindow>()
+            .register_type::<PerfUiEntryWindowResolutionLabel>()
+            .register_type::<PerfUiEntryWindowResolutionData>()
+            .register_type::<PerfUiEntryWindowScaleLabel>()
+            .register_type::<PerfUiEntryWindowScaleData>()
+            .register_type::<PerfUiEntryWindowModeLabel>()
+            .register_type::<PerfUiEntryWindowModeData>()
+            .register_type::<PerfUiEntryWindowPresentModeLabel>()
+            .register_type::<PerfUiEntryWindowPresentModeData>();
     }
+
     fn spawn(list: &mut reactor_ui::sickle::prelude::UiBuilder<Entity>) {
-        let config = default_collapsible_header_config("Window".into());
+        let config = collapsible_header_config("Window".into());
 
         list.insert(PerfUiEntryWindow);
 
@@ -57,29 +68,41 @@ impl PerfUiEntry for PerfUiEntryWindow {
             collapse.list_item_two_text(ListItemTwoTextConfig {
                 title_text: "Resolution:".to_string(),
                 title_component: PerfUiEntryWindowResolutionLabel,
-                content_text: "X x Y".to_string(),
+                content_text: "...".to_string(),
                 content_component: PerfUiEntryWindowResolutionData,
+                list_item_config: list_item_config(),
+                title_font: Some(entry_label_font()),
+                content_font: Some(entry_content_font()),
             });
 
             collapse.list_item_two_text(ListItemTwoTextConfig {
                 title_text: "Scale Factor:".to_string(),
                 title_component: PerfUiEntryWindowScaleLabel,
-                content_text: "99.99".to_string(),
+                content_text: "...".to_string(),
                 content_component: PerfUiEntryWindowScaleData,
+                list_item_config: list_item_config(),
+                title_font: Some(entry_label_font()),
+                content_font: Some(entry_content_font()),
             });
 
             collapse.list_item_two_text(ListItemTwoTextConfig {
                 title_text: "Window Mode:".to_string(),
                 title_component: PerfUiEntryWindowModeLabel,
-                content_text: "DEFAULT".to_string(),
+                content_text: "...".to_string(),
                 content_component: PerfUiEntryWindowModeData,
+                list_item_config: list_item_config(),
+                title_font: Some(entry_label_font()),
+                content_font: Some(entry_content_font()),
             });
 
             collapse.list_item_two_text(ListItemTwoTextConfig {
                 title_text: "Present Mode:".to_string(),
                 title_component: PerfUiEntryWindowPresentModeLabel,
-                content_text: "DEFAULT".to_string(),
+                content_text: "...".to_string(),
                 content_component: PerfUiEntryWindowPresentModeData,
+                list_item_config: list_item_config(),
+                title_font: Some(entry_label_font()),
+                content_font: Some(entry_content_font()),
             });
         });
     }

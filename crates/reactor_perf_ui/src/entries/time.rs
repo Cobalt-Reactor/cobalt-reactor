@@ -1,4 +1,4 @@
-use super::{default_collapsible_header_config, PerfUiEntry};
+use super::*;
 use crate::{prelude::*, utils};
 use bevy::{
     diagnostic::{DiagnosticsStore, FrameTimeDiagnosticsPlugin},
@@ -6,25 +6,25 @@ use bevy::{
 };
 use reactor_ui::{prelude::*, sickle::prelude::*};
 
-#[derive(Component, Debug, Clone, Default)]
+#[derive(Component, Debug, Clone, Default, Reflect)]
 pub struct PerfUiEntryTime;
 
-#[derive(Component, Debug, Clone, Default)]
+#[derive(Component, Debug, Clone, Default, Reflect)]
 pub struct PerfUiEntryTimeFrameCountLabel;
 
-#[derive(Component, Debug, Clone, Default)]
+#[derive(Component, Debug, Clone, Default, Reflect)]
 pub struct PerfUiEntryTimeFrameCountData;
 
-#[derive(Component, Debug, Clone, Default)]
+#[derive(Component, Debug, Clone, Default, Reflect)]
 pub struct PerfUiEntryRunningTimeLabel;
 
-#[derive(Component, Debug, Clone, Default)]
+#[derive(Component, Debug, Clone, Default, Reflect)]
 pub struct PerfUiEntryRunningTimeData;
 
-#[derive(Component, Debug, Clone, Default)]
+#[derive(Component, Debug, Clone, Default, Reflect)]
 pub struct PerfUiEntryClockTimeLabel;
 
-#[derive(Component, Debug, Clone, Default)]
+#[derive(Component, Debug, Clone, Default, Reflect)]
 pub struct PerfUiEntryClockTimeData;
 
 impl PerfUiEntry for PerfUiEntryTime {
@@ -32,14 +32,24 @@ impl PerfUiEntry for PerfUiEntryTime {
         if !app.is_plugin_added::<FrameTimeDiagnosticsPlugin>() {
             app.add_plugins(FrameTimeDiagnosticsPlugin);
         }
+
         app.add_systems(
             Update,
             (update_clock_time, update_frame_count, update_running_time)
                 .in_set(ReactorPerfUiSchedule::Update),
         );
+
+        app.register_type::<PerfUiEntryTime>()
+            .register_type::<PerfUiEntryTimeFrameCountLabel>()
+            .register_type::<PerfUiEntryTimeFrameCountData>()
+            .register_type::<PerfUiEntryRunningTimeLabel>()
+            .register_type::<PerfUiEntryRunningTimeData>()
+            .register_type::<PerfUiEntryClockTimeLabel>()
+            .register_type::<PerfUiEntryClockTimeData>();
     }
+
     fn spawn(list: &mut UiBuilder<Entity>) {
-        let config = default_collapsible_header_config("Time".into());
+        let config = collapsible_header_config("Time".into());
 
         list.list_item_collapsible_header(config, |collapse| {
             collapse.list_item_two_text(ListItemTwoTextConfig {
@@ -47,6 +57,9 @@ impl PerfUiEntry for PerfUiEntryTime {
                 title_component: PerfUiEntryClockTimeLabel,
                 content_text: "X".to_string(),
                 content_component: PerfUiEntryClockTimeData,
+                list_item_config: list_item_config(),
+                title_font: Some(entry_label_font()),
+                content_font: Some(entry_content_font()),
             });
 
             collapse.list_item_two_text(ListItemTwoTextConfig {
@@ -54,6 +67,9 @@ impl PerfUiEntry for PerfUiEntryTime {
                 title_component: PerfUiEntryRunningTimeLabel,
                 content_text: "X".to_string(),
                 content_component: PerfUiEntryRunningTimeData,
+                list_item_config: list_item_config(),
+                title_font: Some(entry_label_font()),
+                content_font: Some(entry_content_font()),
             });
 
             collapse.list_item_two_text(ListItemTwoTextConfig {
@@ -61,6 +77,9 @@ impl PerfUiEntry for PerfUiEntryTime {
                 title_component: PerfUiEntryTimeFrameCountLabel,
                 content_text: "X".to_string(),
                 content_component: PerfUiEntryTimeFrameCountData,
+                list_item_config: list_item_config(),
+                title_font: Some(entry_label_font()),
+                content_font: Some(entry_content_font()),
             });
         });
 

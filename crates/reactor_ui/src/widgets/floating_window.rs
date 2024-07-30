@@ -22,7 +22,8 @@ impl<'w, 's> UiReactorFloatingWindowExt<'w, 's> for UiBuilder<'_, UiRoot> {
         config: ReactorFloatingWindowConfig,
         spawn_children: impl FnOnce(&mut UiBuilder<Entity>),
     ) -> UiBuilder<Entity> {
-        self.container(ReactorFloatingWindow, |window| {
+        let config_clone = config.clone();
+        let mut container = self.container(ReactorFloatingWindow, |window| {
             if config.draggable {
                 window.entity_commands().pickable(false, false).draggable();
             }
@@ -40,14 +41,18 @@ impl<'w, 's> UiReactorFloatingWindowExt<'w, 's> for UiBuilder<'_, UiRoot> {
                         .style()
                         .width(Val::Percent(100.0))
                         .min_width(Val::Percent(100.0))
-                        .height(Val::Auto);
+                        .height(Val::Auto)
+                        .entity_commands()
+                        .insert(Name::new("Panel Layout"));
 
                     column.row(|row| {
                         row.style()
                             .width(Val::Percent(100.0))
                             .min_width(Val::Percent(100.0))
-                            .background_color(Color::srgba(0.0, 0.0, 0.0, 0.7))
-                            .justify_content(JustifyContent::Center);
+                            .background_color(Color::srgba(0.0, 0.0, 0.0, 0.8))
+                            .justify_content(JustifyContent::Center)
+                            .entity_commands()
+                            .insert(Name::new("Panel Header"));
 
                         if let ReactorBackground::Flat(flat) = config.background {
                             if let Some(corner_radius) = flat.corner_radius {
@@ -67,12 +72,24 @@ impl<'w, 's> UiReactorFloatingWindowExt<'w, 's> for UiBuilder<'_, UiRoot> {
                         if let Some(font) = header.font {
                             label.entity_commands().with_font(font);
                         }
+
+                        label
+                            .entity_commands()
+                            .insert(Name::new("Panel Header Label"));
                     });
 
                     spawn_children(column);
                 });
             }
-        })
+        });
+
+        if let Some(header) = &config_clone.header_config {
+            container.insert(Name::new(format!("{} Panel", header.label.text)));
+        } else {
+            container.insert(Name::new("Floating Window"));
+        }
+
+        container
     }
 }
 

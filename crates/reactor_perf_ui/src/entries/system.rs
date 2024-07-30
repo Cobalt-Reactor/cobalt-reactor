@@ -1,4 +1,4 @@
-use super::PerfUiEntry;
+use super::*;
 use crate::{prelude::*, utils};
 use bevy::{
     diagnostic::{DiagnosticsStore, SystemInformationDiagnosticsPlugin},
@@ -23,14 +23,25 @@ pub struct PerfUiEntryMemUsageData;
 
 impl PerfUiEntry for PerfUiEntrySystem {
     fn setup(app: &mut App) {
-        app.add_plugins(SystemInformationDiagnosticsPlugin);
+        if !app.is_plugin_added::<SystemInformationDiagnosticsPlugin>() {
+            app.add_plugins(SystemInformationDiagnosticsPlugin);
+        }
+
         app.add_systems(
             Update,
             (update_cpu_usage, update_mem_usage).in_set(ReactorPerfUiSchedule::Update),
         );
+
+        app.register_type::<PerfUiEntrySystem>()
+            .register_type::<PerfUiEntryCpuUsageLabel>()
+            .register_type::<PerfUiEntryTimeFrameCountData>()
+            .register_type::<PerfUiEntryCpuUsageData>()
+            .register_type::<PerfUiEntryMemUsageLabel>()
+            .register_type::<PerfUiEntryMemUsageData>();
     }
+
     fn spawn(list: &mut UiBuilder<Entity>) {
-        let config = default_collapsible_header_config("System".into());
+        let config = collapsible_header_config("System".into());
 
         list.list_item_collapsible_header(config, |collapse| {
             collapse.list_item_two_text(PanelEntryTextConfig {
