@@ -28,7 +28,7 @@ jobs:
             components: rustfmt, clippy
 
       - name: Handle Cache
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: |
             ~/.cargo/bin/
